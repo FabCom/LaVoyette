@@ -1,7 +1,7 @@
 import useAxiosFetch from 'hooks/useFetchExternalApi';
 import { useEffect, useState } from 'react';
 
-import type { AhCard } from 'interfaces/exemples/ahcard';
+import type { Region } from 'interfaces/exemples/region';
 
 const UseRequestExemple = () => {
 
@@ -15,7 +15,7 @@ const UseRequestExemple = () => {
 
   return (
     <div>
-      {cards.map((card: AhCard, i) => <p key={i}>{card.nom}</p>)}
+      {cards.map((card: Region, i) => <p key={i}>{card.nom}</p>)}
     </div>
   )
 }
