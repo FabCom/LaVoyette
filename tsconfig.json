@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,9 +25,10 @@
     "node_modules"
   ],
   "include": [
+    "src",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
   ],
   "ts-node": {
     "compilerOptions": {

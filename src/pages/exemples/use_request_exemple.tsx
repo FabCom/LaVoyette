@@ -1,10 +1,10 @@
-import useRequest, { RequestMethod } from '../../hooks/useRequest'
+import useRequest, { RequestMethod } from 'hooks/useRequest'
 import { useEffect, useState } from 'react';
 
 
 const UseRequestExemple = () => {
 
-  const { isLoading, serverError, doFetch, apiData } = useRequest(RequestMethod.GET, "hello");
+  const { isLoading, serverError, doFetch, apiData } = useRequest("hello", RequestMethod.GET);
   const [card, setCard] = useState<any>()
 
   useEffect(()=>{

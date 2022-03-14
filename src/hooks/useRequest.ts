@@ -10,7 +10,7 @@ export enum RequestMethod {
   DELETE = 'DELETE',
 }
 
-const useRequest = (method: RequestMethod, resource: string) => {
+const useRequest = (resource: string, method: RequestMethod = RequestMethod.GET) => {
   const URL = `${API_URL}/${resource}`
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
