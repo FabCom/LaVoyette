@@ -1,4 +1,4 @@
-import useRequest, { RequestMethod } from '../hooks/useRequest'
+import useRequest, { RequestMethod } from '../../hooks/useRequest'
 import { useEffect, useState } from 'react';
 
 
