@@ -2,14 +2,21 @@ import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 
+export enum RequestMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
+}
 
-const useRequest = (method, resource) => {
+const useRequest = (method: RequestMethod, resource: string) => {
   const URL = `${API_URL}/${resource}`
   const [isLoading, setIsLoading] = useState(false);
   const [apiData, setApiData] = useState(null);
   const [serverError, setServerError] = useState(false);
 
-  const doFetch = async (body = null) => {
+  const doFetch = async (body = {}) => {
     setIsLoading(true);
     setServerError(false);
     try {

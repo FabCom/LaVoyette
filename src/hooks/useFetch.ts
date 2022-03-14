@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetchGet = (resource) => {
+const useFetchGet = (resource: string) => {
   
   const API_URL = process.env.BASE_URL
 
@@ -18,7 +18,7 @@ const useFetchGet = (resource) => {
 
         setApiData(data);
         setIsLoading(false);
-      } catch (error) {
+      } catch (error: any) {
         setServerError(error);
         setIsLoading(false);
       }
