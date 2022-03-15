@@ -28,7 +28,7 @@
     "src",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.tsx", "prisma/seed.js", "prisma/prisma.seed",
   ],
   "ts-node": {
     "compilerOptions": {
