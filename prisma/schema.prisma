@@ -9,3 +9,27 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model AudienceCategory {
+  id    Int    @id @default(autoincrement())
+  title String
+  plays Play[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  title String
+  plays Play[]
+}
+
+model Play {
+  id       Int     @id @default(autoincrement())
+  title    String
+  abstract String?
+  duration Int?
+
+  AudienceCategory   AudienceCategory? @relation(fields: [audienceCategoryId], references: [id])
+  audienceCategoryId Int?
+  Tag                Tag?              @relation(fields: [tagId], references: [id])
+  tagId              Int?
+}

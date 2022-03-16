@@ -1,6 +1,9 @@
 {
   "name": "lavoyette",
   "version": "0.1.0",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
