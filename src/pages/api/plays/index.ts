@@ -4,6 +4,8 @@ import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
+type BodyRequest = {title: string,abstract: string, duration: number, audienceCategories: string[], tags: string[]}
+
 const getALL = async (response: NextApiResponse) => {
   try {
     const result = await models.play.findMany({
@@ -19,7 +21,7 @@ const getALL = async (response: NextApiResponse) => {
   }
 }
 
-const create = async (body: any, response: NextApiResponse) => {
+const create = async (body: BodyRequest, response: NextApiResponse) => {
   const data:Prisma.PlayCreateInput  = { 
     title: body.title,
     abstract: body.abstract,

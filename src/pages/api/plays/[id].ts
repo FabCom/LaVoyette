@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Prisma } from "@prisma/client"
-import models from '../../../lib/models';
+import models from 'lib/models';
 
 // DELETE /api/play/:id
 // export default async function handle(req: NextApiRequest, res: NextApiResponse) {
@@ -50,7 +50,7 @@ const deleteONE = async (playId: number, response: NextApiResponse) => {
     response.status(200).json(result);
   } catch (err) {
     console.log(err);
-    response.status(404).json({ err: "Posts not found" });
+    response.status(404).json({ err: "Plays not found" });
   }
 }
 
