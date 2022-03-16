@@ -12,13 +12,14 @@ datasource db {
 
 model AudienceCategory {
   id    Int    @id @default(autoincrement())
-  title String
+  title String @unique
   plays Play[]
+
 }
 
 model Tag {
   id    Int    @id @default(autoincrement())
-  title String
+  title String @unique
   plays Play[]
 }
 
@@ -28,8 +29,6 @@ model Play {
   abstract String?
   duration Int?
 
-  AudienceCategory   AudienceCategory? @relation(fields: [audienceCategoryId], references: [id])
-  audienceCategoryId Int?
-  Tag                Tag?              @relation(fields: [tagId], references: [id])
-  tagId              Int?
+  audienceCategories   AudienceCategory[]
+  tags                Tag[]
 }

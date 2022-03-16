@@ -47,6 +47,8 @@ async function main() {
     data: fakePlays
   });
 
+  const plays = await prisma.play.findMany()
+  console.log(plays)
 }
 
 main()

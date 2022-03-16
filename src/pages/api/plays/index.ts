@@ -1,11 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { Prisma } from "@prisma/client";
 import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const getALL = async (response: NextApiResponse) => {
   try {
-    const result = await models.play.findMany()
+    const result = await models.play.findMany({
+      include: {
+        audienceCategories: true,
+        tags: true
+      },
+    })
     response.status(200).json(result);
   } catch (err) {
     console.log(err);
@@ -13,29 +19,44 @@ const getALL = async (response: NextApiResponse) => {
   }
 }
 
-// const create = async (body, response) => {
-//   const data: Prisma.PostCreateInput = { 
-//     title: body.title,
-//     content: body.content || null,
-//     price: body.price,
-//     city: body.city,
-//     published: body.published || false,
-//     author: body.authorId ? {connect: {id: body.authorId}} : undefined
-//   };
-//   try {
-//     const result = await models.post.create({
-//       data: {
-//         ...data,
-//       },
-//     });
-//     response.status(200).json(result);
-//   } catch (err) {
-//     console.log(err);
-//     response.status(403).json({ err: "Error occured while adding a new post." });
-//   }
-// }
+const create = async (body: any, response: NextApiResponse) => {
+  const data:Prisma.PlayCreateInput  = { 
+    title: body.title,
+    abstract: body.abstract,
+    duration: body.duration,
+    audienceCategories: {
+      connectOrCreate: body.audienceCategories.map((categ:string) => {
+        return {
+            where: { title: categ },
+            create: { title: categ },
+        };
+      }),
+    } ,
+    tags: {
+      connectOrCreate: body.tags.map((tag:string) => {
+          return {
+              where: { title: tag },
+              create: { title: tag },
+          };
+      }),
+     },
+  };
 
-export default async (request: NextApiRequest, response: NextApiResponse) => {
+  try {
+    const result = await models.play.create({
+      data: {
+        ...data,
+        // audienceCategories: { connectOrCreate: data_audienceCategories }
+      },
+    });
+    response.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    response.status(403).json({ err: "Error occured while adding a new play." });
+  }
+}
+
+const doRequest = async (request: NextApiRequest, response: NextApiResponse) => {
 
   const {body, method, query } = request;
   // console.log(query)
@@ -53,11 +74,13 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
   //   return 
   // }
 
-  // if (method === 'POST') {
-  //   create(body, response)
+  if (method === 'POST') {
+    create(body, response)
 
-  //   return
-  // }
+    return
+  }
 
 
 };
+
+export default doRequest
