@@ -30,6 +30,10 @@ const getONE = async (playId: number, response: NextApiResponse) => {
       where: {
         id: playId,
       },
+      include: {
+        audienceCategories: true,
+        tags: true
+      },
     })
     response.status(200).json(result);
   } catch (err) {
@@ -55,9 +59,23 @@ const updateONE = async (body: any, playId: number, response: NextApiResponse) =
     title: body.title,
     abstract: body.abstract,
     duration: parseInt(body.duration),
+    audienceCategories: {
+      connectOrCreate: body.audienceCategories.map((categ:string) => {
+        return {
+            where: { title: categ },
+            create: { title: categ },
+        };
+      }),
+    } ,
+    tags: {
+      connectOrCreate: body.tags.map((tag:string) => {
+          return {
+              where: { title: tag },
+              create: { title: tag },
+          };
+      }),
+     },
   };
-  console.log("----------", playId)
-  console.log("----------", body)
   try {
     const result = await models.play.update({
       where: {
@@ -75,7 +93,7 @@ const updateONE = async (body: any, playId: number, response: NextApiResponse) =
 
 }
 
-export default async (request: NextApiRequest, response: NextApiResponse) => {
+ const doRequest = async (request: NextApiRequest, response: NextApiResponse) => {
   const {method, query, body } = request;
   const playId: number = parseInt(query.id as string, 10);
   
@@ -91,11 +109,12 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return
   }
 
-  if (method === 'PATCH') {
+  if (method === 'PUT') {
     updateONE(body, playId, response)
 
     return
   }
 
-
+  return response.status(403).json({ err: "Error occured while adding a new play." });
 };
+export default doRequest

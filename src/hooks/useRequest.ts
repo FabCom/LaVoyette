@@ -5,7 +5,7 @@ import { API_URL } from "../config";
 export type RequestMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH"
 
 type BodyValue = string | number | boolean | string[] | number[]
-type Body =  Record<string, BodyValue | Record<string, BodyValue>[] >
+export type Body =  Record<string, BodyValue | Record<string, BodyValue>[] >
 
 const useRequest = <DataType>(resource: string, method: RequestMethod = "GET") => {
 
