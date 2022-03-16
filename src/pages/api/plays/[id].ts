@@ -2,28 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Prisma } from "@prisma/client"
 import models from 'lib/models';
 
-// DELETE /api/play/:id
-// export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-//   const playId = req.query.id;
-
-//   const session = await getSession({ req })
-
-//   if (req.method === "DELETE") {
-//     if (session) {
-//       const play = await prisma.play.delete({
-//         where: { id: Number(playId) },
-//       });
-//       res.json(play);
-//     } else {
-//       res.status(401).send({ message: 'Unauthorized' })
-//     }
-//   } else {
-//     throw new Error(
-//       `The HTTP ${req.method} method is not supported at this route.`
-//     );
-//   }
-// }
-
 const getONE = async (playId: number, response: NextApiResponse) => {
   try {
     const result = await models.play.findUnique({
