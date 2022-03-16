@@ -32,3 +32,10 @@ model Play {
   audienceCategories   AudienceCategory[]
   tags                Tag[]
 }
+
+model Artist {
+  id       Int     @id @default(autoincrement())
+  firstname     String
+  lastname  String
+  biography String
+}

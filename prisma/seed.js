@@ -1,7 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
-const lorem = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus dolorum illum excepturi optio! Eos sunt magnam, officia nemo dignissimos animi voluptatum velit sapiente mollitia quibusdam quidem debitis, odit necessitatibus ipsam.\n Voluptates error veritatis maxime officiis doloribus, recusandae a est qui ad laudantium praesentium adipisci assumenda iste dolorum cupiditate consectetur labore blanditiis ducimus saepe inventore voluptatem perspiciatis deleniti modi vero. Nemo.\n Eum, reiciendis, officiis temporibus quia saepe, amet porro cumque consequuntur voluptatum ipsa laboriosam tenetur explicabo illum quas. Assumenda explicabo possimus et facilis. Libero possimus esse adipisci, totam cupiditate assumenda corporis."
+const { faker } = require('@faker-js/faker');
 
 const fakePlays = [
   {
@@ -11,7 +10,7 @@ const fakePlays = [
   },
   {
     title: "Le contournement",
-    abstract: lorem,
+    abstract: faker.lorem.paragraphs(5),
     duration: 90,
   },
 ]
@@ -30,6 +29,15 @@ const fakeTags = [
   {title: "Création"}
 ]
 
+const fakeArtists = [
+  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
+  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
+  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
+  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
+  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
+  
+]
+
 async function main() {
   await prisma.audienceCategory.deleteMany({});
   await prisma.tag.deleteMany({});
@@ -46,6 +54,10 @@ async function main() {
   await prisma.play.createMany({
     data: fakePlays
   });
+
+  await prisma.artist.createMany({
+    data: fakeArtists
+  })
 
   const plays = await prisma.play.findMany()
   console.log(plays)
