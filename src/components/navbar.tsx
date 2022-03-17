@@ -10,9 +10,8 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import LoggingMenu from "components/LoggingMenu"
+import LoggingMenu from "components/LoggingMenu";
 
 const pages = [
   { title: "Spectacles", path: "/plays" },
@@ -21,11 +20,7 @@ const pages = [
   { title: "Nos Artistes", path: "/artists" },
   { title: "Contact", path: "/contact" },
 ];
-// const settings_session = [
-//   { title: "Profile", path: "/profil" },
-//   { title: "Admin", path: "/admin" },
-//   { title: "Dashboard", path: "/dashboard" },
-// ];
+
 const settings = [{ title: "Se connecter", path: "/login" }];
 
 const Navbar = () => {
@@ -92,15 +87,7 @@ const Navbar = () => {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            >
-              {/* {pages.map((page, i) => (
-                <Link href={page.path} key={i} passHref>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.title}</Typography>
-                  </MenuItem>
-                </Link>
-              ))} */}
-            </Menu>
+            ></Menu>
           </Box>
           <Typography
             variant="h6"
@@ -145,17 +132,9 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <LoggingMenu handleCloseUserMenu={handleCloseUserMenu}/>
-              {/* {settings_session.map((setting, i) => (
-                <Link href={setting.path} key={i} passHref>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting.title}</Typography>
-                  </MenuItem>
-                </Link>
-              ))} */}
+              <LoggingMenu handleCloseUserMenu={handleCloseUserMenu} />
             </Menu>
           </Box>
-          {/* <SessionStatus></SessionStatus> */}
         </Toolbar>
       </Container>
     </AppBar>
