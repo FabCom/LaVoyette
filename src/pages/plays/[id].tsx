@@ -4,7 +4,16 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Image from 'next/image';
 import { deepOrange, deepPurple } from '@mui/material/colors';
+import useRequest from 'hooks/useRequest';
+import { useEffect } from 'react';
 
+type Play = {
+	id: number,
+	abstract: string,
+	duration: number,
+	audienceCategories: string[],
+	tags: string[],
+}
 
 const itemData = [
 	{
@@ -40,17 +49,24 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 }
 
 export default function play() {
+	const { isLoading, serverError, request, apiData: play } = useRequest<Play>("plays/[id]", "GET");
+	useEffect(() => {
+		if (isLoading == false && play !== null) {
+			request();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	return (
 		<Container>
 			<Grid container spacing={2} >
 				<Grid item xs={6}>
-					<h2>Un fil à la patte</h2>
+					<h2>{play?.title}</h2>
 					<Stack direction="row" spacing={2}>
 						<Chip label="Comédie" variant='outlined' />
 						<Chip label="Dramatique" variant='outlined' />
 						<Chip label="Accessible" variant='outlined' />
 					</Stack>
-					<Typography variant="body1" gutterBottom sx={{ mt: 3 }} > Comment se débarrasser d’une maîtresse lorsqu’on prévoit de se marier le jour même avec une riche héritière ? L’emblématique chef-d’œuvre de Feydeau, plongé dans le Paris des années 50 qui chante et qui pétille, jouant fidèlement de tous les codes de l’auteur pour mieux souligner l’inaltérable modernité du propos.</Typography>
+					<Typography variant="body1" gutterBottom sx={{ mt: 3 }} >{play?.abstract}</Typography>
 				</Grid>
 				<Grid item xs={5}>
 					<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', mt: 3 }}>
