@@ -1,5 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import CardContent from '@mui/material/CardContent';
+import { CardActions, Collapse } from '@mui/material';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '../components/Typography';
@@ -7,6 +14,27 @@ import Typography from '../components/Typography';
 import type { Play } from '@prisma/client';
 
 function TeamHero({play}: {play: Play}) {
+
+  interface ExpandMoreProps extends IconButtonProps {
+    expand: boolean;
+  }
+
+  const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
+    const [expanded, setExpanded] = React.useState(false);
+  
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
   
   const [open, setOpen] = React.useState(false);
 
@@ -36,11 +64,36 @@ function TeamHero({play}: {play: Play}) {
               <Typography variant="h2" component="h2" gutterBottom>
                 Zendaya
               </Typography>
-              <Typography variant="h5">
+              
+              <Typography variant="h5" color="text.secondary">
               Zendaya est une actrice, chanteuse et danseuse américaine révélée dans la série de Disney Channel Shake It Up.
-              Maecenas dignissim ex eget enim lobortis, ac dapibus nulla efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque posuere ac mi at rutrum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec pulvinar velit ac erat rutrum tempor. Ut efficitur laoreet turpis tempor venenatis. Vivamus tempor imperdiet urna, vel elementum mauris hendrerit ut.
               </Typography>
             </Box>
+            <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Method:</Typography>
+          <Typography paragraph>
+            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
+            aside for 10 minutes.
+          </Typography>
+      </CardContent>
+      </Collapse>
           </Box>
         </Grid>
         <Grid
