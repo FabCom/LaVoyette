@@ -12,7 +12,7 @@ function Index() {
             <Layout/>
             <Hero/>
             <ProductCategories />
-            <TeamHero/>
+            {/* <TeamHero /> */}
         </React.Fragment>
     );
 }
