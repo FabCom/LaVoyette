@@ -9,7 +9,7 @@ const getCompany = async (response: NextApiResponse) => {
   try {
     const result = await models.company.findUnique({
       where: {
-        name: "La Voyette",
+        name: process.env.COMPANY_NAME,
       },
       include: {
         companyPartners: true, // Returns all fields for all posts
@@ -34,7 +34,7 @@ const updateCompany = async (body: BodyRequest, response: NextApiResponse) => {
   try {
     const result = await models.company.update({
       where: {
-        name: "La Voyette",
+        name: process.env.COMPANY_NAME,
       },
       data: {
         ...data,
