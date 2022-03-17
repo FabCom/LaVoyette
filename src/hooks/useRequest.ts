@@ -2,21 +2,19 @@ import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 
-export enum RequestMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
-}
+export type RequestMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH"
 
-const useRequest = (method: RequestMethod, resource: string) => {
+type BodyValue = string | number | boolean | string[] | number[]
+export type Body =  Record<string, BodyValue | Record<string, BodyValue>[] >
+
+const useRequest = <DataType>(resource: string, method: RequestMethod = "GET") => {
+
   const URL = `${API_URL}/${resource}`
   const [isLoading, setIsLoading] = useState(false);
-  const [apiData, setApiData] = useState(null);
+  const [apiData, setApiData] = useState<DataType | null>(null);
   const [serverError, setServerError] = useState(false);
 
-  const doFetch = async (body = {}) => {
+  const request = async (body?: Body) => {
     setIsLoading(true);
     setServerError(false);
     try {
@@ -26,7 +24,7 @@ const useRequest = (method: RequestMethod, resource: string) => {
         url: URL,
         data: body
       });
-      const data = await resp?.data;
+      const data: DataType = await resp?.data;
 
       setApiData(data);
     } catch (error) {
@@ -37,7 +35,7 @@ const useRequest = (method: RequestMethod, resource: string) => {
   };
 
 
-  return { isLoading, doFetch, serverError, apiData };
+  return { isLoading, request, serverError, apiData };
 };
 
 export default useRequest
