@@ -38,6 +38,23 @@ const fakeArtists = [
   
 ]
 
+const fakeCompany = [{name: "La Voyette", description: faker.lorem.paragraphs(5), email: faker.internet.email() }]
+
+let startDate = new Date()
+let endDate = new Date()
+const fakeCompanyStory = Array(10).fill().map(item => 
+    (
+      { title: faker.lorem.sentence(), description: faker.lorem.paragraph(), start: startDate }
+    )
+  )
+ 
+const fakeCompanyPartners = Array(5).fill().map(item =>
+    (
+      {name: faker.company.companyName(), description: faker.lorem.paragraph(),logo_src: faker.image.imageUrl(200,100,undefined,1) }
+    )
+  )
+
+
 async function main() {
   await prisma.audienceCategory.deleteMany({});
   await prisma.tag.deleteMany({});
@@ -59,6 +76,7 @@ async function main() {
     data: fakeArtists
   })
 
+  await prisma.company.createMany(fakeCompany)
   const plays = await prisma.play.findMany()
   console.log(plays)
 }
