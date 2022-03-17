@@ -1,7 +1,10 @@
+import React from 'react';
+import Layout from 'components/layout';
 import useRequest from 'hooks/useRequest'
 import { useEffect } from 'react';
 
 import type { Play } from '@prisma/client';
+
 
 
 
@@ -20,10 +23,12 @@ const ArtistsPages = () => {
   },[isLoading, serverError])
 
   return (
-    <div>
+    <><React.Fragment>
+      <Layout />
+    </React.Fragment><div>
         <h1>Hello</h1>
-      {plays && <h2>{plays.map((play: Play) => play.title)} </h2>}
-    </div>
+        {plays && <h2>{plays.map((play: Play) => play.title)} </h2>}
+      </div></>
   )
 }
 
