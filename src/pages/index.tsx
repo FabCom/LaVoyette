@@ -7,13 +7,14 @@ import TeamHero from "components/TeamHero";
 import withRoot from "../withRoot";
 
 function Index() {
-  return (
-    <React.Fragment>
-      <Navbar />
-      <Hero />
-      <ProductCategories />
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            <Navbar/>
+            <Hero/>
+            <ProductCategories />
+            {/* <TeamHero /> */}
+        </React.Fragment>
+    );
 }
 
 export default withRoot(Index);
