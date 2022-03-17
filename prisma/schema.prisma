@@ -29,16 +29,47 @@ model Play {
   abstract String?
   duration Int?
 
-  audienceCategories   AudienceCategory[]
-  tags                Tag[]
+  audienceCategories AudienceCategory[]
+  tags               Tag[]
 }
 
 model Artist {
-  id              Int     @id @default(autoincrement())
-  firstname       String
-  lastname        String
-  biography       String?
-  email           String? 
-  facebook_link   String? 
-  instagram_link  String? 
+  id             Int     @id @default(autoincrement())
+  firstname      String
+  lastname       String
+  biography      String?
+  email          String?
+  facebook_link  String?
+  instagram_link String?
+}
+
+model Company {
+  id             Int     @id @default(autoincrement())
+  name           String
+  description    String
+  email          String
+  facebook_link  String?
+  instagram_link String?
+
+  companyStories  CompanyStory[]
+  companyPartners CompanyPartner[]
+}
+
+model CompanyStory {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  start       DateTime
+  end         DateTime?
+  Company     Company?  @relation(fields: [companyId], references: [id])
+  companyId   Int?
+}
+
+model CompanyPartner {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  logo_src    String?
+  Company     Company? @relation(fields: [companyId], references: [id])
+  companyId   Int?
 }
