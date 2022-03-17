@@ -11,9 +11,9 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '../components/Typography';
 
-import type { Play } from '@prisma/client';
+import type { Artist } from '@prisma/client';
 
-function TeamHero({play}: {play: Play}) {
+function TeamHero({artist}: {artist: Artist}) {
 
   interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -62,20 +62,20 @@ function TeamHero({play}: {play: Play}) {
           >
             <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
               <Typography variant="h2" component="h2" gutterBottom>
-                Zendaya
+                {artist.firstname}
               </Typography>
               
               <Typography variant="h5" color="text.secondary">
-              Zendaya est une actrice, chanteuse et danseuse américaine révélée dans la série de Disney Channel Shake It Up.
+              {artist.biography}
               </Typography>
             </Box>
             <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
-        </IconButton>
+        </IconButton> */}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -87,10 +87,9 @@ function TeamHero({play}: {play: Play}) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
+          <Typography variant="h5"></Typography>
+          <Typography variant="h5">
+            
           </Typography>
       </CardContent>
       </Collapse>

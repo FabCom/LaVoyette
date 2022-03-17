@@ -12,12 +12,12 @@ function Index() {
             <Navbar/>
             <Hero/>
             <ProductCategories />
-            <TeamHero play={{
+            {/* <TeamHero play={{
                 id: 0,
                 title: '',
                 abstract: null,
                 duration: null
-            }}/>
+            }}/> */}
         </React.Fragment>
     );
 }
