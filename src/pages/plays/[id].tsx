@@ -7,6 +7,7 @@ import { deepOrange, deepPurple } from '@mui/material/colors';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
 import type { Play } from '@prisma/client';
+import { useRouter } from 'next/router';
 
 const itemData = [
 	{
@@ -42,13 +43,12 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 }
 
 const playPage = () => {
-	const { isLoading, serverError, request, apiData: play } = useRequest<Play>("play/id", "GET");
+	const { id } = useRouter().query;
+	const { isLoading, serverError, request, apiData: play } = useRequest<Play>(`play/${id}`, "GET");
 
 	useEffect(() => {
 		request()
-		console.log(isLoading, serverError, play)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLoading, serverError])
+	}, [])
 
 	return (
 		<Container>
