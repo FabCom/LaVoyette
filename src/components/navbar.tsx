@@ -28,7 +28,7 @@ const pages = [
 // ];
 const settings = [{ title: "Se connecter", path: "/login" }];
 
-const Layout = () => {
+const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -161,4 +161,4 @@ const Layout = () => {
     </AppBar>
   );
 };
-export default Layout;
+export default Navbar;
