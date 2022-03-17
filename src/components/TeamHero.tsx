@@ -62,11 +62,11 @@ function TeamHero({artist}: {artist: Artist}) {
           >
             <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
               <Typography variant="h2" component="h2" gutterBottom>
-                {artist.firstname}
+                {artist.firstname} {artist.lastname}
               </Typography>
               
               <Typography variant="h5" color="text.secondary">
-              {artist.biography}
+              Biographie :
               </Typography>
             </Box>
             <CardActions disableSpacing>
@@ -89,7 +89,7 @@ function TeamHero({artist}: {artist: Artist}) {
         <CardContent>
           <Typography variant="h5"></Typography>
           <Typography variant="h5">
-            
+          {artist.biography}
           </Typography>
       </CardContent>
       </Collapse>
