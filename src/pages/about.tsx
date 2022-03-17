@@ -6,6 +6,8 @@ import Typography from "../components/Typography";
 import { useEffect } from "react";
 import withRoot from "../withRoot";
 import ContainerStory from "components/ContainerStory";
+import TimelineComponents from "components/Timeline";
+
 import type { Company } from "@prisma/client";
 
 const AboutPages = () => {
@@ -44,6 +46,8 @@ const AboutPages = () => {
         {blockCompanys}
       </React.Fragment>
       <ContainerStory/>
+      <TimelineComponents/>
+
     </>
   );
 };
