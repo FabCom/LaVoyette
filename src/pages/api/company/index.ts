@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Prisma } from "@prisma/client";
+import { COMPANY_NAME } from "config";
 import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -9,7 +10,7 @@ const getCompany = async (response: NextApiResponse) => {
   try {
     const result = await models.company.findUnique({
       where: {
-        name: process.env.COMPANY_NAME,
+        name: COMPANY_NAME,
       },
       include: {
         companyPartners: true, // Returns all fields for all posts
@@ -34,7 +35,7 @@ const updateCompany = async (body: BodyRequest, response: NextApiResponse) => {
   try {
     const result = await models.company.update({
       where: {
-        name: process.env.COMPANY_NAME,
+        name: COMPANY_NAME,
       },
       data: {
         ...data,

@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
+import LoggingMenu from "components/LoggingMenu"
 
 const pages = [
   { title: "Spectacles", path: "/plays" },
@@ -20,12 +21,11 @@ const pages = [
   { title: "Nos Artistes", path: "/artists" },
   { title: "Contact", path: "/contact" },
 ];
-const settings_session = [
-  { title: "Profile", path: "/profil" },
-  { title: "Admin", path: "/admin" },
-  { title: "Dashboard", path: "/dashboard" },
-  { title: "Se déconnecter", path: "/logout" },
-];
+// const settings_session = [
+//   { title: "Profile", path: "/profil" },
+//   { title: "Admin", path: "/admin" },
+//   { title: "Dashboard", path: "/dashboard" },
+// ];
 const settings = [{ title: "Se connecter", path: "/login" }];
 
 const Layout = () => {
@@ -145,15 +145,17 @@ const Layout = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-             {settings_session.map((setting, i) => (
+              <LoggingMenu handleCloseUserMenu={handleCloseUserMenu}/>
+              {/* {settings_session.map((setting, i) => (
                 <Link href={setting.path} key={i} passHref>
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting.title}</Typography>
                   </MenuItem>
                 </Link>
-              ))}
+              ))} */}
             </Menu>
           </Box>
+          {/* <SessionStatus></SessionStatus> */}
         </Toolbar>
       </Container>
     </AppBar>
