@@ -4,7 +4,10 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '../components/Typography';
 
-function TeamHero() {
+import type { Play } from '@prisma/client';
+
+function TeamHero({play}: {play: Play}) {
+  
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
