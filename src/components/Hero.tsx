@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Typography from '../components/Typography';
 import HeroLayout from './HeroLayout';
 
 const backgroundImage =
@@ -21,10 +21,7 @@ export default function Hero() {
           src={backgroundImage}
           alt="increase priority"
         />
-        <Typography
-        color="inherit"
-        align="center"
-        variant="h5">
+        <Typography color="inherit" align="center" variant="h2" marked="center">
           La Voyette
         </Typography>
         <Typography
