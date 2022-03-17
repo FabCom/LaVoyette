@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { faker } = require('@faker-js/faker');
+const { faker } = require("@faker-js/faker");
 
 const fakePlays = [
   {
@@ -13,47 +13,75 @@ const fakePlays = [
     abstract: faker.lorem.paragraphs(5),
     duration: 90,
   },
-]
+];
 
 const fakeAudienceCategories = [
-  {title: "Tout public"},
-  {title: "Scolaire"},
-  {title: "Habitants"},
-  {title: "Élu·e·s"}
-]
+  { title: "Tout public" },
+  { title: "Scolaire" },
+  { title: "Habitants" },
+  { title: "Élu·e·s" },
+];
 
 const fakeTags = [
-  {title: "Pièce participative"},
-  {title: "Drame"},
-  {title: "Comique"},
-  {title: "Création"}
-]
+  { title: "Pièce participative" },
+  { title: "Drame" },
+  { title: "Comique" },
+  { title: "Création" },
+];
 
 const fakeArtists = [
-  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
-  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
-  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
-  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
-  {firstname: faker.name.firstName(), lastname: faker.name.lastName(), biography: faker.lorem.paragraphs(3)},
-  
-]
+  {
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
+    biography: faker.lorem.paragraphs(3),
+  },
+  {
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
+    biography: faker.lorem.paragraphs(3),
+  },
+  {
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
+    biography: faker.lorem.paragraphs(3),
+  },
+  {
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
+    biography: faker.lorem.paragraphs(3),
+  },
+  {
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
+    biography: faker.lorem.paragraphs(3),
+  },
+];
 
-const fakeCompany = [{name: "La Voyette", description: faker.lorem.paragraphs(5), email: faker.internet.email() }]
+const fakeCompany = [
+  {
+    name: "La Voyette",
+    description: faker.lorem.paragraphs(5),
+    email: faker.internet.email(),
+  },
+];
 
-let startDate = new Date()
-let endDate = new Date()
-const fakeCompanyStory = Array(10).fill().map(item => 
-    (
-      { title: faker.lorem.sentence(), description: faker.lorem.paragraph(), start: startDate }
-    )
-  )
- 
-const fakeCompanyPartners = Array(5).fill().map(item =>
-    (
-      {name: faker.company.companyName(), description: faker.lorem.paragraph(),logo_src: faker.image.imageUrl(200,100,undefined,1) }
-    )
-  )
+let startDate = new Date();
+let endDate = new Date();
+const fakeCompanyStory = Array(10)
+  .fill()
+  .map((item) => ({
+    title: faker.lorem.sentence(),
+    description: faker.lorem.paragraph(),
+    start: startDate,
+  }));
 
+const fakeCompanyPartners = Array(5)
+  .fill()
+  .map((item) => ({
+    name: faker.company.companyName(),
+    description: faker.lorem.paragraph(),
+    logo_src: faker.image.imageUrl(200, 100, undefined, 1),
+  }));
 
 async function main() {
   await prisma.audienceCategory.deleteMany({});
@@ -61,24 +89,24 @@ async function main() {
   await prisma.play.deleteMany({});
 
   await prisma.audienceCategory.createMany({
-    data: fakeAudienceCategories
+    data: fakeAudienceCategories,
   });
 
   await prisma.tag.createMany({
-    data: fakeTags
+    data: fakeTags,
   });
 
   await prisma.play.createMany({
-    data: fakePlays
+    data: fakePlays,
   });
 
   await prisma.artist.createMany({
-    data: fakeArtists
-  })
+    data: fakeArtists,
+  });
 
-  await prisma.company.createMany(fakeCompany)
-  const plays = await prisma.play.findMany()
-  console.log(plays)
+  // await prisma.company.createMany(fakeCompany)
+  const plays = await prisma.play.findMany();
+  console.log(plays);
 }
 
 main()
