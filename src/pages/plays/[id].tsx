@@ -6,14 +6,7 @@ import Image from 'next/image';
 import { deepOrange, deepPurple } from '@mui/material/colors';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
-
-type Play = {
-	id: number,
-	abstract: string,
-	duration: number,
-	audienceCategories: string[],
-	tags: string[],
-}
+import type { Play } from '@prisma/client';
 
 const itemData = [
 	{
@@ -48,14 +41,15 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 	};
 }
 
-export default function play() {
-	const { isLoading, serverError, request, apiData: play } = useRequest<Play>("plays/[id]", "GET");
+const playPage = () => {
+	const { isLoading, serverError, request, apiData: play } = useRequest<Play>("play/id", "GET");
+
 	useEffect(() => {
-		if (isLoading == false && play !== null) {
-			request();
-		}
+		request()
+		console.log(isLoading, serverError, play)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [isLoading, serverError])
+
 	return (
 		<Container>
 			<Grid container spacing={2} >
@@ -158,3 +152,4 @@ export default function play() {
 		</Container >
 	)
 }
+export default playPage;
