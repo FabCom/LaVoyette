@@ -29,59 +29,19 @@ const fakeTags = [
   { title: "Création" },
 ];
 
-const fakeArtists = [
-  {
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    biography: faker.lorem.paragraphs(3),
-  },
-  {
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    biography: faker.lorem.paragraphs(3),
-  },
-  {
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    biography: faker.lorem.paragraphs(3),
-  },
-  {
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    biography: faker.lorem.paragraphs(3),
-  },
-  {
-    firstname: faker.name.firstName(),
-    lastname: faker.name.lastName(),
-    biography: faker.lorem.paragraphs(3),
-  },
-];
-
-const fakeCompany = [
-  {
-    name: "La Voyette",
-    description: faker.lorem.paragraphs(5),
-    email: faker.internet.email(),
-  },
-];
-
-let startDate = new Date();
-let endDate = new Date();
-const fakeCompanyStory = Array(10)
+const fakeArtists = Array(8)
   .fill()
   .map((item) => ({
-    title: faker.lorem.sentence(),
-    description: faker.lorem.paragraph(),
-    start: startDate,
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
+    biography: faker.lorem.paragraphs(3),
   }));
 
-const fakeCompanyPartners = Array(5)
-  .fill()
-  .map((item) => ({
-    name: faker.company.companyName(),
-    description: faker.lorem.paragraph(),
-    logo_src: faker.image.imageUrl(200, 100, undefined, 1),
-  }));
+const fakeCompany = {
+  name: "La Voyette",
+  description: faker.lorem.paragraphs(5),
+  email: faker.internet.email(),
+};
 
 async function main() {
   await prisma.audienceCategory.deleteMany({});
@@ -104,9 +64,35 @@ async function main() {
     data: fakeArtists,
   });
 
-  // await prisma.company.createMany(fakeCompany)
+  await prisma.company.createMany({ data: [fakeCompany] });
+  const the_company = await prisma.company.findMany({
+    where: { name: "La Voyette" },
+  });
+  // console.log(the_company);
+  let startDate = new Date();
+  let endDate = new Date();
+  const fakeCompanyStories = Array(10)
+    .fill()
+    .map((item) => ({
+      title: faker.lorem.sentence(),
+      description: faker.lorem.paragraph(),
+      start: startDate,
+      companyId: the_company[0].id,
+    }));
+
+  const fakeCompanyPartners = Array(5)
+    .fill()
+    .map((item) => ({
+      name: faker.company.companyName(),
+      description: faker.lorem.paragraph(),
+      logo_src: faker.image.imageUrl(200, 100, undefined, 1),
+      companyId: the_company[0].id,
+    }));
+  await prisma.companyStory.createMany({ data: fakeCompanyStories });
+  await prisma.companyPartner.createMany({ data: fakeCompanyPartners });
+
   const plays = await prisma.play.findMany();
-  console.log(plays);
+  // console.log(plays);
 }
 
 main()
