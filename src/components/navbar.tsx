@@ -145,7 +145,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-             {settings_session.map((setting, i) => (
+              {settings_session.map((setting, i) => (
                 <Link href={setting.path} key={i} passHref>
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting.title}</Typography>
