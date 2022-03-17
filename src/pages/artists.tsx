@@ -1,7 +1,8 @@
 import React from 'react';
-import Layout from 'components/layout';
+import Navbar from 'components/navbar';
 import useRequest from 'hooks/useRequest'
 import { useEffect } from 'react';
+import withRoot from '../withRoot';
 
 import type { Play } from '@prisma/client';
 
@@ -24,7 +25,7 @@ const ArtistsPages = () => {
 
   return (
     <><React.Fragment>
-      <Layout />
+      <Navbar />
     </React.Fragment><div>
         <h1>Hello</h1>
         {plays && <h2>{plays.map((play: Play) => play.title)} </h2>}
@@ -32,4 +33,4 @@ const ArtistsPages = () => {
   )
 }
 
-export default ArtistsPages
+export default withRoot(ArtistsPages);
