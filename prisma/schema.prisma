@@ -34,8 +34,11 @@ model Play {
 }
 
 model Artist {
-  id       Int     @id @default(autoincrement())
-  firstname     String
-  lastname  String
-  biography String
+  id              Int     @id @default(autoincrement())
+  firstname       String
+  lastname        String
+  biography       String?
+  email           String? 
+  facebook_link   String? 
+  instagram_link  String? 
 }

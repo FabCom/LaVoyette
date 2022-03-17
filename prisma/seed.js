@@ -5,7 +5,7 @@ const { faker } = require('@faker-js/faker');
 const fakePlays = [
   {
     title: "Bienvenue à Chicon-la-Vallée",
-    abstract: lorem,
+    abstract: faker.lorem.paragraphs(5),
     duration: 60,
   },
   {

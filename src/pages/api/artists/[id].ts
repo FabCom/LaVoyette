@@ -32,7 +32,10 @@ const updateONE = async (body: Prisma.ArtistUpdateInput, artistId: number, respo
   const data: Prisma.ArtistUpdateInput = { 
     firstname: body.firstname,
     lastname: body.lastname,
-    biography: body.biography
+    biography: body.biography,
+    email: body.email,
+    facebook_link: body.facebook_link,
+    instagram_link: body.instagram_link
   };
   try {
     const result = await models.artist.update({

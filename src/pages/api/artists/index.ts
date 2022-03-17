@@ -18,7 +18,10 @@ const create = async (body: Prisma.ArtistCreateInput, response: NextApiResponse)
   const data:Prisma.ArtistCreateInput  = { 
     firstname: body.firstname,
     lastname: body.lastname,
-    biography: body.biography
+    biography: body.biography,
+    email: body.email,
+    facebook_link: body.facebook_link,
+    instagram_link: body.instagram_link
   };
 
   try {
