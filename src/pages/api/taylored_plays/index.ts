@@ -4,11 +4,11 @@ import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type BodyRequest = {title: string,abstract: string, duration: number, audienceCategories: string[], tags: string[]}
+type BodyRequest = {title: string,concept: string, audienceCategories: string[], tags: string[]}
 
 const getALL = async (response: NextApiResponse) => {
   try {
-    const result = await models.play.findMany({
+    const result = await models.tayloredPlay.findMany({
       include: {
         audienceCategories: true,
         tags: true
@@ -17,15 +17,14 @@ const getALL = async (response: NextApiResponse) => {
     response.status(200).json(result);
   } catch (err) {
     console.log(err);
-    response.status(404).json({ err: "Plays not found" });
+    response.status(404).json({ err: "Taylored Plays not found" });
   }
 }
 
 const create = async (body: BodyRequest, response: NextApiResponse) => {
-  const data:Prisma.PlayCreateInput  = { 
+  const data:Prisma.TayloredPlayCreateInput  = { 
     title: body.title,
-    abstract: body.abstract,
-    duration: body.duration,
+    concept: body.concept,
     audienceCategories: {
       connectOrCreate: body.audienceCategories.map((categ:string) => {
         return {
@@ -45,7 +44,7 @@ const create = async (body: BodyRequest, response: NextApiResponse) => {
   };
 
   try {
-    const result = await models.play.create({
+    const result = await models.tayloredPlay.create({
       data: {
         ...data,
       },
@@ -53,7 +52,7 @@ const create = async (body: BodyRequest, response: NextApiResponse) => {
     response.status(200).json(result);
   } catch (err) {
     console.log(err);
-    response.status(403).json({ err: "Error occured while adding a new play." });
+    response.status(403).json({ err: "Error occured while adding a new taylored play." });
   }
 }
 
