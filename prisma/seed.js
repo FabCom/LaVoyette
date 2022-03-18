@@ -15,6 +15,17 @@ const fakePlays = [
   },
 ];
 
+const fakeTayloredPlays = [
+  {
+    title: "Promenade urbaine",
+    concept: faker.lorem.paragraphs(5),
+  },
+  {
+    title: "Lecture publique",
+    concept: faker.lorem.paragraphs(5),
+  },
+];
+
 const fakeAudienceCategories = [
   { title: "Tout public" },
   { title: "Scolaire" },
@@ -58,6 +69,10 @@ async function main() {
 
   await prisma.play.createMany({
     data: fakePlays,
+  });
+
+  await prisma.tayloredPlay.createMany({
+    data: fakeTayloredPlays,
   });
 
   await prisma.artist.createMany({
