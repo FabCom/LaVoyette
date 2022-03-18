@@ -2,17 +2,21 @@ import * as React from "react";
 import Typography from "../components/Typography";
 
 import type { Company } from "@prisma/client";
-import company from 'pages/api/company';
 
 
 
 export default function ContainerStory({ company }: { company: Company }) {
-  return (
+  console.log(company)
+  
+  if (company)
+  {return (
    
-      <><Typography color="inherit" align="center" variant="h2" sx={{ mt: 10}}>
+      <>
+      {/* <Typography color="inherit" align="center" variant="h2" sx={{ mt: 10}}>
       {company.name}
       La Voyette
-    </Typography><Typography
+    </Typography> */}
+    {/* <Typography
       color="inherit"
       align="center"
       variant="h5"
@@ -29,6 +33,13 @@ Phasellus vel ante bibendum, auctor diam non, ultrices ligula. In hac habitasse 
 Donec id auctor ante, et viverra elit. Praesent facilisis aliquet risus, nec pharetra augue laoreet in. Fusce quis sagittis enim. Proin rutrum odio nec sem ultricies rhoncus. Etiam eget feugiat quam, nec porttitor nibh. Sed nec odio eget urna eleifend maximus quis vel nisl. Morbi elementum libero mi, sit amet consectetur erat rutrum tristique. Nulla non efficitur metus. Fusce feugiat, odio id convallis tincidunt, neque tortor interdum quam, vel mattis turpis urna sed nisi.
 
 Sed euismod tortor turpis, gravida eleifend metus mattis vel. Morbi tristique pulvinar sagittis. Suspendisse faucibus lorem id augue bibendum porttitor. Fusce id egestas eros. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec eget odio et arcu posuere pellentesque sed et nisl. Morbi tristique orci id scelerisque vestibulum. Aliquam tellus sapien, ultrices a velit ut, ornare ultrices justo. Integer ex augue, efficitur ut vulputate eget, sodales vel arcu. In malesuada lectus sit amet libero pulvinar finibus. Ut dictum urna in odio pellentesque tristique. Praesent ut mollis diam. Sed congue nisl eget sapien ultricies tristique.
-      </Typography></>
-  );
+      </Typography> */}
+      </>
+  );}
+  else
+  
+  {return
+  
+ ( <p>is loading</p>)
+  }
 }

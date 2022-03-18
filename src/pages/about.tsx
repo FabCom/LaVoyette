@@ -12,6 +12,7 @@ import PartnerHero from "components/PartnerHero";
 import type { Company } from "@prisma/client";
 import type { CompanyPartner } from "@prisma/client";
 
+
 const AboutPages = () => {
   const {
     isLoading,
@@ -30,31 +31,24 @@ const AboutPages = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, serverError]);
 
-  // let blockCompany = <></>;
-  // if (company) {
-  //   blockCompany = (
-  //     <>
-  //       {company.map((company: Company, i: React.Key | null | undefined) => (
-  //         <ContainerStory key={i} company={company} />
-  //       ))}
-  //     </>
-  //   );
-  // }
+  let blockCompany = (<></>);
+  if (company) {
+    blockCompany = (
+      <>
+        <ContainerStory company = {company[0]} />
+      </>
+    );
+  }
 
   return (
     <>
       <React.Fragment>
-      <ContainerStory
-        company={{
-          id: 0,
-          name: "",
-          description: "",
-          email: "",
-          facebook_link: null,
-          instagram_link: null,
-        }}
-      />
+      {blockCompany} 
 
+        
+          
+        
+     
       <TimelineComponents companystory={{
         id: 0,
         title: "",
