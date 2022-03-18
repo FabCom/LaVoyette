@@ -29,7 +29,9 @@ export default function PlayCard({ play }) {
 					<Link href={`/plays/${play.id}`} passHref>
 						<IconButton color="info"><RemoveRedEyeIcon /></IconButton>
 					</Link>
-					<IconButton color="warning"><EditIcon /></IconButton>
+					<Link href={`plays/${play.id}`} passHref>
+						<IconButton color="warning"><EditIcon /></IconButton>
+					</Link>
 					<IconButton color="error"><DeleteIcon /></IconButton>
 				</CardActions>
 			</Card>
