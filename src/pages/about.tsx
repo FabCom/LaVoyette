@@ -1,41 +1,65 @@
-import React from "react";
-import Navbar from "components/navbar";
-import TeamHero from "components/TeamHero";
+import React, { useState } from "react";
 import useRequest from "hooks/useRequest";
-import Typography from "../components/Typography";
 import { useEffect } from "react";
-import withRoot from "../withRoot";
 import ContainerStory from "components/ContainerStory";
 import TimelineComponents from "components/Timeline";
 import PartnerHero from "components/PartnerHero";
 
-import type { Company } from "@prisma/client";
-import type { CompanyPartner } from "@prisma/client";
+import type { CompanyPartner, CompanyStory } from "@prisma/client";
 
+type CompanyInfo = {
+  id: number;
+  name: string;
+  description: string;
+  email: string;
+  facebook_link: string | null;
+  instagram_link: string | null;
+  companyPartners: CompanyPartner[];
+  companyStories: CompanyStory[];
+};
 
 const AboutPages = () => {
   const {
     isLoading,
     serverError,
     request,
-    apiData: company,
-  } = useRequest<Company[]>("company", "GET");
+    apiData: companies,
+  } = useRequest<CompanyInfo>("company", "GET");
 
+  const [company, setCompany] = useState<CompanyInfo | null>(null);
   useEffect(() => {
+
     request();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    console.log(isLoading, serverError, company);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log("useEffect 2");
+    console.log(isLoading, serverError, companies);
+    if (companies && isLoading === false) {
+      console.log("useEffect 2.1");
+
+      setCompany(companies);
+    }
   }, [isLoading, serverError]);
 
-  let blockCompany = (<></>);
-  if (company) {
+  let blockCompany = <></>;
+  let blockCompanyPartners = <></>;
+  let blockCompanyStories = <></>;
+  console.log(company);
+  if (company && company.companyStories && company.companyPartners) {
     blockCompany = (
       <>
-        <ContainerStory company = {company[0]} />
+        <ContainerStory company={company} />
+      </>
+    );
+    blockCompanyStories = (
+      <>
+        <TimelineComponents companystory={company.companyStories[0]} />
+      </>
+    );
+    blockCompanyPartners = (
+      <>
+        <PartnerHero companypartner={company.companyPartners[0]} />
       </>
     );
   }
@@ -43,29 +67,11 @@ const AboutPages = () => {
   return (
     <>
       <React.Fragment>
-      {blockCompany} 
+        {blockCompany}
 
-        
-          
-        
-     
-      <TimelineComponents companystory={{
-        id: 0,
-        title: "",
-        description: "",
-        start: undefined,
-        end: null,
-        companyId: null
-      }} />
-      <PartnerHero
-        companypartner={{
-          id: 0,
-          name: "",
-          description: null,
-          logo_src: null,
-          companyId: null,
-        }}
-      />
+        {blockCompanyStories}
+
+        {blockCompanyPartners}
       </React.Fragment>
     </>
   );
