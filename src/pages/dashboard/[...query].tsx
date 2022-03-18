@@ -5,7 +5,11 @@ import { useRouter } from "next/router"
 const Dashboard = () => {
   const router = useRouter()
   const { query } = router.query
+
   console.log(query)
+
+  
+
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
       <Box sx={{width: 250, marginLeft: 1, marginTop: 2}}>
