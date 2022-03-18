@@ -20,7 +20,7 @@ export default function PlayCard({ play }) {
 							<Chip icon={<AccessTimeIcon />} variant='outlined' label={`${play.duration} min`} />
 						</Box>
 						<Typography variant="body1" color="initial">{play.abstract.slice(0, 400)}...</Typography>
-						<Stack direction="row" spacing={2} sx={{ pb: 2 }}>
+						<Stack direction="row" spacing={2} sx={{ py: 2 }}>
 							<Chip label="Comédie" />
 							<Chip label="Dramatique" />
 							<Chip label="Accessible" />
