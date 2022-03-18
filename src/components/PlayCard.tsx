@@ -1,8 +1,8 @@
 import React from 'react'
-import { Card, Container, CardContent, Typography, Grid, Stack, Chip } from '@mui/material'
+import { Card, CardContent, Typography, Grid, Stack, Chip, Box } from '@mui/material'
 import Router from 'next/router'
 import Image from 'next/image'
-import type { Play } from '@prisma/client';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export default function PlayCard({ play }) {
 	return (
@@ -15,8 +15,11 @@ export default function PlayCard({ play }) {
 					<Grid item xs={1}>
 					</Grid>
 					<Grid item xs={7} sx={{ bgcolor: 'warning.main', my: 1, borderRadius: 2 }}>
-						<Typography variant="h5" component="div">{play.title}</Typography>
-						<Typography variant="body1" color="initial" sx={{ my: 3 }}>{play.abstract.slice(0, 400)}...</Typography>
+						<Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, mr: 5 }}>
+							<Typography variant="h5" component="div">{play.title}</Typography>
+							<Chip icon={<AccessTimeIcon />} variant='outlined' label={`${play.duration} min`} />
+						</Box>
+						<Typography variant="body1" color="initial">{play.abstract.slice(0, 400)}...</Typography>
 						<Stack direction="row" spacing={2} sx={{ pb: 2 }}>
 							<Chip label="Comédie" />
 							<Chip label="Dramatique" />

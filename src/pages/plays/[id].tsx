@@ -62,6 +62,7 @@ const PlayPage = () => {
 						<Chip label="Accessible" variant='outlined' />
 					</Stack>
 					<Typography variant="body1" gutterBottom sx={{ mt: 3 }} >{play?.abstract}</Typography>
+					<Typography variant="subtitle1" gutterBottom sx={{ mt: 3 }} >Durée : <b>{play?.duration} min</b></Typography>
 				</Grid>
 				<Grid item xs={5}>
 					<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', mt: 3 }}>

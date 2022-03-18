@@ -3,7 +3,6 @@ import { Container } from '@mui/material'
 import type { Play } from '@prisma/client';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
-import Router from 'next/router';
 import PlayCard from 'components/PlayCard';
 
 export default function PlaysIndex() {
