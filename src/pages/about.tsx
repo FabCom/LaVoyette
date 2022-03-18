@@ -41,34 +41,40 @@ const AboutPages = () => {
   //   );
   // }
 
-  
-
   return (
     <>
       <React.Fragment>
-      <ContainerStory company={{
+      <ContainerStory
+        company={{
+          id: 0,
+          name: "",
+          description: "",
+          email: "",
+          facebook_link: null,
+          instagram_link: null,
+        }}
+      />
+
+      <TimelineComponents companystory={{
         id: 0,
-        name: "",
+        title: "",
         description: "",
-        email: "",
-        facebook_link: null,
-        instagram_link: null
-      }}/>
-      
-        {/* {blockCompany} */}
-      </React.Fragment>
-     
-      <TimelineComponents/>
-      <PartnerHero companypartner={{
+        start: undefined,
+        end: null,
+        companyId: null
+      }} />
+      <PartnerHero
+        companypartner={{
           id: 0,
           name: "",
           description: null,
           logo_src: null,
-          companyId: null
-        }}/>
-
+          companyId: null,
+        }}
+      />
+      </React.Fragment>
     </>
   );
-  };
+};
 
 export default AboutPages;

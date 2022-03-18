@@ -1,6 +1,5 @@
 import * as React from "react";
 import Typography from "../components/Typography";
-import HeroLayout from "./HeroLayout";
 
 import type { Company } from "@prisma/client";
 import company from 'pages/api/company';
@@ -11,7 +10,7 @@ export default function ContainerStory({ company }: { company: Company }) {
   return (
    
       <><Typography color="inherit" align="center" variant="h2" sx={{ mt: 10}}>
-      {/* {company.name} */}
+      {company.name}
       La Voyette
     </Typography><Typography
       color="inherit"
@@ -19,7 +18,7 @@ export default function ContainerStory({ company }: { company: Company }) {
       variant="h5"
       sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}
     >
-      {/* {company.description} */}
+      {company.description}
       
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus convallis justo at massa facilisis, id vulputate augue rutrum. Mauris pellentesque molestie sapien vel vehicula. Morbi sollicitudin viverra nunc, vitae vulputate sem imperdiet a. Maecenas ac libero commodo, hendrerit neque eu, pretium sem. Sed quis aliquam tortor. Sed et hendrerit quam. Nulla viverra, lectus a lacinia egestas, odio neque vehicula lacus, sed feugiat tortor erat et neque. Ut bibendum bibendum vestibulum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi dignissim dolor quis orci fermentum, eget mattis nisl dapibus. Donec eleifend, mauris non sollicitudin aliquam, risus augue cursus nisl, laoreet commodo turpis diam nec sem. Nulla non velit pharetra tortor feugiat tempor.
 

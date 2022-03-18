@@ -74,7 +74,7 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
                               </Typography>
 
                               <Typography variant="h5" color="text.secondary">
-                                  Biographie :
+                                  
                               </Typography>
                           </Box>
                           <CardActions disableSpacing>

@@ -16,26 +16,26 @@ export default function TimelineComponents({ companystory }: { companystory: Com
       <Typography color="inherit" align="center" variant="h2" sx={{ mt: 10}}>
       Notre Histoire ...
     </Typography>
-      <Timeline position="alternate">
+      <Timeline position="alternate" sx={{ mt: 10}}>
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
-            2011
+            2011 {companystory.start}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineDot />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>Eat</TimelineContent>
+          <TimelineContent>Eat {companystory.title}</TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
-            10:00 am
+            10:00 am {companystory.end}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineDot />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>Code</TimelineContent>
+          <TimelineContent>Code {companystory.description}</TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
