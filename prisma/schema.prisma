@@ -45,7 +45,7 @@ model Artist {
 
 model Company {
   id             Int     @id @default(autoincrement())
-  name           String
+  name           String  @unique
   description    String
   email          String
   facebook_link  String?
