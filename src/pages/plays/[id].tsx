@@ -8,6 +8,7 @@ import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
 import type { Play } from '@prisma/client';
 import { useRouter } from 'next/router';
+import doRequest from 'pages/api/plays/[id]';
 
 const itemData = [
 	{
@@ -47,7 +48,7 @@ const playPage = () => {
 	const { isLoading, serverError, request, apiData: play } = useRequest<Play>(`play/${id}`, "GET");
 
 	useEffect(() => {
-		request()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
