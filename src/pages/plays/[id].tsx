@@ -3,12 +3,10 @@ import React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Image from 'next/image';
-import { deepOrange, deepPurple } from '@mui/material/colors';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
 import type { Play } from '@prisma/client';
 import { useRouter } from 'next/router';
-import doRequest from 'pages/api/plays/[id]';
 
 const itemData = [
 	{
@@ -43,13 +41,15 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 	};
 }
 
-const playPage = () => {
+const PlayPage = () => {
 	const { id } = useRouter().query;
-	const { isLoading, serverError, request, apiData: play } = useRequest<Play>(`play/${id}`, "GET");
+	const { request, apiData: play } = useRequest<Play>(`plays/${id}`, "GET");
 
 	useEffect(() => {
+		request();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+	//{play?.tags.map((tag) => (<Chip label="`${tag}`" variant='outlined' />))}
 
 	return (
 		<Container>
@@ -153,4 +153,4 @@ const playPage = () => {
 		</Container >
 	)
 }
-export default playPage;
+export default PlayPage;
