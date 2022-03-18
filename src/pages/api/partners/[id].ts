@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import type { Prisma } from "@prisma/client";
-import models from "lib/models";
+import type { NextApiRequest, NextApiResponse } from 'next'
+import type { Prisma } from "@prisma/client"
+import models from 'lib/models';
 
 const getONE = async (partnerId: number, response: NextApiResponse) => {
   try {
@@ -86,3 +86,4 @@ const doRequest = async (
     .json({ err: "Error occured while adding a new companyPartner." });
 };
 export default doRequest;
+
