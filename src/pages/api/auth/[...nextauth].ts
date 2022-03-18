@@ -2,10 +2,7 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-<<<<<<< HEAD
-=======
 import nodemailer from "nodemailer";
->>>>>>> d8959dbd8397e304f1cd2fe0a6f06cfcbadf7dce
 
 const prisma = new PrismaClient();
 
@@ -43,7 +40,6 @@ export default NextAuth({
   pages: {
     signIn: "/auth/email-signin",
     signOut: "/auth/signout",
-<<<<<<< HEAD
     error: "/auth/error", // Error code passed in query string as ?error=
     verifyRequest: "/auth/verify-request", // (used for check email message)
   },
@@ -55,19 +51,6 @@ export default NextAuth({
       return Promise.resolve(session);
     },
   },
-});
-=======
-    verifyRequest: "/auth/verify-request", // (used for check email message)
-  },
-  // callbacks: {
-  //   async session({ session, user }) {
-  //     if (session && session.user && session.user.id )
-  //     {
-  //     session.user.id = user.id
-  //     }
-  //    return Promise.resolve(session)
-  //   },
-  // }
 });
 
 function html({ url, host, email }: Record<"url" | "host" | "email", string>) {
@@ -123,4 +106,3 @@ function html({ url, host, email }: Record<"url" | "host" | "email", string>) {
 function text({ url, host }: Record<"url" | "host", string>) {
   return `Se connecter à ${host}\n${url}\n\n`;
 }
->>>>>>> d8959dbd8397e304f1cd2fe0a6f06cfcbadf7dce
