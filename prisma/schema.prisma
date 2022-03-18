@@ -14,13 +14,14 @@ model AudienceCategory {
   id    Int    @id @default(autoincrement())
   title String @unique
   plays Play[]
-
+  tayloredPlays TayloredPlay[]
 }
 
 model Tag {
   id    Int    @id @default(autoincrement())
   title String @unique
   plays Play[]
+  tayloredPlays TayloredPlay[]
 }
 
 model Play {
@@ -28,6 +29,15 @@ model Play {
   title    String
   abstract String?
   duration Int?
+
+  audienceCategories AudienceCategory[]
+  tags               Tag[]
+}
+
+model TayloredPlay {
+  id       Int     @id @default(autoincrement())
+  title    String
+  concept  String
 
   audienceCategories AudienceCategory[]
   tags               Tag[]
