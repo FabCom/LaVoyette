@@ -7,67 +7,72 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const getALL = async (response: NextApiResponse) => {
   try {
-    const result = await models.companyPartner.findMany({})
+    const result = await models.companyPartner.findMany({});
     response.status(200).json(result);
   } catch (err) {
     console.log(err);
     response.status(404).json({ err: "Partners not found" });
   }
-}
+};
 
-const create = async (body: Prisma.CompanyPartnerCreateInput, response: NextApiResponse, company: Company) => {
+const create = async (
+  body: Prisma.CompanyPartnerCreateInput,
+  response: NextApiResponse,
+  company: Company
+) => {
+  const data: Prisma.CompanyPartnerCreateInput = {
+    name: body.name,
+    description: body.description,
+    logo_src: body.logo_src,
 
-    const data:Prisma.CompanyPartnerCreateInput  = { 
-      name: body.name,
-      description: body.description,
-      logo_src: body.logo_src,
-
-      Company: {connect: {id: company.id}}
-    };
+    Company: { connect: { id: company.id } },
+  };
 
   try {
     const result = await models.companyPartner.create({
       data: {
         ...data,
-        // audienceCategories: { connectOrCreate: data_audienceCategories }
       },
     });
     response.status(200).json(result);
   } catch (err) {
     console.log(err);
-    response.status(403).json({ err: "Error occured while adding a new partner." });
+    response
+      .status(403)
+      .json({ err: "Error occured while adding a new partner." });
   }
-}
-
-const doRequest = async (request: NextApiRequest, response: NextApiResponse) => {
-
-  const {body, method, query } = request;
-  // console.log(query)
-  if (method === 'GET') {
-    
-    getALL(response)
-    
-    return
-  }
-  
-  // const session = await getSession({ req: request })
-  
-  // if (!session) {
-  //   response.status(401).json({err: "unauthorized"});
-  //   return 
-  // }
-
-  if (method === 'POST') {
-    const company = await models.company.findUnique({where: {name: COMPANY_NAME}})
-    
-    if (company) {
-      create(body, response, company)
-    }
-
-    return
-  }
-
-
 };
 
-export default doRequest
+const doRequest = async (
+  request: NextApiRequest,
+  response: NextApiResponse
+) => {
+  const { body, method, query } = request;
+  // console.log(query)
+  if (method === "GET") {
+    getALL(response);
+
+    return;
+  }
+
+  // const session = await getSession({ req: request })
+
+  // if (!session) {
+  //   response.status(401).json({err: "unauthorized"});
+  //   return
+  // }
+
+  if (method === "POST") {
+    const company = await models.company.findUnique({
+      where: { name: COMPANY_NAME },
+    });
+
+    if (company) {
+      create(body, response, company);
+    }
+
+    return;
+  }
+};
+
+export default doRequest;
