@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "components/navbar";
 import TeamHero from "components/TeamHero";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
@@ -38,7 +37,6 @@ const ArtistsPages = () => {
 
   return (
     <React.Fragment>
-      <Navbar />
       {blockArtists}
     </React.Fragment>
   );
