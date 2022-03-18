@@ -1,17 +1,22 @@
 import "../styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/dist/shared/lib/router/router";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "theme";
 import Navbar from "components/navbar";
 import withRoot from "../withRoot";
-
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <Navbar/>
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navbar />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </SessionProvider>
   );
 }
 
-export default withRoot(MyApp);
+export default MyApp;

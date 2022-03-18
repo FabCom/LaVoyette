@@ -7,16 +7,18 @@ import { useEffect } from "react";
 import withRoot from "../withRoot";
 import ContainerStory from "components/ContainerStory";
 import TimelineComponents from "components/Timeline";
+import PartnerHero from "components/PartnerHero";
 
 import type { Company } from "@prisma/client";
+import type { CompanyPartner } from "@prisma/client";
 
 const AboutPages = () => {
   const {
     isLoading,
     serverError,
     request,
-    apiData: companys,
-  } = useRequest<Company[]>("companys", "GET");
+    apiData: company,
+  } = useRequest<Company[]>("company", "GET");
 
   useEffect(() => {
     request();
@@ -24,32 +26,49 @@ const AboutPages = () => {
   }, []);
 
   useEffect(() => {
-    console.log(isLoading, serverError, companys);
+    console.log(isLoading, serverError, company);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, serverError]);
 
-  let blockCompanys = <></>;
-  if (companys) {
-    blockCompanys = (
-      <>
-        {companys.map((company: Company, i) => (
-          <TeamHero key={i} company={company} />
-        ))}
-      </>
-    );
-  }
+  // let blockCompany = <></>;
+  // if (company) {
+  //   blockCompany = (
+  //     <>
+  //       {company.map((company: Company, i: React.Key | null | undefined) => (
+  //         <ContainerStory key={i} company={company} />
+  //       ))}
+  //     </>
+  //   );
+  // }
+
+  
 
   return (
     <>
       <React.Fragment>
-        <Navbar />
-        {blockCompanys}
+      <ContainerStory company={{
+        id: 0,
+        name: "",
+        description: "",
+        email: "",
+        facebook_link: null,
+        instagram_link: null
+      }}/>
+      
+        {/* {blockCompany} */}
       </React.Fragment>
-      <ContainerStory/>
+     
       <TimelineComponents/>
+      <PartnerHero companypartner={{
+          id: 0,
+          name: "",
+          description: null,
+          logo_src: null,
+          companyId: null
+        }}/>
 
     </>
   );
-};
+  };
 
-export default withRoot(AboutPages);
+export default AboutPages;

@@ -1,19 +1,25 @@
-import * as React from 'react';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import * as React from "react";
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 
-export default function TimelineComponents() {
+import type { CompanyStory } from "@prisma/client";
+import Typography from "./Typography";
+
+export default function TimelineComponents({ companystory }: { companystory: CompanyStory }) {
   return (
     <React.Fragment>
+      <Typography color="inherit" align="center" variant="h2" sx={{ mt: 10}}>
+      Notre Histoire ...
+    </Typography>
       <Timeline position="alternate">
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
-            09:30 am
+            2011
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineDot />
