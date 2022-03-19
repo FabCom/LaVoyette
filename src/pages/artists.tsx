@@ -2,8 +2,6 @@ import React from "react";
 import TeamHero from "components/TeamHero";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
-import withRoot from "../withRoot";
-
 import type { Artist } from "@prisma/client";
 
 const ArtistsPages = () => {
@@ -42,4 +40,4 @@ const ArtistsPages = () => {
   );
 };
 
-export default withRoot(ArtistsPages);
+export default ArtistsPages;
