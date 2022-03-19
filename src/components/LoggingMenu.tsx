@@ -1,20 +1,26 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { AppProps } from "next/dist/shared/lib/router/router";
+import { Role } from "@prisma/client";
 
-const settings_session = [
+const settings_session_USER = [
   { title: "Profile", path: "/profil" },
-  { title: "Admin", path: "/admin" },
-  { title: "Dashboard", path: "/dashboard" },
 ];
+
+const settings_session_ADMIN = [
+  { title: "Profile", path: "/profil" },
+  { title: "Dashboard", path: "/dashboard/company" },
+];
+
+let settings_session = []
 
 const settings = [{ title: "Se connecter", path: "/auth/email-signin" }];
 
 export default function LoggingMenu({handleCloseUserMenu}: {handleCloseUserMenu: () => void}) {
   const { data: session } = useSession();
+  
 
   // function LoggingOut()
   // {
@@ -22,6 +28,8 @@ export default function LoggingMenu({handleCloseUserMenu}: {handleCloseUserMenu:
   //   signOut();
   // }
   if (session) {
+    session.user.role === Role.ADMIN ? settings_session = settings_session_ADMIN : settings_session = settings_session_USER
+    // console.log(session)
     return (
       <React.Fragment>
         {settings_session.map((setting, i) => (

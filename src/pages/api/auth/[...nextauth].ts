@@ -40,17 +40,17 @@ export default NextAuth({
   pages: {
     signIn: "/auth/email-signin",
     signOut: "/auth/signout",
+    error: "/auth/error", // Error code passed in query string as ?error=
     verifyRequest: "/auth/verify-request", // (used for check email message)
   },
-  // callbacks: {
-  //   async session({ session, user }) {
-  //     if (session && session.user && session.user.id )
-  //     {
-  //     session.user.id = user.id
-  //     }
-  //    return Promise.resolve(session)
-  //   },
-  // }
+  callbacks: {
+    async session({ session, user }) {
+      if (session && session.user) {
+        session.user.role = user.role;
+      }
+      return Promise.resolve(session);
+    },
+  },
 });
 
 function html({ url, host, email }: Record<"url" | "host" | "email", string>) {
