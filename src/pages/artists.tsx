@@ -17,10 +17,10 @@ const ArtistsPages = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(isLoading, serverError, artists);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, serverError]);
+  // useEffect(() => {
+  //   console.log(isLoading, serverError, artists);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading, serverError]);
 
   let blockArtists = <></>;
   if (artists) {
