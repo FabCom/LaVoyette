@@ -19,17 +19,17 @@ export default function TimelineComponents({ companystory }: { companystory: Com
       <Timeline position="alternate" sx={{ mt: 10}}>
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
-            2011 {companystory.start}
+             {companystory.start}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineDot />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>Eat {companystory.title}</TimelineContent>
+          <TimelineContent> {companystory.title}</TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineOppositeContent color="text.secondary">
-            10:00 am {companystory.end}
+             {companystory.end}
           </TimelineOppositeContent>
           <TimelineSeparator>
             <TimelineDot />

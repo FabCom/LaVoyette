@@ -40,7 +40,7 @@ const AboutPages = () => {
 
       setCompany(companies);
     }
-  }, [isLoading, serverError]);
+  }, [companies, isLoading, serverError]);
 
   let blockCompany = <></>;
   let blockCompanyPartners = <></>;
