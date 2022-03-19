@@ -8,14 +8,14 @@ import { useRouter } from "next/router"
 
 const Dashboard = () => {
   const router = useRouter()
-  const { query } = router.query
+  const query = router.query
 
-  console.log(query)
+  console.log(query.page)
 
   let component = (<></>)
 
-  if (query) {
-    switch (query[1]) {
+  if (query.page) {
+    switch (query.page) {
       case 'company':
         component = <CompanyDashboard />
         break;
@@ -39,7 +39,6 @@ const Dashboard = () => {
       </Box>
       <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <h1>{ component }</h1>
-        
       </Box>
       
     </Box>
