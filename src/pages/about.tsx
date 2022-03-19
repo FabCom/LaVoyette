@@ -6,6 +6,7 @@ import TimelineComponents from "components/Timeline";
 import PartnerHero from "components/PartnerHero";
 
 import type { CompanyPartner, CompanyStory } from "@prisma/client";
+import Typography from "components/Typography";
 
 type CompanyInfo = {
   id: number;
@@ -23,29 +24,16 @@ const AboutPages = () => {
     isLoading,
     serverError,
     request,
-    apiData: companies,
+    apiData: company,
   } = useRequest<CompanyInfo>("company", "GET");
 
-  const [company, setCompany] = useState<CompanyInfo | null>(null);
   useEffect(() => {
-
     request();
   }, []);
-
-  useEffect(() => {
-    console.log("useEffect 2");
-    console.log(isLoading, serverError, companies);
-    if (companies && isLoading === false) {
-      console.log("useEffect 2.1");
-
-      setCompany(companies);
-    }
-  }, [companies, isLoading, serverError]);
-
+  console.log(company);
   let blockCompany = <></>;
   let blockCompanyPartners = <></>;
   let blockCompanyStories = <></>;
-  console.log(company);
   if (company && company.companyStories && company.companyPartners) {
     blockCompany = (
       <>
@@ -54,12 +42,17 @@ const AboutPages = () => {
     );
     blockCompanyStories = (
       <>
-        <TimelineComponents companystory={company.companyStories[0]} />
+        <TimelineComponents companystories={company.companyStories} />
       </>
     );
     blockCompanyPartners = (
       <>
-        <PartnerHero companypartner={company.companyPartners[0]} />
+        <Typography color="inherit" align="center" variant="h2" sx={{ mt: 10 }}>
+          Nos Partenaires
+        </Typography>
+        {company.companyPartners.map((companypartner: CompanyPartner, i) => (
+          <PartnerHero companypartner={companypartner} key={i} />
+        ))}
       </>
     );
   }
