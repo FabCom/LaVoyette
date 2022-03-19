@@ -19,7 +19,7 @@ export default function TimelineComponents({companystories}:{companystories:Comp
       </Typography>
       <Timeline position="alternate" sx={{ mt: 10 }}>
         {companystories.map((companystory: CompanyStory, i) => (
-          <TimelineItem>
+          <TimelineItem key = {i}>
             <TimelineOppositeContent color="text.secondary">
               {moment(companystory.start).format('DD-MMM-YYYY')}
             </TimelineOppositeContent>
