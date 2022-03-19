@@ -1,5 +1,9 @@
 import { Box } from "@mui/material"
-import MenuLateral from "components/dasboard/MenuLateral"
+import CompanyDashboard from "components/dashboard/Company"
+import MenuLateral from "components/dashboard/MenuLateral"
+import PlaysDashboard from "components/dashboard/Plays"
+import TayloredPlaysDashboard from "components/dashboard/TayloredPlays"
+import UsersDashboard from "components/dashboard/Users"
 import { useRouter } from "next/router"
 
 const Dashboard = () => {
@@ -8,7 +12,25 @@ const Dashboard = () => {
 
   console.log(query)
 
-  
+  let component = (<></>)
+
+  if (query) {
+    switch (query[1]) {
+      case 'company':
+        component = <CompanyDashboard />
+        break;
+      case 'plays':
+        component = <PlaysDashboard />
+        break;
+      case 'users':
+        component = <UsersDashboard />
+        break;
+      case 'taylored_plays':
+        component = <TayloredPlaysDashboard />
+        break;
+    }
+
+  }
 
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
@@ -16,7 +38,8 @@ const Dashboard = () => {
         <MenuLateral/>
       </Box>
       <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <h1>DASHBOARD</h1>
+        <h1>{ component }</h1>
+        
       </Box>
       
     </Box>

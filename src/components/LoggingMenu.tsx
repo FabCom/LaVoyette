@@ -11,7 +11,7 @@ const settings_session_USER = [
 
 const settings_session_ADMIN = [
   { title: "Profile", path: "/profil" },
-  { title: "Dashboard", path: "/dashboard" },
+  { title: "Dashboard", path: "/dashboard/company" },
 ];
 
 let settings_session = []
