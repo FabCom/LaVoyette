@@ -2,8 +2,6 @@ import React from "react";
 import TeamHero from "components/TeamHero";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
-import withRoot from "../withRoot";
-
 import type { Artist } from "@prisma/client";
 
 const ArtistsPages = () => {
@@ -19,10 +17,10 @@ const ArtistsPages = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(isLoading, serverError, artists);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, serverError]);
+  // useEffect(() => {
+  //   console.log(isLoading, serverError, artists);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading, serverError]);
 
   let blockArtists = <></>;
   if (artists) {
@@ -42,4 +40,4 @@ const ArtistsPages = () => {
   );
 };
 
-export default withRoot(ArtistsPages);
+export default ArtistsPages;
