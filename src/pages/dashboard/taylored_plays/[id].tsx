@@ -85,6 +85,20 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               {...register("title")}
               sx={{ marginTop: 3 }}
             />
+            <TextField
+              label="Public"
+              variant="filled"
+              focused
+              {...register("audienceCategories")}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Public"
+              variant="filled"
+              focused
+              {...register("tags")}
+              sx={{ marginTop: 3 }}
+            />
           </FormGroup>
           <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
