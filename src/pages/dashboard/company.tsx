@@ -20,15 +20,11 @@ type FormCompanyInfo = {
   facebook_link: string | null;
   instagram_link: string | null;
 };
+
 const CompanyDashboard: React.FC<Props> = ({company}) => {
 
   // console.log(company)
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormCompanyInfo>({
+  const { register, setValue, handleSubmit, formState: { errors }} = useForm<FormCompanyInfo>({
     defaultValues: {
       name: company.name,
       description: company.description,
@@ -115,10 +111,8 @@ const CompanyDashboard: React.FC<Props> = ({company}) => {
 export default CompanyDashboard;
 
 export async function getServerSideProps<GetServerSideProps>() {
-  // Fetch data from external API
+
   const company = await models.company.findUnique({where: {name: COMPANY_NAME}})
 
-
-  // Pass data to the page via props
   return { props: { company } }
 }
