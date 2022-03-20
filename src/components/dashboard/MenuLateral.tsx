@@ -15,7 +15,7 @@ const MenuLateral = () => {
       <Typography variant='h4'>MENU</Typography>
     <MenuList>
       {menu_contents.map((item, i) => (
-        <Link href={item.path} key={i} >
+        <Link href={item.path} key={i} passHref>
           <MenuItem>{item.title}</MenuItem>
         </Link>
       ))}

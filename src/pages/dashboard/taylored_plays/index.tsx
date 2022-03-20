@@ -25,7 +25,7 @@ const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
               </Typography> */}
             </CardContent>
             <CardActions sx={{justifyContent: 'center'}}>
-              <Link href={`/dashboard/taylored_plays/${play.id}`}><Button sx={{backgroundColor: 'palette.primary'}}>Éditer</Button></Link>
+              <Link href={`/dashboard/taylored_plays/${play.id}`} passHref><Button sx={{backgroundColor: 'palette.primary'}}>Éditer</Button></Link>
             </CardActions>
           </Card>
         )}
