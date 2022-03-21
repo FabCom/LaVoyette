@@ -1,49 +1,51 @@
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import { CompanyPartner } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
+import models from "lib/models";
+import { GetServerSideProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
 
-type RequestTayloredPlayWithAudienceAndTags = {
-  id: number;
-  title: string;
-  concept: string;
-  audienceCategories: string;
-  tags: string;
-};
+interface IParams extends ParsedUrlQuery {
+  id: string;
+}
 
-const CreateTayloredPlaysDashboard = () => {
+const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
   const router = Router;
+
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestTayloredPlayWithAudienceAndTags>();
+  } = useForm<CompanyPartner>({
+    defaultValues: {
+      id: partner.id,
+      name: partner.name,
+      description: partner.description,
+      logo_src: partner.logo_src
+    },
+  });
 
-  const {isLoading, apiData, request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
-    `taylored_plays`,
-    "POST"
+  const { isLoading, apiData, request } = useRequest<CompanyPartner>(
+    `partners/${partner.id}`,
+    "PUT"
   );
+
 
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/taylored_plays')}
+    {router.push('/dashboard/partners')}
   }, [isLoading])
 
-  const onSubmit = async (data: RequestTayloredPlayWithAudienceAndTags) => {
-    console.log(data)
-    const requestData = {
-      title: data.title,
-      concept: data.concept,
-      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim() ) : [],
-      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
-    };
-    // console.log(requestData)
-    request(requestData);
+
+  const onSubmit = async (data: CompanyPartner) => {
+    request(data);
   };
 
   return (
@@ -65,24 +67,17 @@ const CreateTayloredPlaysDashboard = () => {
           >
             <Typography variant="h4">Informations</Typography>
             <TextField
-              label="Titre"
+              label="Nom"
               variant="filled"
               focused
-              {...register("title")}
+              {...register("name")}
               sx={{ marginTop: 3 }}
             />
             <TextField
               label="Public"
               variant="filled"
               focused
-              {...register("audienceCategories")}
-              sx={{ marginTop: 3 }}
-            />
-            <TextField
-              label="Tag"
-              variant="filled"
-              focused
-              {...register("tags")}
+              {...register("logo_src")}
               sx={{ marginTop: 3 }}
             />
           </FormGroup>
@@ -91,11 +86,11 @@ const CreateTayloredPlaysDashboard = () => {
           >
             <Typography variant="h4">Description</Typography>
             <TextareaAutosize
-              aria-label="Concept"
+              aria-label="description"
               minRows={20}
               placeholder=""
               style={{ width: "100%" }}
-              {...register("concept")}
+              {...register("description")}
             />
           </FormGroup>
         </Box>
@@ -116,4 +111,12 @@ const CreateTayloredPlaysDashboard = () => {
   );
 };
 
-export default CreateTayloredPlaysDashboard;
+export default PartnerDashboard;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { id } = params as IParams;
+  const partner = await models.companyPartner.findUnique({
+    where: { id: parseInt(id) },
+  });
+  return { props: { partner } };
+};
