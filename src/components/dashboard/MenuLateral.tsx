@@ -10,6 +10,7 @@ const MenuLateral = () => {
     {title: "Spectacles", path: "/dashboard/plays"},
     {title: "Spectacles sur-mesure", path: "/dashboard/taylored_plays"},
     {title: "Artistes", path: "/dashboard/artists"},
+    {title: "Partenaires", path: "/dashboard/partners"},
   ]
   return (
     <Paper>
