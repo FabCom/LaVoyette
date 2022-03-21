@@ -14,9 +14,10 @@ const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
   return (
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Spectacles sur-mesure </Typography>
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginTop:5, width: "100%"}}>
+      <Link href="/dashboard/taylored_plays/create"><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
         {taylored_plays.map((play, i) => 
-          <Card sx={{ minWidth: 275 }} key={i}>
+          <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>
             <CardContent>
               <Typography variant='h3'>{play.title}</Typography>
               <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
