@@ -38,7 +38,7 @@ const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
                   <Typography variant="body2" color="initial">{(play.concept) ? play.concept.slice(0, 100) : null}...</Typography>
                 </CardContent>
                 <CardActions >
-                  <Link href={`/taylored_plays/${play.id}`} passHref>
+                  <Link href={`/tailoredplays/${play.id}`} passHref>
                     <IconButton><RemoveRedEyeIcon /></IconButton>
                   </Link>
                   <Link href={`taylored_plays/${play.id}`} passHref>
