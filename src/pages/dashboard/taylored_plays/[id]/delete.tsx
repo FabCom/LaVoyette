@@ -9,6 +9,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
 import Router from 'next/router'
+import { useEffect } from "react";
 
 type TayloredPlayWithAudienceAndTags = {
   id: number;
@@ -24,19 +25,19 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWithAudienceAndTags;}) => {
-  console.log(taylored_play);
   const router = Router
   
-  const { isLoading, request, apiData } = useRequest<TayloredPlayWithAudienceAndTags>(
+  const { isLoading, request, apiData } = useRequest<String>(
     `taylored_plays/${taylored_play.id}`,
     "DELETE"
   );
+  useEffect(()=> {
+    if (isLoading === false && apiData !== null)
+    {router.push('/dashboard/taylored_plays')}
+  }, [isLoading])
 
   const onDelete = async () => {
     request();
-    if (isLoading === false && apiData !== null) {
-      router.push('/dashboard/taylored_plays')
-    }
   };
 
   return (
