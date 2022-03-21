@@ -2,8 +2,9 @@ import React from 'react'
 import { Card, CardContent, Typography, Grid, Stack, Chip, Box } from '@mui/material'
 import Router from 'next/router'
 import Image from 'next/image'
+import type { TayloredPlay } from "@prisma/client";
 
-export default function TayloredPlayCard({ play }) {
+export default function TayloredPlayCard({ play }: { play: TayloredPlay }) {
 	return (
 		<Card sx={{ mb: 3 }} onClick={() => Router.push("/tailoredplays/[id]", `/tailoredplays/${play.id}`)}>
 			<CardContent sx={{ bgcolor: 'primary.dark' }}>

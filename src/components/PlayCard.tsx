@@ -3,8 +3,9 @@ import { Card, CardContent, Typography, Grid, Stack, Chip, Box } from '@mui/mate
 import Router from 'next/router'
 import Image from 'next/image'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import type { Play } from "@prisma/client";
 
-export default function PlayCard({ play }) {
+export default function PlayCard({ play }: { play: Play }) {
 	return (
 		<Card sx={{ mb: 3 }} onClick={() => Router.push("/plays/[id]", `/plays/${play.id}`)}>
 			<CardContent sx={{ bgcolor: 'primary.dark' }}>
