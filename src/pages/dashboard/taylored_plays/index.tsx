@@ -1,54 +1,58 @@
-import { Button, Card, CardActions, CardContent, Chip } from "@mui/material"
-import { Box } from "@mui/system"
+import { Container, Box, Button, Card, CardContent, Typography, Grid, CardActions, IconButton, Stack, Chip } from '@mui/material'
 import { AudienceCategory, Tag } from "@prisma/client"
 import Dashboard from "components/dashboard/LayoutDashboard"
-import Typography from "components/Typography"
 import models from "lib/models"
 import Link from "next/link"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-type TayloredPlayWithAudienceAndTags = {id: number, title: string, concept: string, audienceCategories: AudienceCategory[], tags: Tag[] }
-type Props = {taylored_plays: TayloredPlayWithAudienceAndTags[] }
+type TayloredPlayWithAudienceAndTags = { id: number, title: string, concept: string, audienceCategories: AudienceCategory[], tags: Tag[] }
+type Props = { taylored_plays: TayloredPlayWithAudienceAndTags[] }
 
-const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
-  
+const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
   return (
-    <Dashboard >
-      <Typography variant='h2' sx={{marginTop: 5}}>Spectacles sur-mesure </Typography>
-      <Link href="/dashboard/taylored_plays/create"><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
-        {taylored_plays.map((play, i) => 
-          <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>
-            <CardContent>
-              <Typography variant='h3'>{play.title}</Typography>
-              <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                  <Typography variant='h5'>Publics</Typography>
-                  <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    {play.audienceCategories.map((item, j)=>
-                      <Chip label={item.title} key={j}/>
-                    )}
+    <Dashboard>
+      <Container maxWidth="lg" sx={{ mt: 5 }}>
+        <Link href="/dashboard/taylored_plays/create" passHref>
+          <Button variant="contained" color="secondary" size='large' sx={{ mb: 5 }}>Nouveau spectacle sur mesure</Button>
+        </Link>
+        <Grid container spacing={1}>
+          {taylored_plays.map((play, i) =>
+            <Grid item xs={4} key={i}>
+              <Card sx={{ mb: 3 }}>
+                <CardContent >
+                  <Typography variant="h5" component="div">{play.title}</Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, mr: 5 }}>
+                    <Stack direction="row" spacing={2} sx={{ my: 1 }}>
+                      {play.audienceCategories.map((item, k) =>
+                        <Chip size="small" variant="outlined" label={item.title} key={k} />
+                      )}
+                    </Stack>
+                    <Stack direction="row" spacing={2} sx={{ my: 1 }}>
+                      {play.tags.map((item, k) =>
+                        <Chip size="small" label={item.title} key={k} />
+                      )}
+                    </Stack>
                   </Box>
-                </Box>
-                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', flexWrap: 'wrap'}}>
-                  <Typography variant='h5'>Tags</Typography>
-                  <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    {play.tags.map((item, k)=>
-                      <Chip label={item.title} key={k}/>
-                    )}
-                  </Box>
-                </Box>
-              </Box>
-              {/* <Typography variant="h5" component="div" sx={{mt: 3}}>
-               {play.concept}
-              </Typography> */}
-            </CardContent>
-            <CardActions sx={{justifyContent: 'center'}}>
-              <Link href={`/dashboard/taylored_plays/${play.id}/delete`} passHref><Button variant="contained">Supprimer</Button></Link>
-              <Link href={`/dashboard/taylored_plays/${play.id}`} passHref><Button color="secondary" variant="contained">Éditer</Button></Link>
-            </CardActions>
-          </Card>
-        )}
-      </Box>
+                  <Typography variant="body2" color="initial">{(play.concept) ? play.concept.slice(0, 100) : null}...</Typography>
+                </CardContent>
+                <CardActions >
+                  <Link href={`/taylored_plays/${play.id}`} passHref>
+                    <IconButton><RemoveRedEyeIcon /></IconButton>
+                  </Link>
+                  <Link href={`taylored_plays/${play.id}`} passHref>
+                    <IconButton color="secondary"><EditIcon /></IconButton>
+                  </Link>
+                  <Link href={`/dashboard/taylored_plays/${play.id}/delete`} passHref>
+                    <IconButton color="primary"><DeleteIcon /></IconButton>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid >
+          )}
+        </Grid>
+      </Container >
     </Dashboard>
   )
 }
@@ -56,8 +60,7 @@ const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
 export default TayloredPlaysDashboard
 
 export async function getServerSideProps<GetServerSideProps>() {
-  
-  const taylored_plays = await models.tayloredPlay.findMany({include: {audienceCategories: true, tags: true}})
+  const taylored_plays = await models.tayloredPlay.findMany({ include: { audienceCategories: true, tags: true } })
 
   return { props: { taylored_plays } }
 }
