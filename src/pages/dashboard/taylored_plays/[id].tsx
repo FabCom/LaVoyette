@@ -1,4 +1,4 @@
-import { FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { AudienceCategory, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -54,8 +54,8 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
     const requestData = {
       title: data.title,
       concept: data.concept,
-      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim() ) : null,
-      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : null,
+      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim() ) : [],
+      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
     };
     // console.log(requestData)
     request(requestData);
@@ -124,7 +124,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
             marginTop: 5,
           }}
         >
-          <input type="submit" />
+          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
         </Box>
       </form>
     </Dashboard>
