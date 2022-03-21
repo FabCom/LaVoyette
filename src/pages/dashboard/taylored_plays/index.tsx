@@ -23,16 +23,16 @@ const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                   <Typography variant='h5'>Publics</Typography>
                   <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    {play.audienceCategories.map((item, i)=>
-                      <Chip label={item.title} />
+                    {play.audienceCategories.map((item, j)=>
+                      <Chip label={item.title} key={j}/>
                     )}
                   </Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', flexWrap: 'wrap'}}>
                   <Typography variant='h5'>Tags</Typography>
                   <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    {play.tags.map((item, i)=>
-                      <Chip label={item.title} />
+                    {play.tags.map((item, k)=>
+                      <Chip label={item.title} key={k}/>
                     )}
                   </Box>
                 </Box>
