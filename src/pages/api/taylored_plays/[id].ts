@@ -54,11 +54,22 @@ const updateONE = async (body: any, playId: number, response: NextApiResponse) =
      },
   };
   try {
+    const removeOldAudienceCategAndTags = await models.tayloredPlay.update({
+      where: {
+        id: playId,
+      },
+      data: {
+        audienceCategories: {set: []},
+        tags: {set: []},
+      },
+    });
     const result = await models.tayloredPlay.update({
       where: {
         id: playId,
       },
       data: {
+        audienceCategories: {set: []},
+        tags: {set: []},
         ...data,
       },
     });

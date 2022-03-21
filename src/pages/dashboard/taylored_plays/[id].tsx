@@ -1,4 +1,4 @@
-import { FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { AudienceCategory, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -20,8 +20,8 @@ type RequestTayloredPlayWithAudienceAndTags = {
   id: number;
   title: string;
   concept: string;
-  audienceCategories: string[];
-  tags: string[];
+  audienceCategories: string;
+  tags: string;
 };
 
 interface IParams extends ParsedUrlQuery {
@@ -29,7 +29,7 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWithAudienceAndTags;}) => {
-  console.log(taylored_play);
+  // console.log(taylored_play);
   const {
     register,
     setValue,
@@ -40,8 +40,8 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
       id: taylored_play.id,
       title: taylored_play.title,
       concept: taylored_play.concept,
-      audienceCategories: taylored_play.audienceCategories.map(item => item.title),
-      tags: taylored_play.tags.map(item => item.title),
+      audienceCategories: taylored_play.audienceCategories.map(item => item.title).join(','),
+      tags: taylored_play.tags.map(item => item.title).join(','),
     },
   });
   const { request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
@@ -50,14 +50,15 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
   );
 
   const onSubmit = async (data: RequestTayloredPlayWithAudienceAndTags) => {
+    console.log(data)
     const requestData = {
-      id: taylored_play.id,
-      title: taylored_play.title,
-      concept: taylored_play.concept,
-      audienceCategories: taylored_play.audienceCategories,
-      tags: taylored_play,
+      title: data.title,
+      concept: data.concept,
+      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim() ) : [],
+      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
     };
-    request(data);
+    // console.log(requestData)
+    request(requestData);
   };
 
   return (
@@ -93,7 +94,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               sx={{ marginTop: 3 }}
             />
             <TextField
-              label="Public"
+              label="Tag"
               variant="filled"
               focused
               {...register("tags")}
@@ -123,7 +124,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
             marginTop: 5,
           }}
         >
-          <input type="submit" />
+          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
         </Box>
       </form>
     </Dashboard>
