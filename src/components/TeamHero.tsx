@@ -48,6 +48,10 @@ function TeamHero({ artist }: { artist: Artist }) {
   };
 
   return (
+
+   <><Typography color="inherit" align="center" variant="h2" sx={{ mt: 10 }}>
+    Nos Artistes :
+  </Typography></>
     <Container component="section" sx={{ mt: 10, mb: 20, display: "flex" }}>
       <Grid container>
         <Grid item xs={12} md={10} sx={{ zIndex: 1 }}>
