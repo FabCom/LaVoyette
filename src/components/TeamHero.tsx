@@ -46,7 +46,7 @@ function TeamHero({ artist }: { artist: Artist }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  artist.facebook_link="https://www.google.com"
   return (
     <Container component="section" sx={{ mt: 10, mb: 20, display: "flex" }}>
       <Grid container>
@@ -82,13 +82,17 @@ function TeamHero({ artist }: { artist: Artist }) {
               </ExpandMore>
             </Box>
             <CardActions disableSpacing>
-              <IconButton aria-label="Instagram">
+            <IconButton aria-label="Instagram">
+            {artist.instagram_link &&
+            <Link href={artist.instagram_link} passHref>               
                 <InstagramIcon />
+                </Link>}
               </IconButton>
               <IconButton aria-label="Facebook">
-                {/* <Link href={artist.facebook_link} passHref> */}
+              {artist.facebook_link && 
+                <Link href={artist.facebook_link} passHref>
                 <FacebookRoundedIcon/>
-                {/* </Link> */}
+                </Link>}
               </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
