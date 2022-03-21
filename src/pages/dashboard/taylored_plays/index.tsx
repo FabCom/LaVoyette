@@ -15,7 +15,7 @@ const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Spectacles sur-mesure </Typography>
       <Link href="/dashboard/taylored_plays/create"><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:3, width: "100%"}}>
         {taylored_plays.map((play, i) => 
           <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>
             <CardContent>
@@ -43,8 +43,8 @@ const TayloredPlaysDashboard: React.FC<Props> = ({taylored_plays}) => {
               </Typography> */}
             </CardContent>
             <CardActions sx={{justifyContent: 'center'}}>
-              <Link href={`/dashboard/taylored_plays/${play.id}/delete`} passHref><Button variant="contained">Supprimer</Button></Link>
-              <Link href={`/dashboard/taylored_plays/${play.id}`} passHref><Button color="secondary" variant="contained">Éditer</Button></Link>
+              <Link href={`/dashboard/taylored_plays/${play.id}/delete`} passHref><Button variant="contained" size="small">Supprimer</Button></Link>
+              <Link href={`/dashboard/taylored_plays/${play.id}`} passHref><Button color="secondary" variant="contained" size="small">Éditer</Button></Link>
             </CardActions>
           </Card>
         )}
