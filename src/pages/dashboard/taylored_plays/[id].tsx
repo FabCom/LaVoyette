@@ -7,7 +7,9 @@ import useRequest from "hooks/useRequest";
 import models from "lib/models";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import Router from 'next/router'
 
 type TayloredPlayWithAudienceAndTags = {
   id: number;
@@ -29,7 +31,8 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWithAudienceAndTags;}) => {
-  // console.log(taylored_play);
+  const router = Router;
+
   const {
     register,
     setValue,
@@ -44,10 +47,18 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
       tags: taylored_play.tags.map(item => item.title).join(','),
     },
   });
-  const { request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
+
+  const { isLoading, apiData, request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
     `taylored_plays/${taylored_play.id}`,
     "PUT"
   );
+
+
+  useEffect(()=> {
+    if (isLoading === false && apiData !== null)
+    {router.push('/dashboard/taylored_plays')}
+  }, [isLoading])
+
 
   const onSubmit = async (data: RequestTayloredPlayWithAudienceAndTags) => {
     console.log(data)
