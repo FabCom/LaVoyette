@@ -5,11 +5,12 @@ import CardContent from "@mui/material/CardContent";
 import { CardActions, Collapse } from "@mui/material";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "../components/Typography";
+import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 import type { Artist } from "@prisma/client";
 
@@ -73,12 +74,12 @@ function TeamHero({ artist }: { artist: Artist }) {
               </Typography>
             </Box>
             <CardActions disableSpacing>
-              {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+              <IconButton aria-label="Instagram">
+          <InstagramIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
+        <IconButton aria-label="Facebook">
+          <FacebookRoundedIcon />
+        </IconButton>
               <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
