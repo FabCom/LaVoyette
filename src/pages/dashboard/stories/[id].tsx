@@ -1,6 +1,6 @@
-import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { Button, FormGroup, Stack, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { CompanyPartner } from "@prisma/client";
+import { CompanyStory } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -8,44 +8,52 @@ import models from "lib/models";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Router from 'next/router'
+import { deserialize, serialize } from "superjson";
+
+import type { SuperJSONResult } from "superjson/dist/types";
+import { LocalizationProvider, MobileDatePicker } from "@mui/lab";
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
+const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
   const router = Router;
-
+  const story: CompanyStory = deserialize(ser_story)
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyPartner>({
+  } = useForm<CompanyStory>({
     defaultValues: {
-      id: partner.id,
-      name: partner.name,
-      description: partner.description,
-      logo_src: partner.logo_src
+      id: story.id,
+      title: story.title,
+      description: story.description,
+      start: story.start,
+      end: story.end
     },
   });
 
-  const { isLoading, apiData, request } = useRequest<CompanyPartner>(
-    `partners/${partner.id}`,
+  const { isLoading, apiData, request } = useRequest<CompanyStory>(
+    `stories/${story.id}`,
     "PUT"
   );
 
 
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/partners')}
+    {router.push('/dashboard/stories')}
   }, [isLoading])
 
 
-  const onSubmit = async (data: CompanyPartner) => {
-    request(data);
+  const onSubmit = async (data: CompanyStory) => {
+
+    // request(data);
   };
 
   return (
@@ -70,14 +78,28 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
               label="Nom"
               variant="filled"
               focused
-              {...register("name")}
+              {...register("title")}
               sx={{ marginTop: 3 }}
             />
+            {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <Stack spacing={3}>
+                <Controller 
+                  name="start"
+                  default=""
+                <MobileDatePicker
+                   label="For mobile"
+                   value={value}
+                   onChange={(newValue) => {
+                     setValue(newValue);
+                   }}
+                />
+              </Stack>
+            </LocalizationProvider> */}
             <TextField
               label="Lien vers le logo"
               variant="filled"
               focused
-              {...register("logo_src")}
+              {...register("start")}
               sx={{ marginTop: 3 }}
             />
           </FormGroup>
@@ -111,12 +133,13 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
   );
 };
 
-export default PartnerDashboard;
+export default StoryDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as IParams;
-  const partner = await models.companyPartner.findUnique({
+  const req_story = await models.companyStory.findUnique({
     where: { id: parseInt(id) },
   });
-  return { props: { partner } };
+  const ser_story = serialize(req_story)
+  return { props: { ser_story } };
 };
