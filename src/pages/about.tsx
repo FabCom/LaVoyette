@@ -47,7 +47,7 @@ const AboutPages = () => {
     );
     blockCompanyPartners = (
       <>
-        <Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
+        <Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 20 }}>
           Nos Partenaires
         </Typography>
         {company.companyPartners.map((companypartner: CompanyPartner, i) => (
