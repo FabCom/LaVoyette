@@ -74,7 +74,7 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
               sx={{ marginTop: 3 }}
             />
             <TextField
-              label="Public"
+              label="Lien vers le logo"
               variant="filled"
               focused
               {...register("logo_src")}

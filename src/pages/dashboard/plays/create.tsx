@@ -1,56 +1,56 @@
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { Artist } from "@prisma/client";
+import { AudienceCategory, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
-import models from "lib/models";
-import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
 
+type RequestPlayWithAudienceAndTags = {
+  id: number;
+  title: string;
+  abstract: string;
+  duration: number;
+  audienceCategories: string;
+  tags: string;
+};
+
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const ArtistDashboard = ({ artist}: {artist: Artist;}) => {
+const CreatePlaysDashboard = () => {
   const router = Router;
-
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<Artist>({
-    defaultValues: {
-      id: artist.id,
-      firstname: artist.firstname,
-      lastname: artist.lastname,
-      biography: artist.biography,
-      email: artist.email,
-      facebook_link: artist.facebook_link,
-      instagram_link: artist.instagram_link,
-      
-    },
-  });
+  } = useForm<RequestPlayWithAudienceAndTags>();
 
-  const { isLoading, apiData, request } = useRequest<Artist>(
-    `artists/${artist.id}`,
-    "PUT"
+  const { isLoading, apiData, request } = useRequest<RequestPlayWithAudienceAndTags>(
+    `plays`,
+    "POST"
   );
 
-
-  useEffect(()=> {
-    if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/artists')}
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (isLoading === false && apiData !== null) { router.push('/dashboard/plays') }
   }, [isLoading])
 
-
-  const onSubmit = async (data: Artist) => {
-    request(data);
+  const onSubmit = async (data: RequestPlayWithAudienceAndTags) => {
+    console.log(data)
+    const requestData = {
+      title: data.title,
+      abstract: data.abstract,
+      duration: Number(data.duration),
+      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim()) : [],
+      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
+    };
+    // console.log(requestData)
+    request(requestData);
   };
 
   return (
@@ -67,56 +67,49 @@ const ArtistDashboard = ({ artist}: {artist: Artist;}) => {
             marginTop: 5,
           }}
         >
-           <FormGroup
+          <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
             <Typography variant="h4">Informations</Typography>
             <TextField
-              label="Prénom"
+              label="Titre"
               variant="filled"
               focused
-              {...register("firstname")}
-              sx={{ marginTop: 3 }}
-            />
-             <TextField
-              label="Nom"
-              variant="filled"
-              focused
-              {...register("lastname")}
+              {...register("title")}
               sx={{ marginTop: 3 }}
             />
             <TextField
-              label="Courriel"
+              label="Durée"
               variant="filled"
               focused
-              {...register("email")}
+              {...register("duration")}
               sx={{ marginTop: 3 }}
             />
-             <TextField
-              label="Facebook"
+            <TextField
+              label="Public"
               variant="filled"
               focused
-              {...register("facebook_link")}
+              {...register("audienceCategories")}
               sx={{ marginTop: 3 }}
             />
-             <TextField
-              label="Instagram"
+            <TextField
+              label="Tag"
               variant="filled"
               focused
-              {...register("instagram_link")}
+              {...register("tags")}
               sx={{ marginTop: 3 }}
             />
           </FormGroup>
           <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
-            <Typography variant="h4">Biography</Typography>
+            <Typography variant="h4">Description</Typography>
             <TextareaAutosize
-              aria-label="Biographie"
+              aria-label="Abstract"
               minRows={20}
               placeholder=""
               style={{ width: "100%" }}
-              {...register("biography")}
+              {...register("abstract")}
             />
           </FormGroup>
         </Box>
@@ -137,12 +130,4 @@ const ArtistDashboard = ({ artist}: {artist: Artist;}) => {
   );
 };
 
-export default ArtistDashboard;
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = params as IParams;
-  const artist = await models.artist.findMany({
-    where: { id: parseInt(id) },
-  });
-  return { props: { artist } };
-};
+export default CreatePlaysDashboard;

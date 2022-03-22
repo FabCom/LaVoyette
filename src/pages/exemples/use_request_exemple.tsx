@@ -8,7 +8,6 @@ const UseRequestExemple = () => {
   const { isLoading, serverError, request, apiData: card } = useRequest<Card>("hello", "GET");
 
   useEffect(()=>{
-    request()
    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 

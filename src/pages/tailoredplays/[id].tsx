@@ -5,7 +5,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Image from 'next/image';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
-import type { Play } from '@prisma/client';
+import type { TayloredPlay } from '@prisma/client';
 import { useRouter } from 'next/router';
 
 const itemData = [
@@ -41,28 +41,27 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 	};
 }
 
-const PlayPage = () => {
+const TayloredPlayPage = () => {
 	const { id } = useRouter().query;
-	const { request, apiData: play } = useRequest<Play>(`plays/${id}`, "GET");
+	const { request, apiData: taylored_play } = useRequest<TayloredPlay>(`taylored_plays/${id}`, "GET");
 
 	useEffect(() => {
 		request();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	//{play?.tags.map((tag) => (<Chip label="`${tag}`" variant='outlined' />))}
+	//{taylored_play?.tags.map((tag) => (<Chip label="`${tag}`" variant='outlined' />))}
 
 	return (
 		<Container>
 			<Grid container spacing={2} >
 				<Grid item xs={6}>
-					<h2>{play?.title}</h2>
+					<h2>{taylored_play?.title}</h2>
 					<Stack direction="row" spacing={2}>
 						<Chip label="Comédie" variant='outlined' />
 						<Chip label="Dramatique" variant='outlined' />
 						<Chip label="Accessible" variant='outlined' />
 					</Stack>
-					<Typography variant="body1" gutterBottom sx={{ mt: 3 }} >{play?.abstract}</Typography>
-					<Typography variant="subtitle1" gutterBottom sx={{ mt: 3 }} >Durée : <b>{play?.duration} min</b></Typography>
+					<Typography variant="body1" gutterBottom sx={{ mt: 3 }} >{taylored_play?.concept}</Typography>
 				</Grid>
 				<Grid item xs={5}>
 					<List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', mt: 3 }}>
@@ -154,4 +153,4 @@ const PlayPage = () => {
 		</Container >
 	)
 }
-export default PlayPage;
+export default TayloredPlayPage;

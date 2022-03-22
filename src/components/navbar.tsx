@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Link from "next/link";
 import LoggingMenu from "components/LoggingMenu";
+import { COMPANY_NAME } from "config";
 
 const pages = [
   { title: "Spectacles", path: "/plays" },
@@ -56,7 +57,7 @@ const Navbar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            LOGO
+            <Link href="/"><Button color="secondary">{COMPANY_NAME}</Button></Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -95,7 +96,7 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            <Link href="/"><Button color="secondary">{COMPANY_NAME}</Button></Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, i) => (

@@ -1,5 +1,6 @@
 import React from "react";
 import TeamHero from "components/TeamHero";
+import ArtistsHeader from "components/ArtistsHeader";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import type { Artist } from "@prisma/client";
@@ -35,6 +36,7 @@ const ArtistsPages = () => {
 
   return (
     <React.Fragment>
+      <ArtistsHeader/>
       {blockArtists}
     </React.Fragment>
   );
