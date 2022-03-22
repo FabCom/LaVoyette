@@ -15,7 +15,7 @@ export default function PlaysIndex() {
 	}, [])
 
 	return (
-		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 35 }}>
+		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
 			Nos Spectacles
 		</Typography>
 		<Container maxWidth="lg" sx={{ mt: 20 }}>

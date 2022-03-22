@@ -18,7 +18,7 @@ export default function ContainerStory({ company }: { company: Company }) {
           align="center"
           variant="h2"
           marked="center"
-          sx={{ mt: 35 }}
+          sx={{ mt: 25 }}
         >
           {company.name}
         </Typography>

@@ -15,7 +15,7 @@ export default function TayloredPlaysIndex() {
 	}, [])
 
 	return (
-		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 35 }}>
+		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
 			Spectacles sur-mesure
 		</Typography><Container maxWidth="lg" sx={{ mt: 20 }}>
 				{taylored_plays?.map((play) => (<TayloredPlayCard play={play} key={play.id} />))}
