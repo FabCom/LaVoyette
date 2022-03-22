@@ -2,9 +2,10 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Typography from '../components/Typography';
 import HeroLayout from './HeroLayout';
+import Image from 'next/image';
 
 const backgroundImage =
-  'https://images.pexels.com/photos/109669/pexels-photo-109669.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260';
+  'illustration_06_src-pexel.jpeg';
 
 export default function Hero() {
     return (
@@ -16,11 +17,11 @@ export default function Hero() {
         }}
       >
         {/* Increase the network loading priority of the background image. */}
-        <img
+        {/* <Image
           style={{ display: 'none' }}
           src={backgroundImage}
           alt="increase priority"
-        />
+        /> */}
         <Typography color="inherit" align="center" variant="h2" marked="center">
           La Voyette
         </Typography>
