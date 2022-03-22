@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container } from '@mui/material'
+import Typography from "components/Typography"
 import type { TayloredPlay } from '@prisma/client';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
@@ -14,8 +15,10 @@ export default function TayloredPlaysIndex() {
 	}, [])
 
 	return (
-		<Container maxWidth="lg" sx={{ mt: 5 }}>
-			{taylored_plays?.map((play) => (<TayloredPlayCard play={play} key={play.id} />))}
-		</Container>
+		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 35 }}>
+			Spectacles sur-mesure
+		</Typography><Container maxWidth="lg" sx={{ mt: 20 }}>
+				{taylored_plays?.map((play) => (<TayloredPlayCard play={play} key={play.id} />))}
+			</Container></>
 	)
 }

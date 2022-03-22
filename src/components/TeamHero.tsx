@@ -49,7 +49,7 @@ function TeamHero({ artist }: { artist: Artist }) {
 
   artist.facebook_link = "https://www.google.com";
   return (
-    <Container component="section" sx={{ mt: 30, mb: 20, display: "flex", justifyContent: "center" }}>
+    <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
         <Grid item xs={12} md={10} sx={{ zIndex: 1 }}>
           <Box
@@ -110,7 +110,7 @@ function TeamHero({ artist }: { artist: Artist }) {
           item
           xs={100}
           md={300}
-          sx={{ display: { md: "block", xs: "none" }, position: "sticky" }}
+          sx={{ display: { md: "block", xs: "none" }, position: "relative" }}
         >
           {/* <Box
             sx={{

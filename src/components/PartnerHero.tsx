@@ -18,8 +18,6 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
     expand: boolean;
   }
 
-  
-
   const ExpandMore = styled((props: ExpandMoreProps) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -49,90 +47,85 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
   };
 
   return (
+    <>
+      <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
+        <Grid container>
+          <Grid item xs={12} md={10} sx={{ zIndex: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                bgcolor: "warning.main",
+                py: 8,
+                px: 3,
+              }}
+            >
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{ maxWidth: 400 }}
+              >
+                <Typography variant="h4" component="h2" gutterBottom>
+                  {companypartner.name}
+                </Typography>
 
-    <><Container component="section" sx={{ mt: 10, mb: 20, display: "flex" }}>
-              <Grid container>
-                  <Grid item xs={12} md={6} sx={{ zIndex: 1 }}>
-                      <Box
-                          sx={{
-                              display: "flex",
-                              justifyContent: "center",
-                              bgcolor: "warning.main",
-                              py: 8,
-                              px: 3,
-                          }}
-                      >
-                          <Box
-                              component="form"
-                              onSubmit={handleSubmit}
-                              sx={{ maxWidth: 400 }}
-                          >
-                              <Typography variant="h2" component="h2" gutterBottom>
-                                  {companypartner.name}
-                              </Typography>
-
-                              <Typography variant="h5" color="text.secondary">
-                                  
-                              </Typography>
-                          </Box>
-                          <CardActions disableSpacing>
-                              {/* <IconButton aria-label="add to favorites">
-  <FavoriteIcon />
-</IconButton>
-<IconButton aria-label="share">
-  <ShareIcon />
-</IconButton> */}
-                              <ExpandMore
-                                  expand={expanded}
-                                  onClick={handleExpandClick}
-                                  aria-expanded={expanded}
-                                  aria-label="show more"
-                              >
-                                  <ExpandMoreIcon />
-                              </ExpandMore>
-                          </CardActions>
-                          <Collapse in={expanded} timeout="auto" unmountOnExit>
-                              <CardContent>
-                                  <Typography variant="h5"></Typography>
-                                  <Typography variant="h5">
-                                      {companypartner.description}
-                                  </Typography>
-                              </CardContent>
-                          </Collapse>
-                      </Box>
-                  </Grid>
-                  <Grid
-                      item
-                      xs={12}
-                      md={6}
-                      sx={{ display: { md: "block", xs: "none" }, position: "relative" }}
-                  >
-                      <Box
-                          sx={{
-                              position: "absolute",
-                              top: -67,
-                              left: -67,
-                              right: 0,
-                              bottom: 0,
-                              width: "100%",
-                              background: "url(/static/themes/onepirate/TeamHeroImageDots.png)",
-                          }} />
-                      <Box
-                          component="img"
-                          src="https://media.gettyimages.com/photos/zendaya-attends-the-bvlgari-bzero1-rock-collection-event-at-duggal-picture-id1204545842?s=594x594"
-                          alt="call to action"
-                          sx={{
-                              position: "absolute",
-                              top: -28,
-                              left: -28,
-                              right: 0,
-                              bottom: 0,
-                              width: "100%",
-                              maxWidth: 300,
-                          }} />
-                  </Grid>
-              </Grid>
-          </Container></>
+                <Typography variant="h5" color="text.secondary"></Typography>
+              </Box>
+              <CardActions disableSpacing>
+                <ExpandMore
+                  expand={expanded}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </CardActions>
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography variant="h5"></Typography>
+                  <Typography variant="h5">
+                    {companypartner.description}
+                  </Typography>
+                </CardContent>
+              </Collapse>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={100}
+            md={300}
+            sx={{ display: { md: "block", xs: "none" }, position: "relative" }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: -67,
+                left: -67,
+                right: 0,
+                bottom: 0,
+                width: "100%",
+                background:
+                  "url(/static/themes/onepirate/TeamHeroImageDots.png)",
+              }}
+            />
+            <Box
+              component="img"
+              src="https://media.gettyimages.com/photos/zendaya-attends-the-bvlgari-bzero1-rock-collection-event-at-duggal-picture-id1204545842?s=594x594"
+              alt="call to action"
+              sx={{
+                position: "absolute",
+                top: -300,
+                right: -67,
+                bottom: 0,
+                width: "100%",
+                maxWidth: 300,
+              }}
+            />
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   );
 }
 
