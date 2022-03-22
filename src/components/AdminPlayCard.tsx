@@ -4,8 +4,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Link from 'next/link';
+import type {AudienceCategory, Tag} from "@prisma/client"
 
-const AdminPlayCard: React.FC<Props> = ({ play }) => {
+type PlayWithAudienceAndTags = {
+  id: number;
+  title: string;
+  abstract: string;
+  audienceCategories: AudienceCategory[];
+  tags: Tag[];
+};
+
+const AdminPlayCard = ({ play}:{play:PlayWithAudienceAndTags}) => {
 	return (
 		<Grid item xs={4}>
 			<Card sx={{ mb: 3 }}>

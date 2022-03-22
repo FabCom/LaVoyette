@@ -25,6 +25,7 @@ const CreatePartnersDashboard = () => {
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
     {router.push('/dashboard/partners')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
   const onSubmit = async (data: CompanyPartner) => {
