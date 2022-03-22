@@ -49,7 +49,7 @@ function TeamHero({ artist }: { artist: Artist }) {
 
   artist.facebook_link = "https://www.google.com";
   return (
-    <Container component="section" sx={{ mt: 10, mb: 20, display: "flex" }}>
+    <Container component="section" sx={{ mt: 30, mb: 20, display: "flex", justifyContent: "center" }}>
       <Grid container>
         <Grid item xs={12} md={10} sx={{ zIndex: 1 }}>
           <Box
@@ -129,8 +129,7 @@ function TeamHero({ artist }: { artist: Artist }) {
             sx={{
               position: "absolute",
               top: -300,
-              left: -250,
-              right: 0,
+              right: -67,
               bottom: 0,
               width: "100%",
               maxWidth: 300,

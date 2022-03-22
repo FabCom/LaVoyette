@@ -6,7 +6,7 @@ export default function ArtistsHeader() {
 
 return (
     
-      <Typography color="inherit" align="center" variant="h2" sx={{ mt: 10 }}>
+      <Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
         Nos artistes :
       </Typography>
    

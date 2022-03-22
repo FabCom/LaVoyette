@@ -16,6 +16,7 @@ export default function Hero() {
         }}
       >
         {/* Increase the network loading priority of the background image. */}
+         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           style={{ display: 'none' }}
           src={backgroundImage}
@@ -43,7 +44,7 @@ export default function Hero() {
           Nous contacter
         </Button>
         <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
-          Discover the experience
+          Compagnie de spéctacles vivants
         </Typography>
       </HeroLayout>
     );
