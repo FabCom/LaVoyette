@@ -13,7 +13,7 @@ const ArtistDashboard: React.FC<Props> = ({artists}) => {
   return (
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Les Artistes</Typography>
-      <Link href="/dashboard/artists/create"><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
+      <Link href="/dashboard/artists/create" passHref><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
       <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
         {artists.map((artist, i) => 
           <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>

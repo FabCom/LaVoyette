@@ -25,6 +25,7 @@ const CreateArtistsDashboard = () => {
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
     {router.push('/dashboard/Artists')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
   const onSubmit = async (data: Artist) => {

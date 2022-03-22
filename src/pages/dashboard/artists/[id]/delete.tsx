@@ -25,6 +25,7 @@ const DeleteArtistDashboard = ({ artist }: { artist: Artist}) => {
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
     {router.push('/dashboard/artists')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
   const onDelete = async () => {
@@ -40,7 +41,7 @@ const DeleteArtistDashboard = ({ artist }: { artist: Artist}) => {
           <p>Cette action est irréversible.</p>
           <p>Confirmer la suppression ou annuler.</p>
           <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: 8, width: "30%"}}>
-            <Link href="/dashboard/artists"><Button variant="contained" type="submit">Annuler</Button></Link>
+            <Link href="/dashboard/artists" passHref><Button variant="contained" type="submit">Annuler</Button></Link>
             <Button color="secondary" variant="contained" type="submit" onClick={() => onDelete()}>Supprimer</Button>
           </Box>
         </Box>
