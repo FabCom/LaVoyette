@@ -39,6 +39,7 @@ function Profile({ user }: { user: User }) {
     if (isLoading === false && apiData !== null) {
       router.push("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   const onSubmit = async (data: User) => {

@@ -15,7 +15,7 @@ const PartnersDashboard: React.FC<Props> = ({partners}) => {
   return (
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Partenaires de la compagnie</Typography>
-      <Link href="/dashboard/partners/create"><Button color="secondary" variant="contained">Ajouter</Button></Link>
+      <Link href="/dashboard/partners/create" passHref><Button color="secondary" variant="contained">Ajouter</Button></Link>
       <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
         {partners.map((partner, i) => 
           <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>

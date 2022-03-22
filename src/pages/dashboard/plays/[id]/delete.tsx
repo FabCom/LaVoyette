@@ -33,10 +33,12 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
   );
   useEffect(() => {
     if (isLoading === false && apiData !== null) { router.push('/dashboard/plays') }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
   const onDelete = async () => {
     request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   return (
@@ -48,7 +50,7 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
         <p>Cette action est irréversible.</p>
         <p>Confirmer la suppression ou annuler.</p>
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: 8, width: "30%" }}>
-          <Link href="/dashboard/plays"><Button variant="contained" type="submit">Annuler</Button></Link>
+          <Link href="/dashboard/plays" passHref><Button variant="contained" type="submit">Annuler</Button></Link>
           <Button color="secondary" variant="contained" type="submit" onClick={() => onDelete()}>Supprimer</Button>
         </Box>
       </Box>
@@ -60,7 +62,7 @@ export default PlaysDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as IParams;
-  const play = await models.Play.findUnique({
+  const play = await models.play.findUnique({
     where: { id: parseInt(id) },
   });
   return { props: { play } };
