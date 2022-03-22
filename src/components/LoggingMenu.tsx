@@ -5,14 +5,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Role } from "@prisma/client";
 
-const settings_session_USER = [
-  { title: "Profile", path: "/profil" },
-];
 
-const settings_session_ADMIN = [
-  { title: "Profile", path: "/profil" },
-  { title: "Dashboard", path: "/dashboard/company" },
-];
 
 let settings_session = []
 
@@ -28,7 +21,17 @@ export default function LoggingMenu({handleCloseUserMenu}: {handleCloseUserMenu:
   //   signOut();
   // }
   if (session) {
+    const settings_session_USER = [
+      { title: "Profile", path: `/profile/${session.user.email}` },
+    ];
+    
+    const settings_session_ADMIN = [
+      { title: "Profile", path: `/profile/${session.user.email}` },
+      { title: "Dashboard", path: "/dashboard/company" },
+    ];
     session.user.role === Role.ADMIN ? settings_session = settings_session_ADMIN : settings_session = settings_session_USER
+    // console.log(session.user);
+    // console.log(session.user.id);
     // console.log(session)
     return (
       <React.Fragment>
@@ -39,6 +42,7 @@ export default function LoggingMenu({handleCloseUserMenu}: {handleCloseUserMenu:
             </MenuItem>
           </Link>
         ))}
+        
         <MenuItem onClick={() => { handleCloseUserMenu(); signOut();}}>
         {/* <MenuItem onClick={LoggingOut}> */}
 

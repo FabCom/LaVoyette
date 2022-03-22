@@ -57,7 +57,7 @@ const Navbar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <Link href="/"><Button color="secondary">{COMPANY_NAME}</Button></Link>
+            <Link href="/" passHref><Button color="secondary">{COMPANY_NAME}</Button></Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -96,7 +96,7 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <Link href="/"><Button color="secondary">{COMPANY_NAME}</Button></Link>
+            <Link href="/" passHref><Button color="secondary">{COMPANY_NAME}</Button></Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, i) => (

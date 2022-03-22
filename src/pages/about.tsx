@@ -29,6 +29,7 @@ const AboutPages = () => {
 
   useEffect(() => {
     request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   console.log(company);
   let blockCompany = <></>;
