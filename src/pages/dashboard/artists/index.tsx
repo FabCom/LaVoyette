@@ -37,7 +37,6 @@ export default ArtistDashboard
 
 export async function getServerSideProps<GetServerSideProps>() {
   
-  const artist = await models.artist.findMany
-  const artists = artist?.artists
+  const artists = await models.artist.findMany()
   return { props: { artists } }
 }
