@@ -10,12 +10,12 @@ import Link from "next/link"
 
 type Props = {partners: CompanyPartner[] }
 
-const TayloredPlaysDashboard: React.FC<Props> = ({partners}) => {
+const PartnersDashboard: React.FC<Props> = ({partners}) => {
   // console.log(partners)
   return (
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Partenaires de la compagnie</Typography>
-      <Link href="/dashboard/partners/create"><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
+      <Link href="/dashboard/partners/create"><Button color="secondary" variant="contained">Ajouter</Button></Link>
       <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
         {partners.map((partner, i) => 
           <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>
@@ -35,7 +35,7 @@ const TayloredPlaysDashboard: React.FC<Props> = ({partners}) => {
   )
 }
 
-export default TayloredPlaysDashboard
+export default PartnersDashboard
 
 export async function getServerSideProps<GetServerSideProps>() {
   

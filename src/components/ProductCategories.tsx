@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Container from "@mui/material/Container";
 import Typography from "../components/Typography";
+import Link from "next/link";
 
 const ImageBackdrop = styled("div")(({ theme }) => ({
   position: "absolute",
@@ -58,26 +59,31 @@ const images = [
     url: "https://images.pexels.com/photos/4722583/pexels-photo-4722583.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     title: "Nos spectacles",
     width: "20%",
+    path: '/plays'
   },
   {
     url: "https://images.pexels.com/photos/2067526/pexels-photo-2067526.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    title: "Les spectacles Sur-Mesure",
+    title: "Nos spectacles Sur-Mesure",
     width: "20%",
+    path: '/taylored_plays'
   },
   {
     url: "https://images.pexels.com/photos/1110085/pexels-photo-1110085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    title: "La Voyette",
+    title: "La Compagnie",
     width: "20%",
+    path: '/about'
   },
   {
     url: "https://images.pexels.com/photos/1049746/pexels-photo-1049746.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     title: "Nous contacter",
     width: "20%",
+    path: '/contact'
   },
   {
     url: "https://images.pexels.com/photos/1110085/pexels-photo-1110085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     title: "Nos artistes",
     width: "20%",
+    path: '/artists'
   },
 ];
 
@@ -89,49 +95,51 @@ export default function ProductCategories() {
       </Typography>
       <Box sx={{ mt: 8, display: "flex", flexWrap: "wrap" }}>
         {images.map((image) => (
-          <ImageIconButton
-            key={image.title}
-            style={{
-              width: image.width,
-            }}
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                backgroundSize: "cover",
-                backgroundPosition: "center 40%",
-                backgroundImage: `url(${image.url})`,
-              }}
-            />
-            <ImageBackdrop className="imageBackdrop" />
-            <Box
-              sx={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "common.white",
+          <Link href={image.path} key={image.title} passHref>
+            <ImageIconButton
+              
+              style={{
+                width: image.width,
               }}
             >
-              <Typography
-                component="h3"
-                variant="h6"
-                color="inherit"
-                className="imageTitle"
+              <Box
+                sx={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center 40%",
+                  backgroundImage: `url(${image.url})`,
+                }}
+              />
+              <ImageBackdrop className="imageBackdrop" />
+              <Box
+                sx={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "common.white",
+                }}
               >
-                {image.title}
-                <div className="imageMarked" />
-              </Typography>
-            </Box>
-          </ImageIconButton>
+                <Typography
+                  component="h3"
+                  variant="h6"
+                  color="inherit"
+                  className="imageTitle"
+                >
+                  {image.title}
+                  <div className="imageMarked" />
+                </Typography>
+              </Box>
+            </ImageIconButton>
+          </Link>
         ))}
       </Box>
     </Container>

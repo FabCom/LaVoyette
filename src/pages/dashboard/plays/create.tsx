@@ -1,51 +1,56 @@
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { CompanyPartner } from "@prisma/client";
+import { AudienceCategory, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
-import models from "lib/models";
-import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
 
+type RequestPlayWithAudienceAndTags = {
+  id: number;
+  title: string;
+  abstract: string;
+  duration: number;
+  audienceCategories: string;
+  tags: string;
+};
+
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
+const CreatePlaysDashboard = () => {
   const router = Router;
-
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyPartner>({
-    defaultValues: {
-      id: partner.id,
-      name: partner.name,
-      description: partner.description,
-      logo_src: partner.logo_src
-    },
-  });
+  } = useForm<RequestPlayWithAudienceAndTags>();
 
-  const { isLoading, apiData, request } = useRequest<CompanyPartner>(
-    `partners/${partner.id}`,
-    "PUT"
+  const { isLoading, apiData, request } = useRequest<RequestPlayWithAudienceAndTags>(
+    `plays`,
+    "POST"
   );
 
-
-  useEffect(()=> {
-    if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/partners')}
+  useEffect(() => {
+    if (isLoading === false && apiData !== null) { router.push('/dashboard/plays') }
   }, [isLoading])
 
-
-  const onSubmit = async (data: CompanyPartner) => {
-    request(data);
+  const onSubmit = async (data: RequestPlayWithAudienceAndTags) => {
+    console.log(data)
+    const requestData = {
+      title: data.title,
+      abstract: data.abstract,
+      duration: Number(data.duration),
+      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim()) : [],
+      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
+    };
+    // console.log(requestData)
+    request(requestData);
   };
 
   return (
@@ -67,17 +72,31 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
           >
             <Typography variant="h4">Informations</Typography>
             <TextField
-              label="Nom"
+              label="Titre"
               variant="filled"
               focused
-              {...register("name")}
+              {...register("title")}
               sx={{ marginTop: 3 }}
             />
             <TextField
-              label="Lien vers le logo"
+              label="Durée"
               variant="filled"
               focused
-              {...register("logo_src")}
+              {...register("duration")}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Public"
+              variant="filled"
+              focused
+              {...register("audienceCategories")}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Tag"
+              variant="filled"
+              focused
+              {...register("tags")}
               sx={{ marginTop: 3 }}
             />
           </FormGroup>
@@ -86,11 +105,11 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
           >
             <Typography variant="h4">Description</Typography>
             <TextareaAutosize
-              aria-label="description"
+              aria-label="Abstract"
               minRows={20}
               placeholder=""
               style={{ width: "100%" }}
-              {...register("description")}
+              {...register("abstract")}
             />
           </FormGroup>
         </Box>
@@ -111,12 +130,4 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
   );
 };
 
-export default PartnerDashboard;
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = params as IParams;
-  const partner = await models.companyPartner.findUnique({
-    where: { id: parseInt(id) },
-  });
-  return { props: { partner } };
-};
+export default CreatePlaysDashboard;
