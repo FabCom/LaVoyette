@@ -4,24 +4,16 @@ import { AudienceCategory, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
-import models from "lib/models";
-import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
 
-type TayloredPlayWithAudienceAndTags = {
+type RequestPlayWithAudienceAndTags = {
   id: number;
   title: string;
-  concept: string;
-  audienceCategories: AudienceCategory[];
-  tags: Tag[];
-};
-type RequestTayloredPlayWithAudienceAndTags = {
-  id: number;
-  title: string;
-  concept: string;
+  abstract: string;
+  duration: number;
   audienceCategories: string;
   tags: string;
 };
@@ -30,43 +22,32 @@ interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWithAudienceAndTags;}) => {
+const CreatePlaysDashboard = () => {
   const router = Router;
-
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestTayloredPlayWithAudienceAndTags>({
-    defaultValues: {
-      id: taylored_play.id,
-      title: taylored_play.title,
-      concept: taylored_play.concept,
-      audienceCategories: taylored_play.audienceCategories.map(item => item.title).join(','),
-      tags: taylored_play.tags.map(item => item.title).join(','),
-    },
-  });
+  } = useForm<RequestPlayWithAudienceAndTags>();
 
-  const { isLoading, apiData, request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
-    `taylored_plays/${taylored_play.id}`,
-    "PUT"
+  const { isLoading, apiData, request } = useRequest<RequestPlayWithAudienceAndTags>(
+    `plays`,
+    "POST"
   );
 
-
-  useEffect(()=> {
-    if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/taylored_plays')}
+  useEffect(() => {
+    if (isLoading === false && apiData !== null) { router.push('/dashboard/plays') }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
-
-  const onSubmit = async (data: RequestTayloredPlayWithAudienceAndTags) => {
+  const onSubmit = async (data: RequestPlayWithAudienceAndTags) => {
     console.log(data)
     const requestData = {
       title: data.title,
-      concept: data.concept,
-      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim() ) : [],
+      abstract: data.abstract,
+      duration: Number(data.duration),
+      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim()) : [],
       tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
     };
     // console.log(requestData)
@@ -99,6 +80,13 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               sx={{ marginTop: 3 }}
             />
             <TextField
+              label="Durée"
+              variant="filled"
+              focused
+              {...register("duration")}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
               label="Public"
               variant="filled"
               focused
@@ -118,11 +106,11 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
           >
             <Typography variant="h4">Description</Typography>
             <TextareaAutosize
-              aria-label="Concept"
+              aria-label="Abstract"
               minRows={20}
               placeholder=""
               style={{ width: "100%" }}
-              {...register("concept")}
+              {...register("abstract")}
             />
           </FormGroup>
         </Box>
@@ -143,18 +131,4 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
   );
 };
 
-export default TayloredPlaysDashboard;
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = params as IParams;
-  const taylored_play = await models.tayloredPlay.findUnique({
-    where: { id: parseInt(id) },
-    include: {
-      audienceCategories: { select: { title: true } },
-      tags: { select: { title: true } },
-    },
-  });
-  taylored_play?.audienceCategories.join(' ')
-  taylored_play?.tags.join(' ')
-  return { props: { taylored_play } };
-};
+export default CreatePlaysDashboard;

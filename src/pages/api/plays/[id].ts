@@ -33,26 +33,26 @@ const deleteONE = async (playId: number, response: NextApiResponse) => {
 }
 
 const updateONE = async (body: any, playId: number, response: NextApiResponse) => {
-  const data: Prisma.PlayCreateInput = { 
+  const data: Prisma.PlayCreateInput = {
     title: body.title,
     abstract: body.abstract,
     duration: parseInt(body.duration),
     audienceCategories: {
-      connectOrCreate: body.audienceCategories.map((categ:string) => {
+      connectOrCreate: body.audienceCategories.map((categ: string) => {
         return {
-            where: { title: categ },
-            create: { title: categ },
+          where: { title: categ },
+          create: { title: categ },
         };
       }),
-    } ,
+    },
     tags: {
-      connectOrCreate: body.tags.map((tag:string) => {
-          return {
-              where: { title: tag },
-              create: { title: tag },
-          };
+      connectOrCreate: body.tags.map((tag: string) => {
+        return {
+          where: { title: tag },
+          create: { title: tag },
+        };
       }),
-     },
+    },
   };
   try {
     const result = await models.play.update({
@@ -71,13 +71,13 @@ const updateONE = async (body: any, playId: number, response: NextApiResponse) =
 
 }
 
- const doRequest = async (request: NextApiRequest, response: NextApiResponse) => {
-  const {method, query, body } = request;
+const doRequest = async (request: NextApiRequest, response: NextApiResponse) => {
+  const { method, query, body } = request;
   const playId: number = parseInt(query.id as string, 10);
-  
+
   if (method === 'GET') {
     getONE(playId, response)
-    
+
     return
   }
 

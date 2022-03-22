@@ -1,4 +1,4 @@
-import { FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
@@ -101,7 +101,7 @@ const CompanyDashboard: React.FC<Props> = ({company}) => {
             marginTop: 5
           }}
         >
-          <input type="submit" />
+          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
         </Box>
       </form>
     </Dashboard>
