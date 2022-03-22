@@ -56,31 +56,31 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
 
 const images = [
   {
-    url: "https://images.pexels.com/photos/4722583/pexels-photo-4722583.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+    url: "illustration_01_src-pexel.webp",
     title: "Nos spectacles",
     width: "20%",
     path: '/plays'
   },
   {
-    url: "https://images.pexels.com/photos/2067526/pexels-photo-2067526.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+    url: "illustration_02_src-pexel.webp",
     title: "Nos spectacles Sur-Mesure",
     width: "20%",
     path: '/taylored_plays'
   },
   {
-    url: "https://images.pexels.com/photos/1110085/pexels-photo-1110085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+    url: "illustration_03_src-pexel.jpeg",
     title: "La Compagnie",
     width: "20%",
     path: '/about'
   },
   {
-    url: "https://images.pexels.com/photos/1049746/pexels-photo-1049746.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+    url: "illustration_04_src-pexel.webp",
     title: "Nous contacter",
     width: "20%",
     path: '/contact'
   },
   {
-    url: "https://images.pexels.com/photos/1110085/pexels-photo-1110085.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
+    url: "illustration_05_src-pexel.jpeg",
     title: "Nos artistes",
     width: "20%",
     path: '/artists'
