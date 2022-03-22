@@ -112,7 +112,6 @@ function Profile({ user }: { user: User }) {
       </>
     );
   } else {
-    // router.push("/auth/email-signin");
     return <h1>Loading..</h1>;
   }
 }
@@ -133,28 +132,3 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   return { props: { user } };
 };
 
-// export async function getServerSideProps(params) {
-
-//   const { email } = params as IParams;
-//   const session = await getSession();
-//   const csrfToken = await getCsrfToken();
-//   const rawUser = await models.user.findUnique({ where: { email: email } });
-
-//   if (!session || session && session.user.email !== email ) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       },
-//     }
-//   }
-//   if (session){
-//     return {
-//       props: {
-//         session: session,
-//         rawUser :serialize(rawUser),
-//         csrfToken
-//       },
-//     };
-//   }
-// }
