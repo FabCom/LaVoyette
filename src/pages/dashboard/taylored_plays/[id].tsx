@@ -57,6 +57,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
     {router.push('/dashboard/taylored_plays')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
 

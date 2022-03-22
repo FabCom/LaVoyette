@@ -19,17 +19,17 @@ const StoriesDashboard= ({ser_stories}: {ser_stories: SuperJSONResult}) => {
   return (
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Historique de la compagnie</Typography>
-      <Link href="/dashboard/stories/create"><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
+      <Link href="/dashboard/stories/create" passHref><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
       <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'space-between', flexWrap: 'wrap', padding:5, width: "100%"}}>
           <Box sx={{ width: '100%', marginTop:5, padding:5 , display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
             <Box sx={{width:"60%"}}>
-              Titre
+            <span>Titre</span>
             </Box>
             <Box sx={{width:"20%"}}>
-              Dates de l'événement
+              <span>Dates de l&apos;événement</span>
             </Box>
             <Box sx={{width:"20%"}}>
-              Supprimer Éditer
+            <span>Supprimer Éditer</span>
             </Box>
           </Box>
         {stories.map((story, i) => 

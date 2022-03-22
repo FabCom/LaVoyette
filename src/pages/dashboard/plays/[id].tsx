@@ -59,6 +59,7 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
 
 	useEffect(() => {
 		if (isLoading === false && apiData !== null) { router.push('/dashboard/plays') }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLoading])
 
 

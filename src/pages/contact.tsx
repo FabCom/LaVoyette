@@ -22,6 +22,7 @@ const Contact = () => {
 
   useEffect(() => {
     request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10}}>

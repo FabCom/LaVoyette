@@ -51,6 +51,7 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
     {router.push('/dashboard/stories')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
   useEffect(()=> {
@@ -58,9 +59,7 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
       console.log('hello')
       story.end = new Date()
     }
-    // if (story.end && activEndDate === false) {
-    //   story.end=null
-    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activEndDate, story.end])
 
   const onSubmit = async (data: CompanyStory) => {
