@@ -5,7 +5,6 @@ import Dashboard from "components/dashboard/LayoutDashboard"
 import Typography from "components/Typography"
 import { COMPANY_NAME } from "config"
 import models from "lib/models"
-import Image from "next/image"
 import Link from "next/link"
 import { deserialize, serialize } from "superjson";
 import { SuperJSONResult } from "superjson/dist/types"

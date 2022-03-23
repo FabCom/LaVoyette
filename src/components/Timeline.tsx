@@ -14,7 +14,7 @@ export default function TimelineComponents({companystories}:{companystories:Comp
 {
   return (
     <React.Fragment>
-      <Typography color="inherit" align="center" variant="h2" sx={{ mt: 10 }}>
+      <Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 10 }}>
         Notre Histoire ...
       </Typography>
       <Timeline position="alternate" sx={{ mt: 10 }}>

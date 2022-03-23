@@ -30,8 +30,8 @@ export default function LoggingMenu({handleCloseUserMenu}: {handleCloseUserMenu:
       { title: "Dashboard", path: "/dashboard/company" },
     ];
     session.user.role === Role.ADMIN ? settings_session = settings_session_ADMIN : settings_session = settings_session_USER
-    console.log(session.user);
-    console.log(session.user.id);
+    // console.log(session.user);
+    // console.log(session.user.id);
     // console.log(session)
     return (
       <React.Fragment>
