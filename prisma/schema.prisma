@@ -11,16 +11,16 @@ datasource db {
 }
 
 model AudienceCategory {
-  id    Int    @id @default(autoincrement())
-  title String @unique
-  plays Play[]
+  id            Int            @id @default(autoincrement())
+  title         String         @unique
+  plays         Play[]
   tayloredPlays TayloredPlay[]
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
-  title String @unique
-  plays Play[]
+  id            Int            @id @default(autoincrement())
+  title         String         @unique
+  plays         Play[]
   tayloredPlays TayloredPlay[]
 }
 
@@ -32,15 +32,35 @@ model Play {
 
   audienceCategories AudienceCategory[]
   tags               Tag[]
+  images             Image[]
 }
 
 model TayloredPlay {
-  id       Int     @id @default(autoincrement())
-  title    String
-  concept  String
+  id      Int     @id @default(autoincrement())
+  title   String
+  concept String
+  images  Image[]
 
   audienceCategories AudienceCategory[]
   tags               Tag[]
+}
+
+model Image {
+  id               Int             @id @default(autoincrement())
+  title            String
+  src              String
+  Play             Play?           @relation(fields: [playId], references: [id])
+  playId           Int?
+  TayloredPlay     TayloredPlay?   @relation(fields: [tayloredPlayId], references: [id])
+  tayloredPlayId   Int?
+  Artist           Artist?         @relation(fields: [artistId], references: [id])
+  artistId         Int?
+  Company          Company?        @relation(fields: [companyId], references: [id])
+  companyId        Int?
+  CompanyStory     CompanyStory?   @relation(fields: [companyStoryId], references: [id])
+  companyStoryId   Int?
+  CompanyPartner   CompanyPartner? @relation(fields: [companyPartnerId], references: [id])
+  companyPartnerId Int?
 }
 
 model Artist {
@@ -51,6 +71,8 @@ model Artist {
   email          String?
   facebook_link  String?
   instagram_link String?
+
+  images Image[]
 }
 
 model Company {
@@ -63,6 +85,7 @@ model Company {
 
   companyStories  CompanyStory[]
   companyPartners CompanyPartner[]
+  images          Image[]
 }
 
 model CompanyStory {
@@ -73,6 +96,7 @@ model CompanyStory {
   end         DateTime?
   Company     Company?  @relation(fields: [companyId], references: [id])
   companyId   Int?
+  images      Image[]
 }
 
 model CompanyPartner {
@@ -82,21 +106,22 @@ model CompanyPartner {
   logo_src    String?
   Company     Company? @relation(fields: [companyId], references: [id])
   companyId   Int?
+  images      Image[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -119,7 +144,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  role          Role  @default(USER)
+  role          Role      @default(USER)
 }
 
 model VerificationToken {
