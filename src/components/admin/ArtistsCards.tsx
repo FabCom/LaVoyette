@@ -3,8 +3,13 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Container from "@mui/material/Container";
-import Typography from "../components/Typography";
+import Typography from "../Typography";
 import Link from "next/link";
+
+import { Artist } from "@prisma/client"
+import { Button, Card, CardActions, CardContent } from "@mui/material";
+import { Props } from "react";
+
 
 const ImageBackdrop = styled("div")(({ theme }) => ({
   position: "absolute",
@@ -54,47 +59,34 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
   },
 }));
 
-const images = [
-  {
-    url: "illustration_01_src-pexel.webp",
-    title: "Nos spectacles",
-    width: "20%",
-    path: '/plays'
-  },
-  {
-    url: "illustration_02_src-pexel.webp",
-    title: "Nos spectacles Sur-Mesure",
-    width: "20%",
-    path: '/taylored_plays'
-  },
-  {
-    url: "illustration_03_src-pexel.jpeg",
-    title: "La Compagnie",
-    width: "20%",
-    path: '/about'
-  },
-  {
-    url: "illustration_04_src-pexel.webp",
-    title: "Nous contacter",
-    width: "20%",
-    path: '/contact'
-  },
-  {
-    url: "illustration_05_src-pexel.jpeg",
-    title: "Nos artistes",
-    width: "20%",
-    path: '/artists'
-  },
-];
+const ArtistDashboard: React.FC<Props> = ({artists}) => {
+    // console.log(artists)
+  
 
-export default function ProductCategories() {
+export default function ArtistsCards() {
   return (
     <Container component="section" sx={{ mt: 8, mb: 4 }}>
       <Typography variant="h4" marked="center" align="center" component="h2">
-        Pour petits et grands
+        Les artistes
       </Typography>
       <Box sx={{ mt: 8, display: "flex", flexWrap: "wrap" }}>
-        {images.map((image) => (
+      <><Typography variant='h2' sx={{marginTop: 5}}>Les Artistes</Typography>
+        <Link href="/dashboard/artists/create" passHref><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
+        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
+          {artists.map((artist: { firstname: any; lastname: any; id: any; }, i: React.Key | null | undefined) => 
+            <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>
+              <CardContent>
+                <Typography variant='h5'>{artist.firstname} {artist.lastname}</Typography>
+                {/* {artist.logo_src && <img src={artist.logo_src} width='150px' height= '100%'/>} */}
+              </CardContent>
+              <CardActions sx={{justifyContent: 'center'}}>
+                <Link href={`/dashboard/artists/${artist.id}/delete`} passHref><Button variant="contained" size="small">Supprimer</Button></Link>
+                <Link href={`/dashboard/artists/${artist.id}`} passHref><Button color="secondary" variant="contained" size="small">Éditer</Button></Link>
+              </CardActions>
+            </Card>
+          )}
+        </Box></>
+        {artists.map((artist) => (
           <Link href={image.path} key={image.title} passHref>
             <ImageIconButton
               
@@ -114,7 +106,7 @@ export default function ProductCategories() {
                   backgroundImage: `url(${image.url})`,
                 }}
               />
-              {/* <ImageBackdrop className="imageBackdrop" /> */}
+              <ImageBackdrop className="imageBackdrop" />
               <Box
                 sx={{
                   position: "absolute",
