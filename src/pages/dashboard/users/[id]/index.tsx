@@ -61,11 +61,6 @@ const StoryDashboard = ({ ser_user }: { ser_user: SuperJSONResult }) => {
     request(data);
   };
 
-  const categoryOptionsForRole = [
-    {value: Role.USER, label:Role.USER},
-    {value: Role.ADMIN, label:Role.ADMIN},
-    {value: Role.ARTIST, label:Role.ARTIST},
-  ]
   return (
     <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -115,6 +110,7 @@ const StoryDashboard = ({ ser_user }: { ser_user: SuperJSONResult }) => {
                     <Select defaultValue={user.role} onChange={onChange} value={value}>
                         <MenuItem value={Role.ADMIN}>{Role.ADMIN}</MenuItem>
                         <MenuItem value={Role.USER}>{Role.USER}</MenuItem>
+                        <MenuItem value={Role.ARTIST}>{Role.ARTIST}</MenuItem>
                     </Select>
                     </>
                 )}
