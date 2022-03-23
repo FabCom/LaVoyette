@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   Button,
   ButtonBase,
@@ -10,8 +11,8 @@ import {
   Theme,
 } from "@mui/material";
 import { Box, SxProps } from "@mui/system";
-import { Artist } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
+import { Artist } from "@prisma/client";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import models from "lib/models";
@@ -70,7 +71,7 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
   };
 
   return (
-    <Dashboard>
+      <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <input type="hidden" {...register("id")} />
         <Box
@@ -155,7 +156,7 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
           
         </Box>
       </form>
-    </Dashboard>
+      </Dashboard>
   );
 };
 
