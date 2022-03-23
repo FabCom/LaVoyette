@@ -1,29 +1,34 @@
-import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  FormGroup,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import models from "lib/models";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import Router from 'next/router'
+import { useEffect } from "react";
+import { useForm, Controller, NestedValue } from "react-hook-form";
+import Router from "next/router";
 import { deserialize, serialize } from "superjson";
 
 import type { SuperJSONResult } from "superjson/dist/types";
-import { LocalizationProvider, MobileDatePicker } from "@mui/lab";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const StoryDashboard = ({ ser_user }: {ser_user: SuperJSONResult}) => {
+const StoryDashboard = ({ ser_user }: { ser_user: SuperJSONResult }) => {
   const router = Router;
-  const user: User = deserialize(ser_user)
+  const user: User = deserialize(ser_user);
   const {
     control,
     register,
@@ -39,26 +44,28 @@ const StoryDashboard = ({ ser_user }: {ser_user: SuperJSONResult}) => {
     },
   });
 
-
   const { isLoading, apiData, request } = useRequest<User>(
-    `users/${user.id}`,
+    `users/admin/${user.id}`,
     "PUT"
   );
 
-
-  useEffect(()=> {
-    if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/users')}
+  useEffect(() => {
+    if (isLoading === false && apiData !== null) {
+      router.push("/dashboard/users");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
-
-  
+  }, [isLoading]);
 
   const onSubmit = async (data: User) => {
-
+    // console.log(data);
     request(data);
   };
 
+  const categoryOptionsForRole = [
+    {value: Role.USER, label:Role.USER},
+    {value: Role.ADMIN, label:Role.ADMIN},
+    {value: Role.ARTIST, label:Role.ARTIST},
+  ]
   return (
     <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -98,16 +105,21 @@ const StoryDashboard = ({ ser_user }: {ser_user: SuperJSONResult}) => {
               {...register("image")}
               sx={{ marginTop: 3 }}
             />
-            <TextField
-              label="Role"
-              variant="filled"
-              focused
-              {...register("role")}
-              sx={{ marginTop: 3 }}
+
+            <InputLabel id="Role">Rôle</InputLabel>
+            <Controller
+                control={control}
+                name='role'
+                render={({ field: { onChange, value } }) => (
+                    <>
+                    <Select defaultValue={user.role} onChange={onChange} value={value}>
+                        <MenuItem value={Role.ADMIN}>{Role.ADMIN}</MenuItem>
+                        <MenuItem value={Role.USER}>{Role.USER}</MenuItem>
+                    </Select>
+                    </>
+                )}
             />
-            
           </FormGroup>
-          
         </Box>
         <Box
           sx={{
@@ -119,7 +131,9 @@ const StoryDashboard = ({ ser_user }: {ser_user: SuperJSONResult}) => {
             marginTop: 5,
           }}
         >
-          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+          <Button color="secondary" variant="contained" type="submit">
+            Enregistrer
+          </Button>
         </Box>
       </form>
     </Dashboard>
@@ -133,6 +147,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const req_user = await models.user.findUnique({
     where: { id: id },
   });
-  const ser_user = serialize(req_user)
+  const ser_user = serialize(req_user);
   return { props: { ser_user } };
 };

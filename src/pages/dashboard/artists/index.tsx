@@ -14,9 +14,9 @@ const ArtistDashboard: React.FC<Props> = ({artists}) => {
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Les Artistes</Typography>
       <Link href="/dashboard/artists/create" passHref><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
-      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', flexWrap: 'wrap', marginTop:5, width: "100%"}}>
         {artists.map((artist, i) => 
-          <Card sx={{ minWidth: 275, marginTop: 8 }} key={i}>
+          <Card sx={{width: "100%", marginTop: 8 }} key={i}>
             <CardContent>
               <Typography variant='h5'>{artist.firstname} {artist.lastname}</Typography>
               {/* {artist.logo_src && <img src={artist.logo_src} width='150px' height= '100%'/>} */}

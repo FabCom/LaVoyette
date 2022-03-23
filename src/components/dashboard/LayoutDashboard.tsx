@@ -12,7 +12,7 @@ export default function Dashboard({ children }: Props): JSX.Element {
       <Box sx={{width: 250, marginLeft: 1, marginTop: 2}}>
         <MenuLateral/>
       </Box>
-      <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 5}}>
        {children}
       </Box>
     </Box>
