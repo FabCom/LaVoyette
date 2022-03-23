@@ -141,7 +141,7 @@ export default ArtistDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as IParams;
-  const artist = await models.artist.findMany({
+  const artist = await models.artist.findUnique({
     where: { id: parseInt(id) },
   });
   return { props: { artist } };

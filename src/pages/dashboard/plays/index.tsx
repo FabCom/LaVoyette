@@ -15,49 +15,68 @@ type Props = { plays: PlayWithAudienceAndTags[] }
 const PlaysDashboard: React.FC<Props> = ({ plays }) => {
 	return (
 		<Dashboard>
-			<Container maxWidth="lg" sx={{ mt: 5 }}>
+			<Typography variant='h2' sx={{marginTop: 5}}>Les spectacles</Typography>
 				<Link href="/dashboard/plays/create" passHref>
-					<Button variant="contained" color="secondary" size='large' sx={{ mb: 5 }}>Nouveau spectacle</Button>
+					<Button color="secondary" variant="contained" type="submit">Ajouter</Button>
 				</Link>
-				<Grid container spacing={1}>
-					{plays.map((play, i) =>
-						<Grid item xs={4} key={i}>
-							<Card sx={{ mb: 3 }}>
-								<CardContent >
-									<Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, mr: 5 }}>
-										<Typography variant="h5" component="div">{play.title}</Typography>
-										<Chip icon={<AccessTimeIcon />} variant='outlined' label={`${play.duration} min`} />
-									</Box>
-									<Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, mr: 5 }}>
-										<Stack direction="row" spacing={2} sx={{ my: 1 }}>
-											{play.audienceCategories.map((item, k) =>
-												<Chip size="small" variant="outlined" label={item.title} key={k} />
-											)}
-										</Stack>
-										<Stack direction="row" spacing={2} sx={{ my: 1 }}>
-											{play.tags.map((item, k) =>
-												<Chip size="small" label={item.title} key={k} />
-											)}
-										</Stack>
-									</Box>
-									<Typography variant="body2" color="initial">{(play.abstract) ? play.abstract.slice(0, 100) : null}...</Typography>
-								</CardContent>
-								<CardActions >
-									<Link href={`/plays/${play.id}`} passHref>
-										<IconButton><RemoveRedEyeIcon /></IconButton>
-									</Link>
-									<Link href={`plays/${play.id}`} passHref>
-										<IconButton color="secondary"><EditIcon /></IconButton>
-									</Link>
-									<Link href={`/dashboard/plays/${play.id}/delete`} passHref>
-										<IconButton color="primary"><DeleteIcon /></IconButton>
-									</Link>
-								</CardActions>
-							</Card>
-						</Grid >
-					)}
-				</Grid>
-			</Container >
+			<Box sx={{ mt: 5,width: '100%', display: 'flex', flexDirection: 'column' }}>
+				<Box sx={{ width: '100%', padding:5 , display: 'flex', flexDirection: 'row'}}>
+          <Box sx={{width:"30%"}}>
+          <span>Titre</span>
+          </Box>
+          <Box sx={{width:"10%"}}>
+          <span>Durée</span>
+          </Box>
+          <Box sx={{width:"25%"}}>
+            <span>Public</span>
+          </Box>
+					<Box sx={{width:"25%"}}>
+            <span>Tags</span>
+          </Box>
+          <Box sx={{width:"10%"}}>
+          	
+          </Box>
+        </Box>
+				{plays.map((play, i) =>
+					<Grid item xs={4} key={i}>
+						<Card sx={{ mb: 3, display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}>
+							<CardContent sx={{width: '30%'}}>
+									<Typography variant="h5" component="div">{play.title}</Typography>
+								{/* <Typography variant="body2" color="initial">{(play.abstract) ? play.abstract.slice(0, 100) : null}...</Typography> */}
+							</CardContent>
+							<CardContent sx={{width: '10%'}}>
+									<Chip sx={{marginLeft: 1}}icon={<AccessTimeIcon />} variant='outlined' label={`${play.duration} min`} />
+								{/* <Typography variant="body2" color="initial">{(play.abstract) ? play.abstract.slice(0, 100) : null}...</Typography> */}
+							</CardContent>
+							<CardContent sx={{width: '25%'}}>
+									<Stack direction="row" spacing={2} sx={{ my: 1 }}>
+										{play.audienceCategories.map((item, k) =>
+											<Chip size="small" variant="outlined" label={item.title} key={k} />
+										)}
+									</Stack>
+							</CardContent>
+							<CardContent sx={{width: '25%'}}>
+									<Stack direction="row" spacing={2} sx={{ my: 1 }}>
+										{play.tags.map((item, k) =>
+											<Chip size="small" label={item.title} key={k} />
+										)}
+									</Stack>
+							</CardContent>
+							<CardActions  sx={{width: '10%'}}>
+								<Link href={`/plays/${play.id}`} passHref>
+									<IconButton><RemoveRedEyeIcon /></IconButton>
+								</Link>
+								<Link href={`plays/${play.id}`} passHref>
+									<IconButton color="secondary"><EditIcon /></IconButton>
+								</Link>
+								<Link href={`/dashboard/plays/${play.id}/delete`} passHref>
+									<IconButton color="primary"><DeleteIcon /></IconButton>
+								</Link>
+							</CardActions>
+						</Card>
+					</Grid >
+				)}
+			</Box >
 		</Dashboard>
 	)
 }
