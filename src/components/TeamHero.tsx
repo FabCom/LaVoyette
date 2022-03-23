@@ -4,12 +4,13 @@ import { styled } from "@mui/material/styles";
 import CardContent from "@mui/material/CardContent";
 import { CardActions, Collapse } from "@mui/material";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "../components/Typography";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import Link from "next/link";
 
 import type { Artist } from "@prisma/client";
 
@@ -46,10 +47,11 @@ function TeamHero({ artist }: { artist: Artist }) {
     setOpen(false);
   };
 
+  artist.facebook_link = "https://www.google.com";
   return (
-    <Container component="section" sx={{ mt: 10, mb: 20, display: "flex" }}>
+    <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
-        <Grid item xs={12} md={6} sx={{ zIndex: 1 }}>
+        <Grid item xs={12} md={10} sx={{ zIndex: 1 }}>
           <Box
             sx={{
               display: "flex",
@@ -64,21 +66,13 @@ function TeamHero({ artist }: { artist: Artist }) {
               onSubmit={handleSubmit}
               sx={{ maxWidth: 400 }}
             >
-              <Typography variant="h2" component="h2" gutterBottom>
+              <Typography variant="h4" component="h2" gutterBottom>
                 {artist.firstname} {artist.lastname}
               </Typography>
 
               <Typography variant="h5" color="text.secondary">
                 Biographie :
               </Typography>
-            </Box>
-            <CardActions disableSpacing>
-              {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
               <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
@@ -87,6 +81,22 @@ function TeamHero({ artist }: { artist: Artist }) {
               >
                 <ExpandMoreIcon />
               </ExpandMore>
+            </Box>
+            <CardActions disableSpacing>
+              <IconButton aria-label="Instagram">
+                {artist.instagram_link && (
+                  <Link href={artist.instagram_link} passHref>
+                    <InstagramIcon />
+                  </Link>
+                )}
+              </IconButton>
+              <IconButton aria-label="Facebook">
+                {artist.facebook_link && (
+                  <Link href={artist.facebook_link} passHref>
+                    <FacebookRoundedIcon />
+                  </Link>
+                )}
+              </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
@@ -98,11 +108,11 @@ function TeamHero({ artist }: { artist: Artist }) {
         </Grid>
         <Grid
           item
-          xs={12}
-          md={6}
+          xs={100}
+          md={300}
           sx={{ display: { md: "block", xs: "none" }, position: "relative" }}
         >
-          <Box
+          {/* <Box
             sx={{
               position: "absolute",
               top: -67,
@@ -110,18 +120,16 @@ function TeamHero({ artist }: { artist: Artist }) {
               right: 0,
               bottom: 0,
               width: "100%",
-              background: "url(/static/themes/onepirate/TeamHeroImageDots.png)",
             }}
-          />
+          /> */}
           <Box
             component="img"
             src="https://media.gettyimages.com/photos/zendaya-attends-the-bvlgari-bzero1-rock-collection-event-at-duggal-picture-id1204545842?s=594x594"
             alt="call to action"
             sx={{
               position: "absolute",
-              top: -28,
-              left: -28,
-              right: 0,
+              top: -300,
+              right: -67,
               bottom: 0,
               width: "100%",
               maxWidth: 300,

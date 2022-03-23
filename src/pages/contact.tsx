@@ -26,8 +26,10 @@ const Contact = () => {
   }, []);
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
-      <Typography variant='h2'>Contactez{company ? " " + company.name : "-nous"}</Typography>
-      <Typography variant='h4' sx={{marginTop: 4}}><a href={`mailto: ${company ? " " + company.email : ""}`}>{company ? " " + company.email : ""}</a></Typography>
+<Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
+        Contactez La Voyette :
+      </Typography>
+         <Typography variant='h4' sx={{marginTop: 4}}><a href={`mailto: ${company ? " " + company.email : ""}`}>{company ? " " + company.email : ""}</a></Typography>
     </Box>
   )
 }
