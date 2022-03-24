@@ -9,7 +9,7 @@ import models from "lib/models"
 import { AudienceCategory, Tag } from "@prisma/client"
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-type PlayWithAudienceAndTags = { id: number, title: string, abstract: string, audienceCategories: AudienceCategory[], tags: Tag[], duration: number}
+export type PlayWithAudienceAndTags = { id: number, title: string, abstract: string, audienceCategories: AudienceCategory[], tags: Tag[], duration: number}
 type Props = { plays: PlayWithAudienceAndTags[] }
 
 const PlaysDashboard: React.FC<Props> = ({ plays }) => {
