@@ -17,10 +17,10 @@ import Image from "next/image";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import type { Play } from "@prisma/client";
 import { ExpandMore } from "@mui/icons-material";
-import { PlayWithAudienceAndTags } from "pages/dashboard/plays";
+import type { PlayWithAudienceAndTags } from "pages/dashboard/plays";
 
 export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
-
+  console.log(play)
   return (
     <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
