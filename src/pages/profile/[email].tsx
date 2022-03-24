@@ -11,12 +11,23 @@ import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import { Box } from "@mui/system";
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { useState } from "react";
+import { useS3Upload } from "next-s3-upload";
+import Image from "next/image";
 
 interface IParams extends ParsedUrlQuery {
   email: string;
 }
 
 function Profile({ user }: { user: User }) {
+  let [imageUrl, setImageUrl] = useState<string>();
+  let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
+
+  let handleFileChange = async (file: File) => {
+    let { url } = await uploadToS3(file);
+    setImageUrl(url);
+  };
+
   const {
     register,
     setValue,
@@ -35,6 +46,14 @@ function Profile({ user }: { user: User }) {
     "PUT"
   );
 
+  const functionTest = (event: MouseEvent) => {
+    event.preventDefault();
+  };
+  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    openFileDialog();
+  };
+
   useEffect(() => {
     if (isLoading === false && apiData !== null) {
       router.push("/");
@@ -43,8 +62,35 @@ function Profile({ user }: { user: User }) {
   }, [isLoading]);
 
   const onSubmit = async (data: User) => {
+    if (imageUrl) {
+      data.image = imageUrl;
+    }
     request(data);
+    console.log(data);
   };
+
+  let BlockImage = <></>;
+
+  if (imageUrl) {
+    BlockImage = (
+      <>
+        <Image src={imageUrl} width="250" height="250" />
+      </>
+    );
+  } else if (user.image) {
+    BlockImage = (
+      <>
+        <Image  src={user.image} width="250" height="250" />
+      </>
+    );
+  }
+  else {
+    BlockImage =(
+      <>
+        <Image  src="/noImageFound.jpg" width="250" height="250" />
+      </>
+    )
+  }
   const { data: session } = useSession();
   const router = useRouter();
   const { email } = router.query;
@@ -74,13 +120,8 @@ function Profile({ user }: { user: User }) {
                 {...register("name")}
                 sx={{ marginTop: 3 }}
               />
-              <TextField
-                label="image"
-                variant="filled"
-                focused
-                {...register("image")}
-                sx={{ marginTop: 3 }}
-              />
+              {/* <input type="hidden" {...register("image")} /> */}
+              
             </FormGroup>
             <FormGroup
               sx={{ display: "flex", flexDirection: "column", width: "45%" }}
@@ -94,6 +135,28 @@ function Profile({ user }: { user: User }) {
                 sx={{ marginTop: 3 }}
               />
             </FormGroup>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              justifyContent: "space-around",
+              width: "100%",
+              marginTop: 5,
+              marginLeft: 5,
+            }}
+          >
+            <Typography variant="h4">Avatar</Typography>
+
+            {BlockImage}
+            <div>
+                <FileInput onChange={handleFileChange} />
+
+                <Button sx={{ marginTop: 3 }} color="primary" variant="contained" type="submit" onClick={buttonHandler}>Changer Avatar</Button>
+
+                
+              </div>
           </Box>
           <Box
             sx={{
@@ -132,4 +195,3 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
   return { props: { user } };
 };
-
