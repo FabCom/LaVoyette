@@ -7,6 +7,15 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
 import { CompanyPartner } from "@prisma/client";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+export const validFormPartner = yup.object().shape({
+  name: yup.string().required('requis'),
+  logo_src: yup.string().url().required('requis'),
+  description: yup.string()
+});
+
 
 const CreatePartnersDashboard = () => {
   const router = Router;
@@ -15,7 +24,7 @@ const CreatePartnersDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyPartner>();
+  } = useForm<CompanyPartner>({resolver: yupResolver(validFormPartner)});
 
   const {isLoading, apiData, request } = useRequest<CompanyPartner>(
     `partners`,
@@ -55,12 +64,16 @@ const CreatePartnersDashboard = () => {
               variant="filled"
               focused
               {...register("name")}
+              error={errors.name ? true : false}
+              helperText={errors.name ? errors.name.message : null}
               sx={{ marginTop: 3 }}
             />
             <TextField
-              label="Public"
+              label="url vers un logo"
               variant="filled"
               focused
+              error={errors.logo_src ? true : false}
+              helperText={errors.logo_src ? errors.logo_src.message : null}
               {...register("logo_src")}
               sx={{ marginTop: 3 }}
             />
