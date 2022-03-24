@@ -39,7 +39,7 @@ export default function Hero() {
         variant="contained"
         size="large"
         component="a"
-        href="/premium-themes/onepirate/sign-up/"
+        href="/contact"
         sx={{ minWidth: 200 }}
       >
         Nous contacter

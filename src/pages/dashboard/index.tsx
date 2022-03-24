@@ -1,38 +1,28 @@
-import { Button, Card, CardActions, CardContent } from "@mui/material"
-import { Box } from "@mui/system"
-import Typography from "components/Typography"
-import { dashboard_contents } from "config/dashboard_content"
-import Link from "next/link"
+import * as React from "react";
+import { Button, Card, CardActions, CardContent } from "@mui/material";
+import { Box } from "@mui/system";
+import Typography from "components/Typography";
+import { dashboard_contents } from "config/dashboard_content";
+import Link from "next/link";
+import DashboardHome from "components/DashboardHome";
 
-const Dashboard = () => {
-  
+function Index() {
   return (
-    <Box sx={{padding: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
-      <Box sx={{marginTop: 5, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', width: '100%'}}>
-        <Typography variant='h2'>DASHBOARD</Typography>
-      </Box>
-      {dashboard_contents.map((item, i)=> (
-        <Card sx={{ minWidth: 275, margin: 3 }} key={i}>
-          <CardContent>
-            <Typography variant='h3'>{item.title}</Typography>
-            <p>{item.text}</p>
-          </CardContent>
-          <CardActions sx={{justifyContent: 'center'}}>
-            <Link href={item.path}><Button color='secondary'>Voir</Button></Link>
-          </CardActions>
-        </Card>
-      ))}
-    </Box>
-  )
+    <React.Fragment>
+      <DashboardHome />
+    </React.Fragment>
+  );
 }
 
-export default Dashboard
+export default Index;
 
-{/* <Card sx={{ minWidth: 275 }}>
+{
+  /* <Card sx={{ minWidth: 275 }}>
 <CardContent>
 
 </CardContent>
 <CardActions>
 
 </CardActions>
-</Card> */}
+</Card> */
+}
