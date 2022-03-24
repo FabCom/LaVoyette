@@ -27,7 +27,7 @@ export default function LoggingMenu({handleCloseUserMenu}: {handleCloseUserMenu:
     
     const settings_session_ADMIN = [
       { title: "Profile", path: `/profile/${session.user.email}` },
-      { title: "Dashboard", path: "/dashboard/company" },
+      { title: "Dashboard", path: "/dashboard" },
     ];
     session.user.role === Role.ADMIN ? settings_session = settings_session_ADMIN : settings_session = settings_session_USER
     // console.log(session.user);

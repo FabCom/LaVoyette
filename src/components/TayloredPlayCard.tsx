@@ -13,11 +13,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import type { TayloredPlay } from "@prisma/client";
 import { TayloredPlayWithAudienceAndTags } from "pages/dashboard/taylored_plays";
 
-export default function TayloredPlayCard({
-  play,
-}: {
-  play: TayloredPlayWithAudienceAndTags;
-}) {
+export default function TayloredPlayCard({ play }: { play: TayloredPlayWithAudienceAndTags }) {
+  // console.log(play)
   return (
     <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
@@ -48,18 +45,14 @@ export default function TayloredPlayCard({
                 {play.concept ? play.concept.slice(0, 400) : null}...
               </Typography>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
-                {play.audienceCategories?.map((categ, i) => {
-                  <Chip key={i} label={categ.title} color="secondary" />;
-                })}
+                {play.audienceCategories?.map((categ, i) => (
+                  <Chip key={i} label={categ.title} />
+                ))}
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
-                {play.tags?.map((categ, i) => {
-                  <Chip
-                    key={categ.id + i}
-                    label={categ.title}
-                    color="secondary"
-                  />;
-                })}
+                {play.tags?.map((categ, i) => (
+                  <Chip key={categ.id+i} label={categ.title} />
+                ))}
               </Stack>
             </Box>
             <CardActions disableSpacing></CardActions>

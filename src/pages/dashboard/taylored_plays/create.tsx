@@ -6,6 +6,8 @@ import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
 type RequestTayloredPlayWithAudienceAndTags = {
   id: number;
@@ -15,6 +17,13 @@ type RequestTayloredPlayWithAudienceAndTags = {
   tags: string;
 };
 
+export const validFormTayloredPlay = yup.object().shape({
+  title: yup.string().required('requis'),
+  concept: yup.string().required('requis'),
+  audienceCategories: yup.string().matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule"),
+  tags: yup.string().default(null).matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule")
+});
+
 const CreateTayloredPlaysDashboard = () => {
   const router = Router;
   const {
@@ -22,7 +31,7 @@ const CreateTayloredPlaysDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestTayloredPlayWithAudienceAndTags>();
+  } = useForm<RequestTayloredPlayWithAudienceAndTags>({resolver: yupResolver(validFormTayloredPlay)});
 
   const {isLoading, apiData, request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
     `taylored_plays`,
@@ -70,6 +79,8 @@ const CreateTayloredPlaysDashboard = () => {
               variant="filled"
               focused
               {...register("title")}
+              error={errors.title ? true : false}
+              helperText={errors.title ? errors.title.message : null}
               sx={{ marginTop: 3 }}
             />
             <TextField
@@ -77,6 +88,8 @@ const CreateTayloredPlaysDashboard = () => {
               variant="filled"
               focused
               {...register("audienceCategories")}
+              error={errors.audienceCategories ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
               sx={{ marginTop: 3 }}
             />
             <TextField
@@ -84,6 +97,8 @@ const CreateTayloredPlaysDashboard = () => {
               variant="filled"
               focused
               {...register("tags")}
+              error={errors.tags ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
               sx={{ marginTop: 3 }}
             />
           </FormGroup>

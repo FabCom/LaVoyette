@@ -10,6 +10,8 @@ import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormPlay } from "../create";
 
 type PlayWithAudienceAndTags = {
 	id: number;
@@ -49,6 +51,7 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
 			audienceCategories: play.audienceCategories.map(item => item.title).join(','),
 			tags: play.tags.map(item => item.title).join(','),
 		},
+		resolver: yupResolver(validFormPlay)
 	});
 
 	const { isLoading, apiData, request } = useRequest<RequestPlayWithAudienceAndTags>(
@@ -99,13 +102,17 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
 							variant="filled"
 							focused
 							{...register("title")}
+							error={errors.title ? true : false}
+              helperText={errors.title ? errors.title.message : null}
 							sx={{ marginTop: 3 }}
 						/>
 						<TextField
-							label="Durée"
+							label="Durée (en minutes)"
 							variant="filled"
 							focused
 							{...register("duration")}
+							error={errors.duration ? true : false}
+              helperText={errors.duration ? errors.duration.message : null}
 							sx={{ marginTop: 3 }}
 						/>
 						<TextField
@@ -113,6 +120,8 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
 							variant="filled"
 							focused
 							{...register("audienceCategories")}
+							error={errors.audienceCategories ? true : false}
+              helperText={errors.audienceCategories ? errors.audienceCategories.message : null}
 							sx={{ marginTop: 3 }}
 						/>
 

@@ -88,7 +88,18 @@ const Navbar = () => {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            ></Menu>
+            >
+            {pages.map((page, i) => (
+              <Link href={page.path} key={i} passHref>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "secondary.dark", display: "block" }}
+                >
+                  {page.title}
+                </Button>
+              </Link>
+            ))}
+            </Menu>
           </Box>
           <Typography
             variant="h6"
