@@ -7,6 +7,14 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
 import { Artist } from "@prisma/client";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { ErrorMessage } from "@hookform/error-message";
+
+const schema = yup.object().shape({
+  firstname: yup.string().required('Prénom requis'),
+  lastname: yup.string().required('Nom requis'),
+});
 
 const CreateArtistsDashboard = () => {
   const router = Router;
@@ -15,20 +23,21 @@ const CreateArtistsDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<Artist>();
+  } = useForm<Artist>({resolver: yupResolver(schema)});
 
   const {isLoading, apiData, request } = useRequest<Artist>(
-    `Artists`,
+    `artists`,
     "POST"
   );
 
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/Artists')}
+    {router.push('/dashboard/artists')}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
   const onSubmit = async (data: Artist) => {
+    console.log(data)
     request(data);
   };
 
@@ -50,10 +59,15 @@ const CreateArtistsDashboard = () => {
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
             <Typography variant="h4">Informations</Typography>
+            <Box >
+              <ErrorMessage errors={errors} name="firstname" />
+              <ErrorMessage errors={errors} name="lastname" />
+            </Box>
             <TextField
               label="Prénom"
               variant="filled"
               focused
+              error
               {...register("firstname")}
               sx={{ marginTop: 3 }}
             />
