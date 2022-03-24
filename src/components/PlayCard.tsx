@@ -1,26 +1,20 @@
 import React from "react";
 import {
-  Card,
-  CardContent,
   Typography,
   Grid,
   Stack,
   Chip,
   Box,
   Container,
-  Collapse,
   CardActions,
-  IconButton,
-} from "@mui/material";
+}
+from "@mui/material";
 import Router from "next/router";
-import Image from "next/image";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import type { Play } from "@prisma/client";
-import { ExpandMore } from "@mui/icons-material";
 import type { PlayWithAudienceAndTags } from "pages/dashboard/plays";
 
 export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
-  console.log(play)
+  // console.log(play);
   return (
     <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
@@ -30,36 +24,36 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
             sx={{
               display: "flex",
               justifyContent: "center",
-              bgcolor: "warning.main",
+              bgcolor: "primary.dark",
               py: 8,
               px: 0,
             }}
           >
             <Box
               component="form"
-              //   onSubmit={handleSubmit}
               sx={{ maxWidth: 500 }}
             >
-              <Typography variant="h4" component="h2" gutterBottom>
+              <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
                 {play.title}
               </Typography>
               <Chip
                 icon={<AccessTimeIcon />}
                 variant="outlined"
                 label={`${play.duration} min`}
+                color="secondary"
               />
 
-              <Typography variant="h5" color="inherit" sx={{ mt: 3 }}>
+              <Typography variant="h5" color="secondary.light" sx={{ mt: 3 }}>
                 {play.abstract ? play.abstract.slice(0, 400) : null}...
               </Typography>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.audienceCategories?.map((categ, i) => {
-                  <Chip key={i} label={categ.title} />
+                  <Chip key={i} label={categ.title} color="secondary"/>;
                 })}
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.tags?.map((categ, i) => {
-                  <Chip key={i} label={categ.title} />
+                  <Chip key={i} label={categ.title} />;
                 })}
               </Stack>
               {/* <ExpandMore
