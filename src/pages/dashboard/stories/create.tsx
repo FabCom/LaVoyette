@@ -4,52 +4,50 @@ import { CompanyStory } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
-import models from "lib/models";
-import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Router from 'next/router'
-import { deserialize, serialize } from "superjson";
-
-import type { SuperJSONResult } from "superjson/dist/types";
 import { LocalizationProvider, MobileDatePicker } from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import frLocale from 'date-fns/locale/fr';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { validFormStory } from "../create";
-
+import * as yup from "yup";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
+export const validFormStory = yup.object().shape({
+  title: yup.string().required('requis'),
+  start: yup.date().required('requis'),
+  end: yup.date().default(null)
+  .when("start",
+      (start, yup) => start && yup.min(start, "La date de fin de l'événement doit être définie après la date de début"))
+
+});
+
+
+const StoryDashboard = () => {
   const router = Router;
-  const story: CompanyStory = deserialize(ser_story)
   const {
     control,
     register,
     setValue,
+    watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyStory>({
-    defaultValues: {
-      id: story.id,
-      title: story.title,
-      description: story.description,
-      start: story.start,
-      end: story.end
-    },
-    resolver: yupResolver(validFormStory)
-  });
+  } = useForm<CompanyStory>({resolver: yupResolver(validFormStory)});
 
-  const [activEndDate, setActiveEndDate] = useState<boolean>(story.end ? true : false)
+  const [activEndDate, setActiveEndDate] = useState<boolean>(false)
 
   const { isLoading, apiData, request } = useRequest<CompanyStory>(
-    `stories/${story.id}`,
-    "PUT"
+    `stories`,
+    "POST"
   );
-
+  
+  const watchStoryEnd = watch("end")
+  const watchStoryStart = watch("start")
 
   useEffect(()=> {
     if (isLoading === false && apiData !== null)
@@ -58,12 +56,11 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
   }, [isLoading])
 
   useEffect(()=> {
-    if (!story.end && activEndDate === true) {
-      console.log('hello')
-      story.end = new Date()
+    if (!watchStoryEnd && activEndDate === true) {
+      setValue('end', new Date())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activEndDate, story.end])
+  }, [activEndDate, watchStoryEnd])
 
   const onSubmit = async (data: CompanyStory) => {
 
@@ -100,15 +97,15 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
             <Box sx={{display: 'flex', flexDirection: 'row', marginTop: 3 }}>
               <Controller 
                 name="start"
-                defaultValue={story.start}
+                defaultValue={new Date()}
                 control={control}
                 render={
                   ({field}) => (
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
                       <MobileDatePicker
                         label={activEndDate ? "Début de l'événement" : "Date de l'événement"}
                         value={field.value}
-                        
+                        minDate={watchStoryStart}
                         onChange={(e) => {
                           field.onChange(e)
                         }}
@@ -124,15 +121,14 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
               {(activEndDate) && 
                 <Controller 
                 name="end"
-                defaultValue={story.end}
+                defaultValue={new Date}
                 control={control}
                 render={
                   ({field}) => (
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
                       <MobileDatePicker
                         label="Fin de l'événement"
                         value={field.value}
-                        
                         onChange={(e) => {
                           field.onChange(e)
                         }}
@@ -143,9 +139,8 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
                 }
               />
               }
-              
             </Box>
-            {errors.end && 
+              {errors.end && 
               <Alert severity="error" variant="outlined">{errors.end.message}</Alert>
               }
           </FormGroup>
@@ -180,12 +175,3 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
 };
 
 export default StoryDashboard;
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = params as IParams;
-  const req_story = await models.companyStory.findUnique({
-    where: { id: parseInt(id) },
-  });
-  const ser_story = serialize(req_story)
-  return { props: { ser_story } };
-};

@@ -88,7 +88,18 @@ const Navbar = () => {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            ></Menu>
+            >
+            {pages.map((page, i) => (
+              <Link href={page.path} key={i} passHref>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "secondary.dark", display: "block" }}
+                >
+                  {page.title}
+                </Button>
+              </Link>
+            ))}
+            </Menu>
           </Box>
           <Typography
             variant="h6"
@@ -113,9 +124,11 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              <Typography onClick={handleOpenUserMenu} color="success" sx={{ p: 0 }}>
+                <Button color="secondary" variant="contained" type="submit">
+                Se Connecter
+                </Button>
+              </Typography>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

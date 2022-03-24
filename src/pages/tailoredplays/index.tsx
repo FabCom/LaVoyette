@@ -5,14 +5,16 @@ import type { TayloredPlay } from '@prisma/client';
 import useRequest from 'hooks/useRequest';
 import { useEffect } from 'react';
 import TayloredPlayCard from 'components/TayloredPlayCard';
+import models from 'lib/models';
+import { TayloredPlayWithAudienceAndTags } from 'pages/dashboard/taylored_plays';
 
-export default function TayloredPlaysIndex() {
-	const { request, apiData: taylored_plays } = useRequest<TayloredPlay[]>(`taylored_plays`, "GET");
+export default function TayloredPlaysIndex({taylored_plays}: {taylored_plays: TayloredPlayWithAudienceAndTags[]}) {
+	// const { request, apiData: taylored_plays } = useRequest<TayloredPlay[]>(`taylored_plays`, "GET");
 
-	useEffect(() => {
-		request();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	// useEffect(() => {
+	// 	request();
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [])
 
 	return (
 		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
@@ -21,4 +23,15 @@ export default function TayloredPlaysIndex() {
 				{taylored_plays?.map((play) => (<TayloredPlayCard play={play} key={play.id} />))}
 			</Container></>
 	)
+}
+
+export async function getStaticProps() {
+
+  const taylored_plays = await models.tayloredPlay.findMany({include: {audienceCategories: true, tags: true}})
+ 
+  return {
+    props: {
+      taylored_plays,
+    },
+  }
 }

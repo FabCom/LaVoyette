@@ -3,7 +3,7 @@ import Typography from "../components/Typography";
 
 import type { Company } from "@prisma/client";
 import { AppProps } from "next/app";
-import { Box, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 //
 export default function ContainerStory({ company }: { company: Company }) {
   // const company = props.company;
@@ -22,18 +22,18 @@ export default function ContainerStory({ company }: { company: Company }) {
         >
           {company.name}
         </Typography>
-        <Box
+        <Container
           sx={{
             display: "flex",
             justifyContent: "center",
             py: 15,
-            px: 50,
+           
           }}
         >
           <Typography variant="h6" sx={{ justifyContent: "center" }}>
             {company.description}
           </Typography>
-        </Box>
+        </Container>
       </>
     );
   } else {

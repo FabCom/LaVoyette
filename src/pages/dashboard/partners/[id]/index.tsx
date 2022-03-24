@@ -10,6 +10,8 @@ import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormPartner } from "../create";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -30,6 +32,7 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
       description: partner.description,
       logo_src: partner.logo_src
     },
+    resolver: yupResolver(validFormPartner)
   });
 
   const { isLoading, apiData, request } = useRequest<CompanyPartner>(
@@ -72,6 +75,8 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
               variant="filled"
               focused
               {...register("name")}
+              error={errors.name ? true : false}
+              helperText={errors.name ? errors.name.message : null}
               sx={{ marginTop: 3 }}
             />
             <TextField
@@ -79,6 +84,8 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
               variant="filled"
               focused
               {...register("logo_src")}
+              error={errors.logo_src ? true : false}
+              helperText={errors.logo_src ? errors.logo_src.message : null}
               sx={{ marginTop: 3 }}
             />
           </FormGroup>

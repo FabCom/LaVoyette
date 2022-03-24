@@ -10,6 +10,8 @@ import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormTayloredPlay } from "../create";
 
 type TayloredPlayWithAudienceAndTags = {
   id: number;
@@ -46,6 +48,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
       audienceCategories: taylored_play.audienceCategories.map(item => item.title).join(','),
       tags: taylored_play.tags.map(item => item.title).join(','),
     },
+    resolver: yupResolver(validFormTayloredPlay)
   });
 
   const { isLoading, apiData, request } = useRequest<RequestTayloredPlayWithAudienceAndTags>(
@@ -96,6 +99,8 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               variant="filled"
               focused
               {...register("title")}
+              error={errors.title ? true : false}
+              helperText={errors.title ? errors.title.message : null}
               sx={{ marginTop: 3 }}
             />
             <TextField
@@ -103,6 +108,8 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               variant="filled"
               focused
               {...register("audienceCategories")}
+              error={errors.audienceCategories ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
               sx={{ marginTop: 3 }}
             />
             <TextField
@@ -110,6 +117,8 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               variant="filled"
               focused
               {...register("tags")}
+              error={errors.tags ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
               sx={{ marginTop: 3 }}
             />
           </FormGroup>
@@ -122,6 +131,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
               minRows={20}
               placeholder=""
               style={{ width: "100%" }}
+ 
               {...register("concept")}
             />
           </FormGroup>
