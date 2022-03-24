@@ -26,7 +26,7 @@ function TeamHero({ artist }: { artist: Artist }) {
     transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
+      duration: theme.transitions.duration.standard,
     }),
   }));
 
@@ -47,7 +47,7 @@ function TeamHero({ artist }: { artist: Artist }) {
     setOpen(false);
   };
 
-  artist.facebook_link = "https://www.google.com";
+  artist.facebook_link = "https://www.facebook.com/compagnielavoyette";
   return (
     <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
@@ -56,7 +56,7 @@ function TeamHero({ artist }: { artist: Artist }) {
             sx={{
               display: "flex",
               justifyContent: "center",
-              bgcolor: "warning.main",
+              bgcolor: "primary.dark",
               py: 8,
               px: 3,
             }}
@@ -66,11 +66,11 @@ function TeamHero({ artist }: { artist: Artist }) {
               onSubmit={handleSubmit}
               sx={{ maxWidth: 400 }}
             >
-              <Typography variant="h4" component="h2" gutterBottom>
+              <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
                 {artist.firstname} {artist.lastname}
               </Typography>
 
-              <Typography variant="h5" color="text.secondary">
+              <Typography variant="h5" color="secondary.light">
                 Biographie :
               </Typography>
               <ExpandMore
@@ -79,29 +79,28 @@ function TeamHero({ artist }: { artist: Artist }) {
                 aria-expanded={expanded}
                 aria-label="show more"
               >
-                <ExpandMoreIcon />
+                <ExpandMoreIcon color="secondary" />
               </ExpandMore>
             </Box>
             <CardActions disableSpacing>
               <IconButton aria-label="Instagram">
                 {artist.instagram_link && (
                   <Link href={artist.instagram_link} passHref>
-                    <InstagramIcon />
+                    <InstagramIcon color="secondary" fontSize="large" />
                   </Link>
                 )}
               </IconButton>
               <IconButton aria-label="Facebook">
                 {artist.facebook_link && (
                   <Link href={artist.facebook_link} passHref>
-                    <FacebookRoundedIcon />
+                    <FacebookRoundedIcon color="secondary" fontSize="large" />
                   </Link>
                 )}
               </IconButton>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                <Typography variant="h5"></Typography>
-                <Typography variant="h5">{artist.biography}</Typography>
+                <Typography variant="h5" color="secondary.light">{artist.biography}</Typography>
               </CardContent>
             </Collapse>
           </Box>

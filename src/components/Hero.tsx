@@ -17,7 +17,6 @@ export default function Hero() {
     >
       {/* Increase the network loading priority of the background image. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-
       <img
         style={{ display: "none" }}
         src={backgroundImage}
@@ -39,7 +38,7 @@ export default function Hero() {
         variant="contained"
         size="large"
         component="a"
-        href="/premium-themes/onepirate/sign-up/"
+        href="/contact"
         sx={{ minWidth: 200 }}
       >
         Nous contacter

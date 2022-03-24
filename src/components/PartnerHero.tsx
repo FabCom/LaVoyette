@@ -25,7 +25,7 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
     transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
+      duration: theme.transitions.duration.standard,
     }),
   }));
 
@@ -55,7 +55,7 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                bgcolor: "warning.main",
+                bgcolor: "primary.dark",
                 py: 8,
                 px: 3,
               }}
@@ -65,11 +65,11 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
                 onSubmit={handleSubmit}
                 sx={{ maxWidth: 800 }}
               >
-                <Typography variant="h4" component="h2" gutterBottom>
+                <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
                   {companypartner.name}
                 </Typography>
 
-                <Typography variant="h5" color="text.secondary"></Typography>
+                
               </Box>
               <CardActions disableSpacing>
                 <ExpandMore
@@ -78,13 +78,13 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
                   aria-expanded={expanded}
                   aria-label="show more"
                 >
-                  <ExpandMoreIcon />
+                  <ExpandMoreIcon color="secondary" />
                 </ExpandMore>
               </CardActions>
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                  <Typography variant="h5"></Typography>
-                  <Typography variant="h5">
+                  
+                  <Typography variant="h5" color="secondary.light">
                     {companypartner.description}
                   </Typography>
                 </CardContent>
