@@ -17,7 +17,6 @@ export default function Hero() {
     >
       {/* Increase the network loading priority of the background image. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-
       <img
         style={{ display: "none" }}
         src={backgroundImage}
