@@ -1,19 +1,19 @@
 import React from 'react'
 import { Container } from '@mui/material';
 import Typography from 'components/Typography'
-import type { Play } from '@prisma/client';
-import useRequest from 'hooks/useRequest';
-import { useEffect } from 'react';
 import PlayCard from 'components/PlayCard';
+import models from 'lib/models';
+import { PlayWithAudienceAndTags } from 'pages/dashboard/plays';
 
-export default function PlaysIndex() {
-	const { request, apiData: plays } = useRequest<Play[]>(`plays`, "GET");
 
-	useEffect(() => {
-		request();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+export default function PlaysIndex({ plays }: { plays: PlayWithAudienceAndTags[]}) {
+	// const { request, apiData: plays } = useRequest<Play[]>(`plays`, "GET");
 
+	// useEffect(() => {
+	// 	request();
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [])
+	// console.log(plays)
 	return (
 		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
 			Nos Spectacles
@@ -22,4 +22,16 @@ export default function PlaysIndex() {
 			{plays?.map((play) => (<PlayCard play={play} key={play.id} />))}
 		</Container></>
 	)
+}
+
+
+export async function getStaticProps() {
+
+  const plays = await models.play.findMany({include: {audienceCategories: true, tags: true}})
+ 
+  return {
+    props: {
+      plays,
+    },
+  }
 }
