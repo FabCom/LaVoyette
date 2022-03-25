@@ -63,7 +63,6 @@ export default function TayloredPlayCard({
               </Stack>
             </Box>
             <CardActions disableSpacing></CardActions>
-           
           </Box>
         </Grid>
         <Grid

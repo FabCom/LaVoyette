@@ -58,7 +58,7 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
 
 export default function DashboardHome() {
   return (
-    <Container component="section" sx={{ mt: 8, mb: 4 }}>
+    <Container component="section" sx={{ mt: 15, mb: 4 }}>
       <Typography variant="h4" marked="center" align="center" component="h2">
         Dashboard
       </Typography>
@@ -79,7 +79,7 @@ export default function DashboardHome() {
                   top: 0,
                   bottom: 0,
                   backgroundSize: "cover",
-                  backgroundPosition: "center 40%", 
+                  backgroundPosition: "center 100%", 
                   backgroundImage: `url(${item.url})`,                
                 }}
               />

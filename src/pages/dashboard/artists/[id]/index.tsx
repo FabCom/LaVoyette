@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Button,
   ButtonBase,
@@ -71,97 +71,101 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
   };
 
   return (
-      <Dashboard>
+    <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <input type="hidden" {...register("id")} />
         <Box
-      component="section"
-      sx={{mt: 25, mb: 8, display: 'flex', overflow: 'hidden' }}
-    >
-       <Container sx={{ display: 'flex', position: 'relative' }}>
-        <Grid container spacing={50}>
-          <Grid item xs={12} md={4}>
-            <Box sx={item}>
-              <FormGroup
-                sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-              >
-                <Typography variant="h4" marked="center">Informations</Typography>
+          component="section"
+          sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
+        >
+          <Container sx={{ display: "flex", position: "relative" }}>
+            <Grid container spacing={50}>
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Informations
+                    </Typography>
 
-                <TextField
-                  label="Prénom"
-                  variant="filled"
-                  focused
-                  {...register("firstname")}
-                  sx={{ marginTop: 3 }}
-                />
-                <TextField
-                  label="Nom"
-                  variant="filled"
-                  focused
-                  {...register("lastname")}
-                  sx={{ marginTop: 3 }}
-                />
-                <TextField
-                  label="Courriel"
-                  variant="filled"
-                  focused
-                  {...register("email")}
-                  sx={{ marginTop: 3 }}
-                />
-                <TextField
-                  label="Facebook"
-                  variant="filled"
-                  focused
-                  {...register("facebook_link")}
-                  sx={{ marginTop: 3 }}
-                />
-                <TextField
-                  label="Instagram"
-                  variant="filled"
-                  focused
-                  {...register("instagram_link")}
-                  sx={{ marginTop: 3 }}
-                />
-              </FormGroup>
-            </Box>
-          </Grid>
-        
-        <Grid item xs={12} md={4}>
-          <Box sx={item}>
-            <FormGroup
-              sx={{ display: "flex", flexDirection: "column", width: "80%" }}
-            >
-              <Typography  variant="h4" align='center' marked="center">Biographie</Typography>
-              <Box sx={{mt: 3}}>
-              <TextareaAutosize
-                aria-label="Biographie"
-                minRows={20}
-                placeholder=""
-                style={{minWidth: "150%", height: "115%" }}
-                {...register("biography")}
-              />
-              </Box>
-            </FormGroup>
-          </Box>
-        </Grid>
-        </Grid>
-        
-        </Container>
-       
+                    <TextField
+                      label="Prénom"
+                      variant="filled"
+                      focused
+                      {...register("firstname")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Nom"
+                      variant="filled"
+                      focused
+                      {...register("lastname")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Courriel"
+                      variant="filled"
+                      focused
+                      {...register("email")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Facebook"
+                      variant="filled"
+                      focused
+                      {...register("facebook_link")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Instagram"
+                      variant="filled"
+                      focused
+                      {...register("instagram_link")}
+                      sx={{ marginTop: 3 }}
+                    />
+                  </FormGroup>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "80%",
+                    }}
+                  >
+                    <Typography variant="h4" align="center" marked="center">
+                      Biographie
+                    </Typography>
+                    <Box sx={{ mt: 3 }}>
+                      <TextareaAutosize
+                        aria-label="Biographie"
+                        minRows={20}
+                        placeholder=""
+                        style={{ minWidth: "150%", height: "115%" }}
+                        {...register("biography")}
+                      />
+                    </Box>
+                  </FormGroup>
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
-        <Box sx={item}
-          >
+        <Box sx={item}>
           <Button color="secondary" variant="contained" type="submit">
             Enregistrer
           </Button>
-          
         </Box>
-        
-
-       
       </form>
-      </Dashboard>
-      
+    </Dashboard>
   );
 };
 

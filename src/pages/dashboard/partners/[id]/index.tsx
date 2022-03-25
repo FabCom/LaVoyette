@@ -1,4 +1,4 @@
-import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { Button, Container, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { CompanyPartner } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -49,24 +49,30 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
     request(data);
   };
 
+  const item = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    px: 5,
+  };
+
   return (
     <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <input type="hidden" {...register("id")} />
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: 5,
-          }}
+          component="section"
+          sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
         >
+          <Container sx={{ display: "flex", position: "relative" }}>
+            <Grid container spacing={20}>
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
           <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
-            <Typography variant="h4">Informations</Typography>
+            <Typography variant="h4" marked="center">Informations</Typography>
             <TextField
               label="Nom"
               variant="filled"
@@ -82,10 +88,16 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
               sx={{ marginTop: 3 }}
             />
           </FormGroup>
+          </Box>
+              </Grid>
+
+ <Grid item xs={12} md={4}>
+                <Box sx={item}>
           <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
-            <Typography variant="h4">Description</Typography>
+            <Typography variant="h4" marked="center">Description</Typography>
+            <Box sx={{ mt: 3 }}>
             <TextareaAutosize
               aria-label="description"
               minRows={20}
@@ -93,18 +105,15 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
               style={{ width: "100%" }}
               {...register("description")}
             />
+            </Box>
           </FormGroup>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: 5,
-          }}
-        >
+        
+        </Grid>
+            </Grid>
+          </Container>
+        </Box>
+        <Box sx={item}>
           <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
         </Box>
       </form>

@@ -27,7 +27,6 @@ export default function ContainerStory({ company }: { company: Company }) {
             display: "flex",
             justifyContent: "center",
             py: 15,
-           
           }}
         >
           <Typography variant="h6" sx={{ justifyContent: "center" }}>
