@@ -66,7 +66,12 @@ function TeamHero({ artist }: { artist: Artist }) {
               onSubmit={handleSubmit}
               sx={{ maxWidth: 400 }}
             >
-              <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
+              <Typography
+                variant="h4"
+                component="h2"
+                color="secondary.main"
+                gutterBottom
+              >
                 {artist.firstname} {artist.lastname}
               </Typography>
 
@@ -100,7 +105,9 @@ function TeamHero({ artist }: { artist: Artist }) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                <Typography variant="h5" color="secondary.light">{artist.biography}</Typography>
+                <Typography variant="h5" color="secondary.light">
+                  {artist.biography}
+                </Typography>
               </CardContent>
             </Collapse>
           </Box>
@@ -111,16 +118,6 @@ function TeamHero({ artist }: { artist: Artist }) {
           md={300}
           sx={{ display: { md: "block", xs: "none" }, position: "relative" }}
         >
-          {/* <Box
-            sx={{
-              position: "absolute",
-              top: -67,
-              left: -67,
-              right: 0,
-              bottom: 0,
-              width: "100%",
-            }}
-          /> */}
           <Box
             component="img"
             src="https://media.gettyimages.com/photos/zendaya-attends-the-bvlgari-bzero1-rock-collection-event-at-duggal-picture-id1204545842?s=594x594"

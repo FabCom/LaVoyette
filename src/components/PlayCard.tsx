@@ -7,8 +7,12 @@ import {
   Box,
   Container,
   CardActions,
+<<<<<<< HEAD
 }
   from "@mui/material";
+=======
+} from "@mui/material";
+>>>>>>> develop
 import Router from "next/router";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import type { PlayWithAudienceAndTags } from "pages/dashboard/plays";
@@ -29,11 +33,13 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
               px: 0,
             }}
           >
-            <Box
-              component="form"
-              sx={{ maxWidth: 500 }}
-            >
-              <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
+            <Box component="form" sx={{ maxWidth: 500 }}>
+              <Typography
+                variant="h4"
+                component="h2"
+                color="secondary.main"
+                gutterBottom
+              >
                 {play.title}
               </Typography>
               <Chip
@@ -48,12 +54,20 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
               </Typography>
               <Stack direction="row" spacing={2} sx={{ py: 1 }}>
                 {play.audienceCategories?.map((categ, i) => (
+<<<<<<< HEAD
                   <Chip color="primary" size="small" key={i} label={categ.title} />
+=======
+                  <Chip key={i} label={categ.title} color="secondary"/>
+>>>>>>> develop
                 ))}
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 1 }}>
                 {play.tags?.map((categ, i) => (
+<<<<<<< HEAD
                   <Chip color="primary" size="small" key={i} label={categ.title} />
+=======
+                  <Chip key={i} label={categ.title} color="secondary"/>
+>>>>>>> develop
                 ))}
               </Stack>
             </Box>

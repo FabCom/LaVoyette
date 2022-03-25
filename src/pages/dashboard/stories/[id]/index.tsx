@@ -1,6 +1,10 @@
+<<<<<<< HEAD
+import { Button, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
+=======
 import { Alert, Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 import { Box } from "@mui/system";
-import { CompanyStory } from "@prisma/client";
+import { CompanyStory, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -70,6 +74,14 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
     request(data);
   };
 
+  const item = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    px: 5,
+  };
+
   return (
     <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -87,7 +99,7 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
           <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
-            <Typography variant="h4">Informations</Typography>
+            <Typography variant="h4" marked="center" align="center">Informations</Typography>
             <TextField
               label="Nom"
               variant="filled"
@@ -97,7 +109,7 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
               helperText={errors.title ? errors.title.message : null}
               sx={{ marginTop: 3 }}
             />
-            <Box sx={{display: 'flex', flexDirection: 'row', marginTop: 3 }}>
+            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center", marginTop: 3 }}>
               <Controller 
                 name="start"
                 defaultValue={story.start}
@@ -119,7 +131,7 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
                 }
               />
               {!activEndDate && 
-                <Button onClick={()=> setActiveEndDate(true)}>Ajouter une date de fin</Button>
+                <Button sx={{position: "relative"}}  onClick={()=> setActiveEndDate(true)}>Ajouter une date de fin</Button>
               }
               {(activEndDate) && 
                 <Controller 
@@ -149,10 +161,14 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
               <Alert severity="error" variant="outlined">{errors.end.message}</Alert>
               }
           </FormGroup>
+          </Box>
+          <Grid item xs={12} md={4}>
+                <Box sx={item}>
           <FormGroup
             sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
-            <Typography variant="h4">Description</Typography>
+            <Typography variant="h4" marked="center" align="center" sx={{ mt: 3}}>Description</Typography>
+            <Box sx={{ mt: 3 }}>
             <TextareaAutosize
               aria-label="description"
               minRows={20}
@@ -160,8 +176,11 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
               style={{ width: "100%" }}
               {...register("description")}
             />
+            </Box>
           </FormGroup>
         </Box>
+        </Grid>
+
         <Box
           sx={{
             display: "flex",
@@ -179,6 +198,9 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
   );
 };
 
+StoryDashboard.auth = {
+  role: Role.ADMIN,
+};
 export default StoryDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {

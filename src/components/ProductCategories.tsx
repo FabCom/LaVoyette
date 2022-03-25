@@ -59,31 +59,31 @@ const images = [
     url: "illustration_01_src-pexel.webp",
     title: "Nos spectacles",
     width: "20%",
-    path: '/plays'
+    path: "/plays",
   },
   {
     url: "illustration_02_src-pexel.webp",
     title: "Nos spectacles Sur-Mesure",
     width: "20%",
-    path: '/taylored_plays'
+    path: "/tayloredplays",
   },
   {
     url: "illustration_03_src-pexel.jpeg",
     title: "La Compagnie",
     width: "20%",
-    path: '/about'
+    path: "/about",
   },
   {
     url: "illustration_04_src-pexel.webp",
     title: "Nous contacter",
     width: "20%",
-    path: '/contact'
+    path: "/contact",
   },
   {
     url: "illustration_05_src-pexel.jpeg",
     title: "Nos artistes",
     width: "20%",
-    path: '/artists'
+    path: "/artists",
   },
 ];
 
@@ -97,7 +97,6 @@ export default function ProductCategories() {
         {images.map((image) => (
           <Link href={image.path} key={image.title} passHref>
             <ImageIconButton
-              
               style={{
                 width: image.width,
               }}
