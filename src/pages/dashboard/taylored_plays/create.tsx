@@ -58,7 +58,6 @@ const CreateTayloredPlaysDashboard = () => {
           ? data.tags.split(",").map((categ) => categ.trim())
           : [],
     };
-    // console.log(requestData)
     request(requestData);
   };
 
@@ -72,12 +71,15 @@ const CreateTayloredPlaysDashboard = () => {
 
   return (
     <Dashboard>
-        <Typography
+      <Typography
         variant="h2"
         marked="center"
         align="center"
         sx={{ marginTop: 15, mr: 25 }}
-      > Créer un spectacle sur-mesure</Typography>
+      >
+        {" "}
+        Créer un spectacle sur-mesure
+      </Typography>
       <Container sx={{ display: "flex", position: "relative" }}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <input type="hidden" {...register("id")} />
@@ -150,8 +152,13 @@ const CreateTayloredPlaysDashboard = () => {
             </Grid>
           </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "flex-start", ml: 15 }}>
-            <Button color="secondary" variant="contained" type="submit">
+          <Box sx={item}>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              sx={{ mr: 25 }}
+            >
               Enregistrer
             </Button>
           </Box>

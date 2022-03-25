@@ -38,7 +38,12 @@ const PlaysDashboard: React.FC<Props> = ({ plays }) => {
         Les spectacles
       </Typography>
       <Link href="/dashboard/plays/create" passHref>
-        <Button color="secondary" variant="contained" type="submit" sx={{ mt: 10 }}>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          sx={{ mt: 10 }}
+        >
           Ajouter
         </Button>
       </Link>
@@ -82,7 +87,6 @@ const PlaysDashboard: React.FC<Props> = ({ plays }) => {
                 <Typography variant="h5" component="div">
                   {play.title}
                 </Typography>
-                {/* <Typography variant="body2" color="initial">{(play.abstract) ? play.abstract.slice(0, 100) : null}...</Typography> */}
               </CardContent>
               <CardContent sx={{ width: "10%" }}>
                 <Chip
@@ -91,7 +95,6 @@ const PlaysDashboard: React.FC<Props> = ({ plays }) => {
                   variant="outlined"
                   label={`${play.duration} min`}
                 />
-                {/* <Typography variant="body2" color="initial">{(play.abstract) ? play.abstract.slice(0, 100) : null}...</Typography> */}
               </CardContent>
               <CardContent sx={{ width: "25%" }}>
                 <Stack direction="row" spacing={2} sx={{ my: 1 }}>

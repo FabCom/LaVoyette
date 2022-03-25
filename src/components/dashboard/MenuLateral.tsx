@@ -1,22 +1,14 @@
 import { MenuItem, MenuList, Paper, styled } from "@mui/material";
 import Typography from "components/Typography";
 import Link from "next/link"; // import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { AppProps } from "next/dist/shared/lib/router/router";
 import * as React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronRightIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const drawerWidth: number = 240;
 
@@ -110,7 +102,7 @@ const MenuLateral = () => {
                 ...(open && { display: 'none' }),
               }}
             >
-              <ChevronRightIcon />
+              
             </IconButton>
             
         <IconButton onClick={toggleDrawer}>

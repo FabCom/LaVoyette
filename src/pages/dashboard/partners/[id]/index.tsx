@@ -65,12 +65,15 @@ const PartnerDashboard = ({ partner }: { partner: CompanyPartner }) => {
 
   return (
     <Dashboard>
-        <Typography
+      <Typography
         variant="h2"
         marked="center"
         align="center"
         sx={{ marginTop: 15, mr: 25 }}
-      > Éditer un partenaire</Typography>
+      >
+        {" "}
+        Éditer un partenaire
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <input type="hidden" {...register("id")} />
         <Box

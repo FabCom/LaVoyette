@@ -25,7 +25,12 @@ const ArtistDashboard: React.FC<Props> = ({ artists }) => {
         Les Artistes
       </Typography>
       <Link href="/dashboard/artists/create" passHref>
-        <Button color="secondary" variant="contained" type="submit" sx={{ mt: 10}}>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          sx={{ mt: 10 }}
+        >
           Ajouter
         </Button>
       </Link>
@@ -66,10 +71,8 @@ const ArtistDashboard: React.FC<Props> = ({ artists }) => {
               <Typography variant="h5">
                 {artist.firstname} {artist.lastname}
               </Typography>
-              {/* {artist.logo_src && <img src={artist.logo_src} width='150px' height= '100%'/>} */}
             </CardContent>
             <CardActions sx={{ width: "10%", justifyContent: "center" }}>
-              {/* <Link href={`/artists/${artist.id}`} passHref><IconButton><RemoveRedEyeIcon /></IconButton></Link> */}
               <Link href={`/dashboard/artists/${artist.id}/delete`} passHref>
                 <IconButton color="primary">
                   <DeleteIcon />

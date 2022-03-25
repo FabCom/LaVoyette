@@ -20,14 +20,13 @@ import EditIcon from "@mui/icons-material/Edit";
 type Props = { partners: CompanyPartner[] };
 
 const PartnersDashboard: React.FC<Props> = ({ partners }) => {
-  // console.log(partners)
   return (
     <Dashboard>
       <Typography variant="h2" sx={{ marginTop: 5 }}>
         Partenaires de la compagnie
       </Typography>
       <Link href="/dashboard/partners/create" passHref>
-        <Button color="secondary" variant="contained" sx={{ mt: 15}}>
+        <Button color="secondary" variant="contained" sx={{ mt: 15 }}>
           Ajouter
         </Button>
       </Link>
@@ -72,6 +71,7 @@ const PartnersDashboard: React.FC<Props> = ({ partners }) => {
             </CardContent>
             <CardContent sx={{ width: "30%" }}>
               {partner.logo_src && (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={partner.logo_src} width="150px" height="100%" />
               )}
             </CardContent>

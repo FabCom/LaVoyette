@@ -25,14 +25,18 @@ const StoriesDashboard = ({
   ser_stories: SuperJSONResult;
 }) => {
   const stories: CompanyStory[] = deserialize(ser_stories);
-  // console.log(stories)
   return (
     <Dashboard>
       <Typography variant="h2" sx={{ marginTop: 15 }}>
         Historique de la compagnie
       </Typography>
       <Link href="/dashboard/stories/create" passHref>
-        <Button color="secondary" variant="contained" type="submit" sx={{ mt: 10 }}>
+        <Button
+          color="secondary"
+          variant="contained"
+          type="submit"
+          sx={{ mt: 10 }}
+        >
           Ajouter
         </Button>
       </Link>

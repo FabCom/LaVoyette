@@ -49,7 +49,6 @@ const TayloredPlayPage = () => {
 		request();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	//{taylored_play?.tags.map((tag) => (<Chip label="`${tag}`" variant='outlined' />))}
 
 	return (
 		<Container>

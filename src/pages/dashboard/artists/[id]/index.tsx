@@ -1,16 +1,13 @@
 import * as React from "react";
 import {
   Button,
-  ButtonBase,
   FormGroup,
   Grid,
-  styled,
   TextareaAutosize,
   TextField,
-  Theme,
   Container,
 } from "@mui/material";
-import { Box, SxProps } from "@mui/system";
+import { Box } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import { Artist } from "@prisma/client";
 import Typography from "components/Typography";
@@ -67,7 +64,6 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-    // px: 5,
   };
 
   return (

@@ -4,11 +4,8 @@ import Typography from "../components/Typography";
 import type { Company } from "@prisma/client";
 import { AppProps } from "next/app";
 import { Box, Container, Grid } from "@mui/material";
-//
-export default function ContainerStory({ company }: { company: Company }) {
-  // const company = props.company;
-  // console.log(company);
 
+export default function ContainerStory({ company }: { company: Company }) {
   if (company) {
     return (
       <>

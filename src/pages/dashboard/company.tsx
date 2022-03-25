@@ -29,7 +29,6 @@ type FormCompanyInfo = {
 };
 
 const CompanyDashboard: React.FC<Props> = ({ company }) => {
-  // console.log(company)
   const {
     register,
     setValue,
@@ -60,10 +59,15 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
 
   return (
     <Dashboard>
-     <Container sx ={{ display: "flex", position: "relative" }}>
-      <Typography variant="h2" marked="center" align="center" sx={{ marginTop: 15 }}>
-        Informations sur la compagnie
-      </Typography>
+      <Container sx={{ display: "flex", position: "relative" }}>
+        <Typography
+          variant="h2"
+          marked="center"
+          align="center"
+          sx={{ marginTop: 15 }}
+        >
+          Informations sur la compagnie
+        </Typography>
       </Container>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "150%" }}>
         <input type="hidden" {...register("name")} />
@@ -82,7 +86,9 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
                       width: "45%",
                     }}
                   >
-                    <Typography variant="h4" marked="center">Contacts / Réseaux</Typography>
+                    <Typography variant="h4" marked="center">
+                      Contacts / Réseaux
+                    </Typography>
                     <TextField
                       label="Email"
                       variant="filled"
@@ -117,7 +123,9 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
                       width: "45%",
                     }}
                   >
-                    <Typography variant="h4" marked="center">Description</Typography>
+                    <Typography variant="h4" marked="center">
+                      Description
+                    </Typography>
                     <Box sx={{ mt: 3 }}>
                       <TextareaAutosize
                         aria-label="Descritpion"
@@ -135,12 +143,15 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
         </Box>
 
         <Box sx={item}>
-
-          <Button color="secondary" variant="contained" type="submit" sx={{mr: 25 }}>
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            sx={{ mr: 25 }}
+          >
             Enregistrer
           </Button>
         </Box>
-
       </form>
     </Dashboard>
   );

@@ -108,7 +108,6 @@ export default function DashboardHome() {
                 </Typography>
                 <Typography sx={{ mt: 3 }} align="center">
                   {item.text}
-                  {/* <div className="imageMarked" /> */}
                 </Typography>
               </Box>
             </ImageIconButton>

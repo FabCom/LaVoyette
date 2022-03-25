@@ -63,7 +63,6 @@ const CreatePlaysDashboard = () => {
           ? data.tags.split(",").map((categ) => categ.trim())
           : [],
     };
-    // console.log(requestData)
     request(requestData);
   };
 

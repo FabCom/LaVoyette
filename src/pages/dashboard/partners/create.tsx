@@ -1,11 +1,18 @@
-import { Button, Container, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  FormGroup,
+  Grid,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from 'next/router'
+import Router from "next/router";
 import { CompanyPartner } from "@prisma/client";
 
 const CreatePartnersDashboard = () => {
@@ -17,16 +24,17 @@ const CreatePartnersDashboard = () => {
     formState: { errors },
   } = useForm<CompanyPartner>();
 
-  const {isLoading, apiData, request } = useRequest<CompanyPartner>(
+  const { isLoading, apiData, request } = useRequest<CompanyPartner>(
     `partners`,
     "POST"
   );
 
-  useEffect(()=> {
-    if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/partners')}
+  useEffect(() => {
+    if (isLoading === false && apiData !== null) {
+      router.push("/dashboard/partners");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
+  }, [isLoading]);
 
   const onSubmit = async (data: CompanyPartner) => {
     request(data);
@@ -42,7 +50,12 @@ const CreatePartnersDashboard = () => {
 
   return (
     <Dashboard>
-      <Typography variant="h2" marked="center" align="center" sx={{ marginTop: 15, mr: 25 }}>
+      <Typography
+        variant="h2"
+        marked="center"
+        align="center"
+        sx={{ marginTop: 15, mr: 25 }}
+      >
         Ajouter un nouveau partenaire
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>

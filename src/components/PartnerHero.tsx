@@ -65,11 +65,14 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
                 onSubmit={handleSubmit}
                 sx={{ maxWidth: 800 }}
               >
-                <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
+                <Typography
+                  variant="h4"
+                  component="h2"
+                  color="secondary.main"
+                  gutterBottom
+                >
                   {companypartner.name}
                 </Typography>
-
-                
               </Box>
               <CardActions disableSpacing>
                 <ExpandMore
@@ -83,7 +86,6 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
               </CardActions>
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                  
                   <Typography variant="h5" color="secondary.light">
                     {companypartner.description}
                   </Typography>
@@ -97,18 +99,6 @@ function PartnerHero({ companypartner }: { companypartner: CompanyPartner }) {
             md={300}
             sx={{ display: { md: "block", xs: "none" }, position: "relative" }}
           >
-            {/* <Box
-              sx={{
-                position: "absolute",
-                top: -67,
-                left: -67,
-                right: 0,
-                bottom: 0,
-                width: "100%",
-                background:
-                  "url(/static/themes/onepirate/TeamHeroImageDots.png)",
-              }}
-            /> */}
             <Box
               component="img"
               src="https://media.gettyimages.com/photos/zendaya-attends-the-bvlgari-bzero1-rock-collection-event-at-duggal-picture-id1204545842?s=594x594"

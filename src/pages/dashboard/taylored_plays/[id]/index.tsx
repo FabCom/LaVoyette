@@ -88,7 +88,6 @@ const TayloredPlaysDashboard = ({
           ? data.tags.split(",").map((categ) => categ.trim())
           : [],
     };
-    // console.log(requestData)
     request(requestData);
   };
 
@@ -102,12 +101,15 @@ const TayloredPlaysDashboard = ({
 
   return (
     <Dashboard>
-        <Typography
+      <Typography
         variant="h2"
         marked="center"
         align="center"
         sx={{ marginTop: 15, mr: 25 }}
-      > Éditer un spectacle</Typography>
+      >
+        {" "}
+        Éditer un spectacle
+      </Typography>
       <Container sx={{ display: "flex", position: "relative" }}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <input type="hidden" {...register("id")} />
@@ -181,15 +183,15 @@ const TayloredPlaysDashboard = ({
           </Box>
 
           <Box sx={item}>
-          <Button
-            color="secondary"
-            variant="contained"
-            type="submit"
-            sx={{ mr: 25 }}
-          >
-            Enregistrer
-          </Button>
-        </Box>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              sx={{ mr: 25 }}
+            >
+              Enregistrer
+            </Button>
+          </Box>
         </form>
       </Container>
     </Dashboard>

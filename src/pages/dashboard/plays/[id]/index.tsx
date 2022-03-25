@@ -85,7 +85,6 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
           ? data.tags.split(",").map((categ) => categ.trim())
           : [],
     };
-    // console.log(requestData)
     request(requestData);
   };
 
@@ -104,7 +103,10 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
         marked="center"
         align="center"
         sx={{ marginTop: 15, mr: 25 }}
-      > Éditer un spectacle</Typography>
+      >
+        {" "}
+        Éditer un spectacle
+      </Typography>
       <Container sx={{ display: "flex", position: "relative" }}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <input type="hidden" {...register("id")} />
