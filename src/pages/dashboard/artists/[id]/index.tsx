@@ -72,12 +72,15 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
 
   return (
     <Dashboard>
-        <Typography
+      <Typography
         variant="h2"
         marked="center"
         align="center"
         sx={{ marginTop: 15, mr: 25 }}
-      > Éditer un artiste</Typography>
+      >
+        {" "}
+        Éditer un artiste
+      </Typography>
       <Container sx={{ display: "flex", position: "relative" }}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <input type="hidden" {...register("id")} />
