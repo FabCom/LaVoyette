@@ -11,7 +11,8 @@ const getONE = async (playId: number, response: NextApiResponse) => {
       },
       include: {
         audienceCategories: true,
-        tags: true
+        tags: true,
+        images: true
       },
     })
     response.status(200).json(result);
@@ -54,6 +55,9 @@ const updateONE = async (body: any, playId: number, response: NextApiResponse) =
         };
       }),
     },
+    images: {
+      create: body.images
+    }
   };
   try {
     const result = await models.play.update({
