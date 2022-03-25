@@ -46,12 +46,12 @@ export default function TayloredPlayCard({ play }: { play: TayloredPlayWithAudie
               </Typography>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.audienceCategories?.map((categ, i) => (
-                  <Chip key={i} label={categ.title} />
+                  <Chip key={i} label={categ.title} color="secondary" />
                 ))}
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.tags?.map((categ, i) => (
-                  <Chip key={categ.id+i} label={categ.title} />
+                  <Chip key={categ.id+i} label={categ.title} color="secondary" />
                 ))}
               </Stack>
             </Box>
