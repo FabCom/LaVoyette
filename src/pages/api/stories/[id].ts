@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { Prisma } from "@prisma/client";
+import { Prisma, Role } from "@prisma/client";
 import models from "lib/models";
+import { getSession } from "next-auth/react";
 
 const getONE = async (storyId: number, response: NextApiResponse) => {
   try {
@@ -63,6 +64,7 @@ const doRequest = async (
 ) => {
   const { method, query, body } = request;
   const storyId: number = parseInt(query.id as string, 10);
+  const session = await getSession({req: request})
 
   if (method === "GET") {
     getONE(storyId, response);
@@ -70,13 +72,18 @@ const doRequest = async (
     return;
   }
 
-  if (method === "DELETE") {
+  if (!session) {
+    response.status(401).json({err: "unauthorized"});
+    return 
+  }
+
+  if (method === "DELETE" && session.user.role === Role.ADMIN) {
     deleteONE(storyId, response);
 
     return;
   }
 
-  if (method === "PUT") {
+  if (method === "PUT" && session.user.role === Role.ADMIN) {
     updateONE(body, storyId, response);
 
     return;

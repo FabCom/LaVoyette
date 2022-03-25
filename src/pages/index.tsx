@@ -9,7 +9,6 @@ function Index() {
     <React.Fragment>
       <Hero />
       <ProductCategories />
-      <DashboardHome/>
     </React.Fragment>
   );
 }
