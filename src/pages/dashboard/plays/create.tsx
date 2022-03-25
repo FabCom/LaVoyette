@@ -39,7 +39,7 @@ interface IParams extends ParsedUrlQuery {
 
 const CreatePlaysDashboard = () => {
   const [urls, setUrls] = useState<string[]>([]);
-  const { uploadToS3, files} = useS3Upload();
+  const { uploadToS3, files } = useS3Upload();
 
   const handleFilesChange = async ({
     target,
@@ -99,16 +99,12 @@ const CreatePlaysDashboard = () => {
     };
     if (urls) {
       const imagesData = urls.map((url, index) => ({
-        title: data.title + index.toString(),
+        title: url.slice(url.lastIndexOf("/") + 1),
         src: url,
       }));
       console.log(imagesData);
       requestData.images = imagesData;
-      // requestData.images = [
-      //   urls.map((url: string, index: number) =>  return {title: requestData.title + index, url: url})
-      // ]
     }
-    // console.log(requestData)
     request(requestData);
   };
   console.log(urls);
@@ -186,43 +182,43 @@ const CreatePlaysDashboard = () => {
           </FormGroup>
         </Box>
         <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "start",
-          justifyContent: "space-around",
-          width: "100%",
-          marginTop: 5,
-          marginLeft: 5,
-        }}
-      >
-        <Typography variant="h4">Images</Typography>
-        <div>
-          <input
-            id="upload-button"
-            accept=".jpg, .png, .gif"
-            type="file"
-            name="file"
-            style={{ display: "none" }}
-            multiple={true}
-            onChange={handleFilesChange}
-          />
-          <label htmlFor="upload-button">
-            <Button color="primary" variant="contained" component="span">
-              Ajouter des images
-            </Button>
-          </label>
-        </div>
-        <div style={{ marginTop: 5, }} >
-          {urls.length !== 0 &&
-            <Typography variant="h6">Images ajoutées : </Typography>
-          }
-          
-          {urls.map((url, index) => (
-            <div key={url}>{url.slice(url.lastIndexOf("/") + 1)}</div>
-          ))}
-        </div>
-      </Box>
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+            marginLeft: 5,
+          }}
+        >
+          <Typography variant="h4">Images</Typography>
+          <div>
+            <input
+              id="upload-button"
+              accept=".jpg, .png, .gif"
+              type="file"
+              name="file"
+              style={{ display: "none" }}
+              multiple={true}
+              onChange={handleFilesChange}
+            />
+            <label htmlFor="upload-button">
+              <Button color="primary" variant="contained" component="span">
+                Ajouter des images
+              </Button>
+            </label>
+          </div>
+          <div style={{ marginTop: 5 }}>
+            {urls.length !== 0 && (
+              <Typography variant="h6">Images ajoutées : </Typography>
+            )}
+
+            {urls.map((url, index) => (
+              <div key={index}>{url.slice(url.lastIndexOf("/") + 1)}</div>
+            ))}
+          </div>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -238,7 +234,6 @@ const CreatePlaysDashboard = () => {
           </Button>
         </Box>
       </form>
-      
     </Dashboard>
   );
 };
