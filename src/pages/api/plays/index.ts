@@ -4,8 +4,8 @@ import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type BodyRequest = {title: string,abstract: string, duration: number, audienceCategories: string[], tags: string[]}
-
+type BodyRequest = {title: string,abstract: string, duration: number, audienceCategories: string[], tags: string[], images: Image[]}
+type Image = {title: string, src: string}
 const getALL = async (response: NextApiResponse) => {
   try {
     const result = await models.play.findMany({
@@ -42,6 +42,9 @@ const create = async (body: BodyRequest, response: NextApiResponse) => {
           };
       }),
      },
+    images: {
+      create: body.images
+    }
   };
 
   try {
