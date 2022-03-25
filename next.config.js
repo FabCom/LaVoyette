@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   // lavoyette.s3.eu-west-3.amazonaws.com
   images: {
-    domains: ['lavoyette.s3.eu-west-3.amazonaws.com', "external-content.duckduckgo.com"],
+    domains: ['lavoyette.s3.eu-west-3.amazonaws.com', "external-content.duckduckgo.com", "images.pexels.com"],
   },
   // images: {
   //   loader: 'imgix',
