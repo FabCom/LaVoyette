@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, IconButton, Chip } from "@mui/material"
 import { Box } from "@mui/system"
-import { CompanyStory } from "@prisma/client"
+import { CompanyStory, Role } from "@prisma/client"
 import Dashboard from "components/dashboard/LayoutDashboard"
 import Typography from "components/Typography"
 import { COMPANY_NAME } from "config"
@@ -51,6 +51,10 @@ const StoriesDashboard= ({ser_stories}: {ser_stories: SuperJSONResult}) => {
     </Dashboard>
   )
 }
+
+StoriesDashboard.auth = {
+  role: Role.ADMIN,
+};
 
 export default StoriesDashboard
 

@@ -1,6 +1,6 @@
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { CompanyPartner } from "@prisma/client";
+import { CompanyPartner, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -117,6 +117,10 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
       </form>
     </Dashboard>
   );
+};
+
+PartnerDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default PartnerDashboard;

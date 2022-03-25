@@ -1,6 +1,6 @@
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { AudienceCategory, Tag } from "@prisma/client";
+import { AudienceCategory, Role, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -161,6 +161,11 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags; }) => {
 			</form>
 		</Dashboard>
 	);
+};
+
+
+PlaysDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default PlaysDashboard;

@@ -1,5 +1,6 @@
 import * as React from "react";
 import DashboardHome from "components/DashboardHome";
+import { Role } from "@prisma/client";
 
 function Index() {
   return (
@@ -8,5 +9,10 @@ function Index() {
     </React.Fragment>
   );
 }
+
+Index.auth = {
+  role: Role.ADMIN,
+};
+
 
 export default Index;
