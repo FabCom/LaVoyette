@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Button,
   Card,
@@ -13,6 +14,16 @@ import Typography from "components/Typography";
 import { COMPANY_NAME } from "config";
 import models from "lib/models";
 import Link from "next/link";
+=======
+import { Button, Card, CardActions, CardContent, IconButton, Chip } from "@mui/material"
+import { Box } from "@mui/system"
+import { CompanyStory, Role } from "@prisma/client"
+import Dashboard from "components/dashboard/LayoutDashboard"
+import Typography from "components/Typography"
+import { COMPANY_NAME } from "config"
+import models from "lib/models"
+import Link from "next/link"
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 import { deserialize, serialize } from "superjson";
 import { SuperJSONResult } from "superjson/dist/types";
 import moment from "moment";
@@ -110,7 +121,15 @@ const StoriesDashboard = ({
   );
 };
 
+<<<<<<< HEAD
 export default StoriesDashboard;
+=======
+StoriesDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default StoriesDashboard
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 export async function getServerSideProps<GetServerSideProps>() {
   const company = await models.company.findUnique({

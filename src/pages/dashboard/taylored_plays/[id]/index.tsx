@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { AudienceCategory, Tag } from "@prisma/client";
+import { AudienceCategory, Role, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -16,7 +16,13 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+<<<<<<< HEAD
 import Router from "next/router";
+=======
+import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormTayloredPlay } from "../create";
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 type TayloredPlayWithAudienceAndTags = {
   id: number;
@@ -59,6 +65,7 @@ const TayloredPlaysDashboard = ({
         .join(","),
       tags: taylored_play.tags.map((item) => item.title).join(","),
     },
+    resolver: yupResolver(validFormTayloredPlay)
   });
 
   const { isLoading, apiData, request } =
@@ -101,6 +108,7 @@ const TayloredPlaysDashboard = ({
 
   return (
     <Dashboard>
+<<<<<<< HEAD
       <Typography
         variant="h2"
         marked="center"
@@ -194,8 +202,85 @@ const TayloredPlaysDashboard = ({
           </Box>
         </form>
       </Container>
+=======
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+        <input type="hidden" {...register("id")} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+          }}
+        >
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Informations</Typography>
+            <TextField
+              label="Titre"
+              variant="filled"
+              focused
+              {...register("title")}
+              error={errors.title ? true : false}
+              helperText={errors.title ? errors.title.message : null}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Public"
+              variant="filled"
+              focused
+              {...register("audienceCategories")}
+              error={errors.audienceCategories ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Tag"
+              variant="filled"
+              focused
+              {...register("tags")}
+              error={errors.tags ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
+              sx={{ marginTop: 3 }}
+            />
+          </FormGroup>
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Description</Typography>
+            <TextareaAutosize
+              aria-label="Concept"
+              minRows={20}
+              placeholder=""
+              style={{ width: "100%" }}
+ 
+              {...register("concept")}
+            />
+          </FormGroup>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+          }}
+        >
+          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+        </Box>
+      </form>
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
     </Dashboard>
   );
+};
+
+TayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default TayloredPlaysDashboard;

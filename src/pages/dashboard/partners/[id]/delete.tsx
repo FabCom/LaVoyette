@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { CompanyPartner } from "@prisma/client";
+import { CompanyPartner, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -75,6 +75,10 @@ const DeletePartnerDashboard = ({ partner }: { partner: CompanyPartner }) => {
       </Box>
     </Dashboard>
   );
+};
+
+DeletePartnerDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default DeletePartnerDashboard;

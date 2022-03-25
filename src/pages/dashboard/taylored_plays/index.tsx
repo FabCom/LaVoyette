@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Container,
   Box,
@@ -27,8 +28,20 @@ export type TayloredPlayWithAudienceAndTags = {
   tags: Tag[];
 };
 type Props = { taylored_plays: TayloredPlayWithAudienceAndTags[] };
+=======
+import { Container, Box, Button, Card, CardContent, Typography, Grid, CardActions, IconButton, Stack, Chip } from '@mui/material'
+import { AudienceCategory, Role, Tag } from "@prisma/client"
+import Dashboard from "components/dashboard/LayoutDashboard"
+import models from "lib/models"
+import Link from "next/link"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
+export type TayloredPlayWithAudienceAndTags = { id: number, title: string, concept: string, audienceCategories: AudienceCategory[], tags: Tag[] }
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
+
+const TayloredPlaysDashboard = ({ taylored_plays }: { taylored_plays: TayloredPlayWithAudienceAndTags[] }) => {
   return (
     <Dashboard>
       <Typography variant="h2" sx={{ marginTop: 5 }}>
@@ -124,7 +137,15 @@ const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
   );
 };
 
+<<<<<<< HEAD
 export default TayloredPlaysDashboard;
+=======
+TayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default TayloredPlaysDashboard
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 export async function getServerSideProps<GetServerSideProps>() {
   const taylored_plays = await models.tayloredPlay.findMany({

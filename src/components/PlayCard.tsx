@@ -13,7 +13,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import type { PlayWithAudienceAndTags } from "pages/dashboard/plays";
 
 export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
-  // console.log(play);
+  // console.log(play)
   return (
     <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
@@ -48,14 +48,14 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
                 {play.abstract ? play.abstract.slice(0, 400) : null}...
               </Typography>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
-                {play.audienceCategories?.map((categ, i) => {
-                  <Chip key={i} label={categ.title} color="secondary" />;
-                })}
+                {play.audienceCategories?.map((categ, i) => (
+                  <Chip key={i} label={categ.title} color="secondary"/>
+                ))}
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
-                {play.tags?.map((categ, i) => {
-                  <Chip key={i} label={categ.title} color="secondary" />;
-                })}
+                {play.tags?.map((categ, i) => (
+                  <Chip key={i} label={categ.title} color="secondary"/>
+                ))}
               </Stack>
             </Box>
             <CardActions disableSpacing></CardActions>

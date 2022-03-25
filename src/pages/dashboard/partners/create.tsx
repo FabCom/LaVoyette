@@ -12,8 +12,22 @@ import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+<<<<<<< HEAD
 import Router from "next/router";
 import { CompanyPartner } from "@prisma/client";
+=======
+import Router from 'next/router'
+import { CompanyPartner, Role } from "@prisma/client";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+export const validFormPartner = yup.object().shape({
+  name: yup.string().required('requis'),
+  logo_src: yup.string().url().required('requis'),
+  description: yup.string()
+});
+
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 const CreatePartnersDashboard = () => {
   const router = Router;
@@ -22,7 +36,7 @@ const CreatePartnersDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyPartner>();
+  } = useForm<CompanyPartner>({resolver: yupResolver(validFormPartner)});
 
   const { isLoading, apiData, request } = useRequest<CompanyPartner>(
     `partners`,
@@ -64,6 +78,7 @@ const CreatePartnersDashboard = () => {
           component="section"
           sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
         >
+<<<<<<< HEAD
           <Container sx={{ display: "flex", position: "relative" }}>
             <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
@@ -122,6 +137,43 @@ const CreatePartnersDashboard = () => {
               </Grid>
             </Grid>
           </Container>
+=======
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Informations</Typography>
+            <TextField
+              label="Nom"
+              variant="filled"
+              focused
+              {...register("name")}
+              error={errors.name ? true : false}
+              helperText={errors.name ? errors.name.message : null}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="url vers un logo"
+              variant="filled"
+              focused
+              error={errors.logo_src ? true : false}
+              helperText={errors.logo_src ? errors.logo_src.message : null}
+              {...register("logo_src")}
+              sx={{ marginTop: 3 }}
+            />
+          </FormGroup>
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Description</Typography>
+            <TextareaAutosize
+              aria-label="description"
+              minRows={20}
+              placeholder=""
+              style={{ width: "100%" }}
+              {...register("description")}
+            />
+          </FormGroup>
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
         </Box>
         <Box sx={item}>
           <Button
@@ -138,4 +190,12 @@ const CreatePartnersDashboard = () => {
   );
 };
 
+<<<<<<< HEAD
 export default CreatePartnersDashboard;
+=======
+CreatePartnersDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default CreatePartnersDashboard;
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173

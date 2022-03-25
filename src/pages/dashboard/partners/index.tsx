@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Button,
   Card,
@@ -20,6 +21,22 @@ import EditIcon from "@mui/icons-material/Edit";
 type Props = { partners: CompanyPartner[] };
 
 const PartnersDashboard: React.FC<Props> = ({ partners }) => {
+=======
+import { Button, Card, CardActions, CardContent, Chip, IconButton } from "@mui/material"
+import { Box } from "@mui/system"
+import { CompanyPartner, Role } from "@prisma/client"
+import Dashboard from "components/dashboard/LayoutDashboard"
+import Typography from "components/Typography"
+import { COMPANY_NAME } from "config"
+import models from "lib/models"
+import Image from "next/image"
+import Link from "next/link"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
+const PartnersDashboard = ({partners}: {partners: CompanyPartner[]}) => {
+  // console.log(partners)
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
   return (
     <Dashboard>
       <Typography variant="h2" sx={{ marginTop: 5 }}>
@@ -94,7 +111,15 @@ const PartnersDashboard: React.FC<Props> = ({ partners }) => {
   );
 };
 
+<<<<<<< HEAD
 export default PartnersDashboard;
+=======
+PartnersDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default PartnersDashboard
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 export async function getServerSideProps<GetServerSideProps>() {
   const company = await models.company.findUnique({

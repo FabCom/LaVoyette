@@ -12,7 +12,14 @@ import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+<<<<<<< HEAD
 import Router from "next/router";
+=======
+import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { Role } from "@prisma/client";
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 type RequestTayloredPlayWithAudienceAndTags = {
   id: number;
@@ -22,6 +29,13 @@ type RequestTayloredPlayWithAudienceAndTags = {
   tags: string;
 };
 
+export const validFormTayloredPlay = yup.object().shape({
+  title: yup.string().required('requis'),
+  concept: yup.string().required('requis'),
+  audienceCategories: yup.string().matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule"),
+  tags: yup.string().default(null).matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule")
+});
+
 const CreateTayloredPlaysDashboard = () => {
   const router = Router;
   const {
@@ -29,7 +43,7 @@ const CreateTayloredPlaysDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestTayloredPlayWithAudienceAndTags>();
+  } = useForm<RequestTayloredPlayWithAudienceAndTags>({resolver: yupResolver(validFormTayloredPlay)});
 
   const { isLoading, apiData, request } =
     useRequest<RequestTayloredPlayWithAudienceAndTags>(
@@ -87,6 +101,7 @@ const CreateTayloredPlaysDashboard = () => {
             component="section"
             sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
           >
+<<<<<<< HEAD
             <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
@@ -164,8 +179,73 @@ const CreateTayloredPlaysDashboard = () => {
           </Box>
         </form>
       </Container>
+=======
+            <Typography variant="h4">Informations</Typography>
+            <TextField
+              label="Titre"
+              variant="filled"
+              focused
+              {...register("title")}
+              error={errors.title ? true : false}
+              helperText={errors.title ? errors.title.message : null}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Public"
+              variant="filled"
+              focused
+              {...register("audienceCategories")}
+              error={errors.audienceCategories ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Tag"
+              variant="filled"
+              focused
+              {...register("tags")}
+              error={errors.tags ? true : false}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
+              sx={{ marginTop: 3 }}
+            />
+          </FormGroup>
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Description</Typography>
+            <TextareaAutosize
+              aria-label="Concept"
+              minRows={20}
+              placeholder=""
+              style={{ width: "100%" }}
+              {...register("concept")}
+            />
+          </FormGroup>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+          }}
+        >
+          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+        </Box>
+      </form>
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
     </Dashboard>
   );
 };
 
+<<<<<<< HEAD
 export default CreateTayloredPlaysDashboard;
+=======
+CreateTayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default CreateTayloredPlaysDashboard;
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173

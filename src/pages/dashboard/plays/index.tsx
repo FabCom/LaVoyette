@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import {
   Container,
@@ -60,6 +61,33 @@ const PlaysDashboard: React.FC<Props> = ({ plays }) => {
         >
           <Box sx={{ width: "30%" }}>
             <span>Titre</span>
+=======
+import React from 'react'
+import { Container, Box, Button, Card, CardContent, Typography, Grid, CardActions, IconButton, Stack, Chip } from '@mui/material'
+import Dashboard from 'components/dashboard/LayoutDashboard';
+import Link from 'next/link';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import models from "lib/models"
+import { AudienceCategory, Role, Tag } from "@prisma/client"
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
+export type PlayWithAudienceAndTags = { id: number, title: string, abstract: string, audienceCategories: AudienceCategory[], tags: Tag[], duration: number}
+
+
+const PlaysDashboard= ({ plays }: { plays: PlayWithAudienceAndTags[] }) => {
+	return (
+		<Dashboard>
+			<Typography variant='h2' sx={{marginTop: 5}}>Les spectacles</Typography>
+				<Link href="/dashboard/plays/create" passHref>
+					<Button color="secondary" variant="contained" type="submit">Ajouter</Button>
+				</Link>
+			<Box sx={{ mt: 5,width: '100%', display: 'flex', flexDirection: 'column' }}>
+				<Box sx={{ width: '100%', padding:5 , display: 'flex', flexDirection: 'row'}}>
+          <Box sx={{width:"30%"}}>
+          <span>Titre</span>
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
           </Box>
           <Box sx={{ width: "10%" }}>
             <span>Durée</span>
@@ -139,6 +167,12 @@ const PlaysDashboard: React.FC<Props> = ({ plays }) => {
     </Dashboard>
   );
 };
+
+
+PlaysDashboard.auth = {
+  role: Role.ADMIN,
+};
+
 
 export default PlaysDashboard;
 

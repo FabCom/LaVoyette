@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { Artist } from "@prisma/client";
+import { Artist, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -47,6 +47,10 @@ const DeleteArtistDashboard = ({ artist }: { artist: Artist}) => {
         </Box>
     </Dashboard>
   );
+};
+
+DeleteArtistDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default DeleteArtistDashboard;

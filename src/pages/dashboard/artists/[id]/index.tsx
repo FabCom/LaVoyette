@@ -8,6 +8,10 @@ import {
   Container,
 } from "@mui/material";
 import { Box } from "@mui/system";
+<<<<<<< HEAD
+=======
+import { Artist, Role } from "@prisma/client";
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 import Dashboard from "components/dashboard/LayoutDashboard";
 import { Artist } from "@prisma/client";
 import Typography from "components/Typography";
@@ -17,7 +21,13 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+<<<<<<< HEAD
 import Router from "next/router";
+=======
+import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormArtist } from "../create";
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -40,7 +50,12 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
       email: artist.email,
       facebook_link: artist.facebook_link,
       instagram_link: artist.instagram_link,
+<<<<<<< HEAD
     },
+=======
+      
+    },resolver: yupResolver(validFormArtist)
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
   });
 
   const { isLoading, apiData, request } = useRequest<Artist>(
@@ -68,6 +83,7 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
 
   return (
     <Dashboard>
+<<<<<<< HEAD
       <Typography
         variant="h2"
         marked="center"
@@ -83,6 +99,72 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
           <Box
             component="section"
             sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
+=======
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+        <input type="hidden" {...register("id")} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+          }}
+        >
+           <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Informations</Typography>
+            <TextField
+              label="Prénom"
+              variant="filled"
+              focused
+              error={errors.firstname ? true : false}
+              helperText={errors.firstname ? errors.firstname.message : null}
+              {...register("firstname")}
+              sx={{ marginTop: 3 }}
+            />
+             <TextField
+              label="Nom"
+              variant="filled"
+              focused
+              error={errors.lastname ? true : false}
+              helperText={errors.lastname ? errors.lastname.message : null}
+              {...register("lastname")}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Courriel"
+              variant="filled"
+              focused
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : null}
+              {...register("email")}
+              sx={{ marginTop: 3 }}
+            />
+             <TextField
+              label="Facebook"
+              variant="filled"
+              focused
+              error={errors.facebook_link ? true : false}
+              helperText={errors.facebook_link ? errors.facebook_link.message : null}
+              {...register("facebook_link")}
+              sx={{ marginTop: 3 }}
+            />
+             <TextField
+              label="Instagram"
+              variant="filled"
+              focused
+              error={errors.instagram_link ? true : false}
+              helperText={errors.instagram_link ? errors.instagram_link.message : null}
+              {...register("instagram_link")}
+              sx={{ marginTop: 3 }}
+            />
+          </FormGroup>
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+>>>>>>> ae9ae1f11a8e15fb79b3fd8b84a9345f0653e173
           >
             <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
@@ -178,6 +260,10 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
       </Container>
     </Dashboard>
   );
+};
+
+ArtistDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default ArtistDashboard;
