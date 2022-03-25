@@ -1,9 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Company, Prisma } from "@prisma/client";
+import { Company, Prisma, Role } from "@prisma/client";
 import { COMPANY_NAME } from "config";
 import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 const getALL = async (response: NextApiResponse) => {
   try {
@@ -56,14 +57,14 @@ const doRequest = async (
     return;
   }
 
-  // const session = await getSession({ req: request })
+  const session = await getSession({ req: request })
 
-  // if (!session) {
-  //   response.status(401).json({err: "unauthorized"});
-  //   return
-  // }
+  if (!session) {
+    response.status(401).json({err: "unauthorized"});
+    return
+  }
 
-  if (method === "POST") {
+  if (method === "POST" && session.user.role === Role.ADMIN) {
     const company = await models.company.findUnique({
       where: { name: COMPANY_NAME },
     });
@@ -73,6 +74,10 @@ const doRequest = async (
     }
 
     return;
+  }
+
+  else {
+    return response.status(403).json({ err: "Error" });
   }
 };
 

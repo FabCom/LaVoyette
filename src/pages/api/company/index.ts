@@ -1,9 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Prisma } from "@prisma/client";
+import { Prisma, Role } from "@prisma/client";
 import { COMPANY_NAME } from "config";
 import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 type BodyRequest = {description: string, email: string, facebook_link: string, instagram_link: string}
 const getCompany = async (response: NextApiResponse) => {
@@ -61,8 +62,14 @@ const doRequest = async (request: NextApiRequest, response: NextApiResponse) => 
     
     return
   }
+  const session = await getSession({ req: request })
+  
+  if (!session) {
+    response.status(401).json({err: "unauthorized"});
+    return 
+  }
 
-  if (method === 'PUT') {
+  if (method === 'PUT' && session.user.role === Role.ADMIN) {
     
     updateCompany(body, response)
     
