@@ -1,6 +1,6 @@
 import { Alert, Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { CompanyStory } from "@prisma/client";
+import { CompanyStory, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -179,6 +179,9 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
   );
 };
 
+StoryDashboard.auth = {
+  role: Role.ADMIN,
+};
 export default StoryDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {

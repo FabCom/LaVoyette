@@ -1,6 +1,6 @@
 import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { Artist } from "@prisma/client";
+import { Artist, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -147,6 +147,10 @@ const ArtistDashboard = ({ artist}: {artist: Artist;}) => {
       </form>
     </Dashboard>
   );
+};
+
+ArtistDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default ArtistDashboard;

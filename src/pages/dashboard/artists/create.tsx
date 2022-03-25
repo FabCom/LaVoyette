@@ -6,7 +6,7 @@ import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
-import { Artist } from "@prisma/client";
+import { Artist, Role } from "@prisma/client";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
@@ -43,7 +43,7 @@ const CreateArtistsDashboard = () => {
     console.log(data)
     request(data);
   };
-  console.log(errors)
+  // console.log(errors)
   return (
     <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -138,6 +138,10 @@ const CreateArtistsDashboard = () => {
       </form>
     </Dashboard>
   );
+};
+
+CreateArtistsDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CreateArtistsDashboard;

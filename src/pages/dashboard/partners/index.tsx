@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, Chip, IconButton } from "@mui/material"
 import { Box } from "@mui/system"
-import { CompanyPartner } from "@prisma/client"
+import { CompanyPartner, Role } from "@prisma/client"
 import Dashboard from "components/dashboard/LayoutDashboard"
 import Typography from "components/Typography"
 import { COMPANY_NAME } from "config"
@@ -10,9 +10,7 @@ import Link from "next/link"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-type Props = {partners: CompanyPartner[] }
-
-const PartnersDashboard: React.FC<Props> = ({partners}) => {
+const PartnersDashboard = ({partners}: {partners: CompanyPartner[]}) => {
   // console.log(partners)
   return (
     <Dashboard >
@@ -48,6 +46,10 @@ const PartnersDashboard: React.FC<Props> = ({partners}) => {
     </Dashboard>
   )
 }
+
+PartnersDashboard.auth = {
+  role: Role.ADMIN,
+};
 
 export default PartnersDashboard
 
