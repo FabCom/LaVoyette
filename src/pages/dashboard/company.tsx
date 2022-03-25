@@ -1,4 +1,11 @@
-import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  FormGroup,
+  Grid,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
@@ -11,11 +18,11 @@ import useRequest from "hooks/useRequest";
 import { AppProps } from "next/app";
 
 type Props = {
-  company: Company
-}
+  company: Company;
+};
 
 type FormCompanyInfo = {
-  name: string,
+  name: string;
   description: string;
   email: string;
   facebook_link: string | null;
@@ -31,78 +38,117 @@ const CompanyDashboard = ({company}: {company: Company}) => {
       description: company.description,
       email: company.email,
       facebook_link: company.facebook_link,
-      instagram_link: company.instagram_link
+      instagram_link: company.instagram_link,
     },
   });
   const { request } = useRequest<Company>("company", "PUT");
 
   const onSubmit = async (data: FormCompanyInfo) => {
-    request(data)
+    request(data);
+  };
+
+  const item = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    px: 5,
   };
 
   return (
     <Dashboard>
-      <Typography variant='h2' sx={{marginTop: 5}}>Informations sur la compagnie</Typography>
-      <form onSubmit={handleSubmit(onSubmit)} style={{width: '100%'}}>
-        <input type="hidden" {...register("name")}/>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: 5
-          }}
+      <Container sx={{ display: "flex", position: "relative" }}>
+        <Typography
+          variant="h2"
+          marked="center"
+          align="center"
+          sx={{ marginTop: 15 }}
         >
-          <FormGroup
-            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-          >
-            <Typography variant='h4'>Contacts / Réseaux</Typography>
-            <TextField
-              label="Email"
-              variant="filled"
-              focused
-              {...register("email")}
-              sx={{marginTop: 3}}
-            />
-            <TextField
-              label="Lien facebook"
-              variant="filled"
-              focused
-              {...register("facebook_link")}
-              sx={{marginTop: 3}}
-            />
-            <TextField
-              label="Lien instagram"
-              variant="filled"
-              focused
-              {...register("instagram_link")}
-              sx={{marginTop: 3}}
-            />
-          </FormGroup>
-          <FormGroup sx={{ display: "flex", flexDirection: "column", width: "45%" }}>
-            <Typography variant='h4'>Description</Typography>
-            <TextareaAutosize
-              aria-label="Descritpion"
-              minRows={20}
-              placeholder=""
-              style={{width: "100%"}}
-              {...register("description")}
-            />
-          </FormGroup>
+          Informations sur la compagnie
+        </Typography>
+      </Container>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "150%" }}>
+        <input type="hidden" {...register("name")} />
+        <Box
+          component="section"
+          sx={{ mt: 15, mb: 8, display: "flex", overflow: "hidden" }}
+        >
+          <Container sx={{ display: "flex", position: "relative" }}>
+            <Grid container spacing={10}>
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Contacts / Réseaux
+                    </Typography>
+                    <TextField
+                      label="Email"
+                      variant="filled"
+                      focused
+                      {...register("email")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Lien facebook"
+                      variant="filled"
+                      focused
+                      {...register("facebook_link")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Lien instagram"
+                      variant="filled"
+                      focused
+                      {...register("instagram_link")}
+                      sx={{ marginTop: 3 }}
+                    />
+                  </FormGroup>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Description
+                    </Typography>
+                    <Box sx={{ mt: 3 }}>
+                      <TextareaAutosize
+                        aria-label="Descritpion"
+                        minRows={20}
+                        placeholder=""
+                        style={{ width: "100%", height: "100%" }}
+                        {...register("description")}
+                      />
+                    </Box>
+                  </FormGroup>
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: 5
-          }}
-        >
-          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+
+        <Box sx={item}>
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            sx={{ mr: 25 }}
+          >
+            Enregistrer
+          </Button>
         </Box>
       </form>
     </Dashboard>
@@ -116,8 +162,9 @@ CompanyDashboard.auth = {
 export default CompanyDashboard;
 
 export async function getServerSideProps<GetServerSideProps>() {
+  const company = await models.company.findUnique({
+    where: { name: COMPANY_NAME },
+  });
 
-  const company = await models.company.findUnique({where: {name: COMPANY_NAME}})
-
-  return { props: { company } }
+  return { props: { company } };
 }

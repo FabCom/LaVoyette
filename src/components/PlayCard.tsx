@@ -7,8 +7,7 @@ import {
   Box,
   Container,
   CardActions,
-}
-from "@mui/material";
+} from "@mui/material";
 import Router from "next/router";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import type { PlayWithAudienceAndTags } from "pages/dashboard/plays";
@@ -29,11 +28,13 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
               px: 0,
             }}
           >
-            <Box
-              component="form"
-              sx={{ maxWidth: 500 }}
-            >
-              <Typography variant="h4" component="h2" color="secondary.main" gutterBottom>
+            <Box component="form" sx={{ maxWidth: 500 }}>
+              <Typography
+                variant="h4"
+                component="h2"
+                color="secondary.main"
+                gutterBottom
+              >
                 {play.title}
               </Typography>
               <Chip
@@ -48,12 +49,12 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
               </Typography>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.audienceCategories?.map((categ, i) => (
-                  <Chip key={i} label={categ.title} />
+                  <Chip key={i} label={categ.title} color="secondary"/>
                 ))}
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.tags?.map((categ, i) => (
-                  <Chip key={i} label={categ.title} />
+                  <Chip key={i} label={categ.title} color="secondary"/>
                 ))}
               </Stack>
             </Box>
