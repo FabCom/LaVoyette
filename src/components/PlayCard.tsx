@@ -54,7 +54,7 @@ export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
               </Stack>
               <Stack direction="row" spacing={2} sx={{ py: 2 }}>
                 {play.tags?.map((categ, i) => {
-                  <Chip key={i} label={categ.title} />;
+                  <Chip key={i} label={categ.title} color="secondary" />;
                 })}
               </Stack>
             </Box>

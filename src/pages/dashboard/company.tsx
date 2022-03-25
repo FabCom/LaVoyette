@@ -60,7 +60,7 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
 
   return (
     <Dashboard>
-      <Container sx={{ display: "flex", position: "relative" }}>
+     <Container sx ={{ display: "flex", position: "relative" }}>
       <Typography variant="h2" marked="center" align="center" sx={{ marginTop: 15 }}>
         Informations sur la compagnie
       </Typography>
@@ -123,7 +123,7 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
                         aria-label="Descritpion"
                         minRows={20}
                         placeholder=""
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", height: "100%" }}
                         {...register("description")}
                       />
                     </Box>

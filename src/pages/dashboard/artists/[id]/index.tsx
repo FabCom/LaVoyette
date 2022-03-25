@@ -2,13 +2,13 @@ import * as React from "react";
 import {
   Button,
   ButtonBase,
-  Container,
   FormGroup,
   Grid,
   styled,
   TextareaAutosize,
   TextField,
   Theme,
+  Container,
 } from "@mui/material";
 import { Box, SxProps } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -67,19 +67,25 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
-    px: 5,
+    // px: 5,
   };
 
   return (
     <Dashboard>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-        <input type="hidden" {...register("id")} />
-        <Box
-          component="section"
-          sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
-        >
-          <Container sx={{ display: "flex", position: "relative" }}>
-            <Grid container spacing={50}>
+        <Typography
+        variant="h2"
+        marked="center"
+        align="center"
+        sx={{ marginTop: 15, mr: 25 }}
+      > Éditer un artiste</Typography>
+      <Container sx={{ display: "flex", position: "relative" }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+          <input type="hidden" {...register("id")} />
+          <Box
+            component="section"
+            sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
+          >
+            <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
                   <FormGroup
@@ -149,7 +155,7 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
                         aria-label="Biographie"
                         minRows={20}
                         placeholder=""
-                        style={{ minWidth: "150%", height: "115%" }}
+                        style={{ minWidth: "100%", height: "100%" }}
                         {...register("biography")}
                       />
                     </Box>
@@ -157,19 +163,20 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
                 </Box>
               </Grid>
             </Grid>
-          </Container>
-        </Box>
-        <Box sx={item}>
-          <Button
-            color="secondary"
-            variant="contained"
-            type="submit"
-            sx={{ mr: 25 }}
-          >
-            Enregistrer
-          </Button>
-        </Box>
-      </form>
+          </Box>
+
+          <Box sx={item}>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              sx={{ mr: 25 }}
+            >
+              Enregistrer
+            </Button>
+          </Box>
+        </form>
+      </Container>
     </Dashboard>
   );
 };

@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+import GroupIcon from '@mui/icons-material/Group';
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Link from "next/link";
@@ -112,10 +112,12 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            
             <Tooltip title="Open settings">
               <Typography onClick={handleOpenUserMenu} color="success" sx={{ p: 0 }}>
+              
                 <Button color="secondary" variant="contained" type="submit">
-                Se Connecter
+                <GroupIcon/>
                 </Button>
               </Typography>
             </Tooltip>

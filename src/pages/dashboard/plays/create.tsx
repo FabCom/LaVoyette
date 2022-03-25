@@ -1,4 +1,11 @@
-import { Button, Container, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  FormGroup,
+  Grid,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { AudienceCategory, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -7,7 +14,7 @@ import useRequest from "hooks/useRequest";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from 'next/router'
+import Router from "next/router";
 
 type RequestPlayWithAudienceAndTags = {
   id: number;
@@ -31,24 +38,30 @@ const CreatePlaysDashboard = () => {
     formState: { errors },
   } = useForm<RequestPlayWithAudienceAndTags>();
 
-  const { isLoading, apiData, request } = useRequest<RequestPlayWithAudienceAndTags>(
-    `plays`,
-    "POST"
-  );
+  const { isLoading, apiData, request } =
+    useRequest<RequestPlayWithAudienceAndTags>(`plays`, "POST");
 
   useEffect(() => {
-    if (isLoading === false && apiData !== null) { router.push('/dashboard/plays') }
+    if (isLoading === false && apiData !== null) {
+      router.push("/dashboard/plays");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
+  }, [isLoading]);
 
   const onSubmit = async (data: RequestPlayWithAudienceAndTags) => {
-    console.log(data)
+    console.log(data);
     const requestData = {
       title: data.title,
       abstract: data.abstract,
       duration: Number(data.duration),
-      audienceCategories: data.audienceCategories !== "" ? data.audienceCategories.split(",").map(categ => categ.trim()) : [],
-      tags: data.tags !== "" ? data.tags.split(",").map(categ => categ.trim()) : [],
+      audienceCategories:
+        data.audienceCategories !== ""
+          ? data.audienceCategories.split(",").map((categ) => categ.trim())
+          : [],
+      tags:
+        data.tags !== ""
+          ? data.tags.split(",").map((categ) => categ.trim())
+          : [],
     };
     // console.log(requestData)
     request(requestData);
@@ -64,14 +77,19 @@ const CreatePlaysDashboard = () => {
 
   return (
     <Dashboard>
+       <Typography variant="h2" marked="center" align="center" sx={{ marginTop: 15, mr: 25 }}>
+        Ajouter un nouveau spéctacle
+      </Typography>
+       <Container sx={{ display: "flex", position: "relative" }}>
+         
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <input type="hidden" {...register("id")} />
         <Box
           component="section"
           sx={{ mt: 20, mb: 8, display: "flex", overflow: "hidden" }}
         >
-          <Container sx={{ display: "flex", position: "relative" }}>
-            <Grid container spacing={50}>
+         
+            <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
                   <FormGroup
@@ -142,7 +160,7 @@ const CreatePlaysDashboard = () => {
                 </Box>
               </Grid>
             </Grid>
-          </Container>
+          
         </Box>
         <Box sx={item}>
           <Button
@@ -155,6 +173,7 @@ const CreatePlaysDashboard = () => {
           </Button>
         </Box>
       </form>
+      </Container>
     </Dashboard>
   );
 };

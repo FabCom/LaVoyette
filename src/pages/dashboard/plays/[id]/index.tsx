@@ -99,14 +99,20 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
 
   return (
     <Dashboard>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-        <input type="hidden" {...register("id")} />
-        <Box
-          component="section"
-          sx={{ mt: 20, mb: 8, display: "flex", overflow: "hidden" }}
-        >
-          <Container sx={{ display: "flex", position: "relative" }}>
-            <Grid container spacing={50}>
+      <Typography
+        variant="h2"
+        marked="center"
+        align="center"
+        sx={{ marginTop: 15, mr: 25 }}
+      > Éditer un spectacle</Typography>
+      <Container sx={{ display: "flex", position: "relative" }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+          <input type="hidden" {...register("id")} />
+          <Box
+            component="section"
+            sx={{ mt: 20, mb: 8, display: "flex", overflow: "hidden" }}
+          >
+            <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
                   <FormGroup
@@ -177,19 +183,19 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
                 </Box>
               </Grid>
             </Grid>
-          </Container>
-        </Box>
-        <Box sx={item}>
-          <Button
-            color="secondary"
-            variant="contained"
-            type="submit"
-            sx={{ mr: 25 }}
-          >
-            Enregistrer
-          </Button>
-        </Box>
-      </form>
+          </Box>
+          <Box sx={item}>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              sx={{ mr: 25 }}
+            >
+              Enregistrer
+            </Button>
+          </Box>
+        </form>
+      </Container>
     </Dashboard>
   );
 };
