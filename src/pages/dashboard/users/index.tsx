@@ -1,6 +1,6 @@
 import models from "lib/models"
 import { deserialize, serialize } from "superjson";
-import { User } from "@prisma/client"
+import { Role, User } from "@prisma/client"
 import { SuperJSONResult } from "superjson/dist/types"
 import { Button, Card, CardActions, CardContent, IconButton } from "@mui/material"
 import { Box } from "@mui/system"
@@ -47,7 +47,12 @@ const UsersDashboard = ({ser_users}:{ser_users: SuperJSONResult}) => {
       </Box>
     </Dashboard>
   )
-        }
+}
+
+UsersDashboard.auth = {
+  role: Role.ADMIN,
+};
+
 export default UsersDashboard
 
 

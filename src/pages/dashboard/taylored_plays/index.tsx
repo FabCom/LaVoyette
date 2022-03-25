@@ -1,5 +1,5 @@
 import { Container, Box, Button, Card, CardContent, Typography, Grid, CardActions, IconButton, Stack, Chip } from '@mui/material'
-import { AudienceCategory, Tag } from "@prisma/client"
+import { AudienceCategory, Role, Tag } from "@prisma/client"
 import Dashboard from "components/dashboard/LayoutDashboard"
 import models from "lib/models"
 import Link from "next/link"
@@ -8,9 +8,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 export type TayloredPlayWithAudienceAndTags = { id: number, title: string, concept: string, audienceCategories: AudienceCategory[], tags: Tag[] }
-type Props = { taylored_plays: TayloredPlayWithAudienceAndTags[] }
 
-const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
+const TayloredPlaysDashboard = ({ taylored_plays }: { taylored_plays: TayloredPlayWithAudienceAndTags[] }) => {
   return (
     <Dashboard>
       <Typography variant='h2' sx={{marginTop: 5}}>Les spectacles sur-mesure</Typography>
@@ -71,6 +70,10 @@ const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
     </Dashboard>
   )
 }
+
+TayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
+};
 
 export default TayloredPlaysDashboard
 

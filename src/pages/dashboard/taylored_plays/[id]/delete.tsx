@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import { AudienceCategory, Tag } from "@prisma/client";
+import { AudienceCategory, Role, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -56,6 +56,10 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
         </Box>
     </Dashboard>
   );
+};
+
+TayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default TayloredPlaysDashboard;
