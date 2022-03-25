@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Prisma } from "@prisma/client"
 import models from 'lib/models';
+import { getSession } from 'next-auth/react';
 
 const updateONE = async (
   body: Prisma.UserUpdateInput,
@@ -37,8 +38,15 @@ const doRequest = async (
   const { method, query, body } = request;
   const userId: string = query.id as string;
 
+  const session = await getSession({ req: request })
+  
+  if (!session) {
+    response.status(401).json({err: "unauthorized"});
+    return 
+  }
 
-  if (method === "PUT") {
+
+  if (method === "PUT" && session.user.id == userId) {
     updateONE(body, userId, response);
 
     return;

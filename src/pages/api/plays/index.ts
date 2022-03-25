@@ -1,8 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Prisma } from "@prisma/client";
+import { Prisma, Role } from "@prisma/client";
 import models from "lib/models";
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 type BodyRequest = {title: string,abstract: string, duration: number, audienceCategories: string[], tags: string[], images: Image[]}
 type Image = {title: string, src: string}
@@ -71,19 +72,22 @@ const doRequest = async (request: NextApiRequest, response: NextApiResponse) => 
     return
   }
   
-  // const session = await getSession({ req: request })
+  const session = await getSession({ req: request })
   
-  // if (!session) {
-  //   response.status(401).json({err: "unauthorized"});
-  //   return 
-  // }
+  if (!session) {
+    response.status(401).json({err: "unauthorized"});
+    return 
+  }
 
-  if (method === 'POST') {
+  if (method === 'POST' && session.user.role === Role.ADMIN) {
     create(body, response)
 
     return
   }
 
+  else {
+    return response.status(403).json({ err: "Error" });
+  }
 
 };
 
