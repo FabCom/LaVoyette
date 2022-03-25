@@ -160,7 +160,12 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
           </Container>
         </Box>
         <Box sx={item}>
-          <Button color="secondary" variant="contained" type="submit">
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            sx={{ mr: 25 }}
+          >
             Enregistrer
           </Button>
         </Box>

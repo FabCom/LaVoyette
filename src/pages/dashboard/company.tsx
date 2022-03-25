@@ -60,17 +60,19 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
 
   return (
     <Dashboard>
-      <Typography variant="h2" marked="center" sx={{ marginTop: 15 }}>
+      <Container sx={{ display: "flex", position: "relative" }}>
+      <Typography variant="h2" marked="center" align="center" sx={{ marginTop: 15 }}>
         Informations sur la compagnie
       </Typography>
+      </Container>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "150%" }}>
         <input type="hidden" {...register("name")} />
         <Box
           component="section"
-          sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
+          sx={{ mt: 15, mb: 8, display: "flex", overflow: "hidden" }}
         >
           <Container sx={{ display: "flex", position: "relative" }}>
-            <Grid container spacing={20}>
+            <Grid container spacing={10}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
                   <FormGroup
@@ -131,11 +133,14 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
             </Grid>
           </Container>
         </Box>
+
         <Box sx={item}>
-          <Button color="secondary" variant="contained" type="submit">
+
+          <Button color="secondary" variant="contained" type="submit" sx={{mr: 25 }}>
             Enregistrer
           </Button>
         </Box>
+
       </form>
     </Dashboard>
   );

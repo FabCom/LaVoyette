@@ -1,4 +1,11 @@
-import { Button, Container, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  FormGroup,
+  Grid,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { CompanyPartner } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -9,13 +16,13 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from 'next/router'
+import Router from "next/router";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
+const PartnerDashboard = ({ partner }: { partner: CompanyPartner }) => {
   const router = Router;
 
   const {
@@ -28,7 +35,7 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
       id: partner.id,
       name: partner.name,
       description: partner.description,
-      logo_src: partner.logo_src
+      logo_src: partner.logo_src,
     },
   });
 
@@ -37,13 +44,12 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
     "PUT"
   );
 
-
-  useEffect(()=> {
-    if (isLoading === false && apiData !== null)
-    {router.push('/dashboard/partners')}
+  useEffect(() => {
+    if (isLoading === false && apiData !== null) {
+      router.push("/dashboard/partners");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
-
+  }, [isLoading]);
 
   const onSubmit = async (data: CompanyPartner) => {
     request(data);
@@ -69,52 +75,70 @@ const PartnerDashboard = ({ partner}: {partner: CompanyPartner;}) => {
             <Grid container spacing={20}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
-          <FormGroup
-            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-          >
-            <Typography variant="h4" marked="center">Informations</Typography>
-            <TextField
-              label="Nom"
-              variant="filled"
-              focused
-              {...register("name")}
-              sx={{ marginTop: 3 }}
-            />
-            <TextField
-              label="Lien vers le logo"
-              variant="filled"
-              focused
-              {...register("logo_src")}
-              sx={{ marginTop: 3 }}
-            />
-          </FormGroup>
-          </Box>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Informations
+                    </Typography>
+                    <TextField
+                      label="Nom"
+                      variant="filled"
+                      focused
+                      {...register("name")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Lien vers le logo"
+                      variant="filled"
+                      focused
+                      {...register("logo_src")}
+                      sx={{ marginTop: 3 }}
+                    />
+                  </FormGroup>
+                </Box>
               </Grid>
 
- <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                 <Box sx={item}>
-          <FormGroup
-            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-          >
-            <Typography variant="h4" marked="center">Description</Typography>
-            <Box sx={{ mt: 3 }}>
-            <TextareaAutosize
-              aria-label="description"
-              minRows={20}
-              placeholder=""
-              style={{ width: "100%" }}
-              {...register("description")}
-            />
-            </Box>
-          </FormGroup>
-        </Box>
-        
-        </Grid>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Description
+                    </Typography>
+                    <Box sx={{ mt: 3 }}>
+                      <TextareaAutosize
+                        aria-label="description"
+                        minRows={20}
+                        placeholder=""
+                        style={{ width: "100%" }}
+                        {...register("description")}
+                      />
+                    </Box>
+                  </FormGroup>
+                </Box>
+              </Grid>
             </Grid>
           </Container>
         </Box>
         <Box sx={item}>
-          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            sx={{ mr: 25 }}
+          >
+            Enregistrer
+          </Button>
         </Box>
       </form>
     </Dashboard>

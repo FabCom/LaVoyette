@@ -1,4 +1,4 @@
-import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
+import { Button, Container, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
@@ -47,74 +47,103 @@ const CreateTayloredPlaysDashboard = () => {
     request(requestData);
   };
 
+  const item = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    px: 5,
+  };
+
   return (
     <Dashboard>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <input type="hidden" {...register("id")} />
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: 5,
-          }}
+          component="section"
+          sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
         >
-          <FormGroup
-            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-          >
-            <Typography variant="h4">Informations</Typography>
-            <TextField
-              label="Titre"
-              variant="filled"
-              focused
-              {...register("title")}
-              sx={{ marginTop: 3 }}
-            />
-            <TextField
-              label="Public"
-              variant="filled"
-              focused
-              {...register("audienceCategories")}
-              sx={{ marginTop: 3 }}
-            />
-            <TextField
-              label="Tag"
-              variant="filled"
-              focused
-              {...register("tags")}
-              sx={{ marginTop: 3 }}
-            />
-          </FormGroup>
-          <FormGroup
-            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
-          >
-            <Typography variant="h4">Description</Typography>
-            <TextareaAutosize
-              aria-label="Concept"
-              minRows={20}
-              placeholder=""
-              style={{ width: "100%" }}
-              {...register("concept")}
-            />
-          </FormGroup>
+          <Container sx={{ display: "flex", position: "relative" }}>
+            <Grid container spacing={50}>
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Informations
+                    </Typography>
+                    <TextField
+                      label="Titre"
+                      variant="filled"
+                      focused
+                      {...register("title")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Public"
+                      variant="filled"
+                      focused
+                      {...register("audienceCategories")}
+                      sx={{ marginTop: 3 }}
+                    />
+                    <TextField
+                      label="Tag"
+                      variant="filled"
+                      focused
+                      {...register("tags")}
+                      sx={{ marginTop: 3 }}
+                    />
+                  </FormGroup>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                <Box sx={item}>
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "45%",
+                    }}
+                  >
+                    <Typography variant="h4" marked="center">
+                      Description
+                    </Typography>
+                    <Box sx={{ mt: 3 }}>
+                      <TextareaAutosize
+                        aria-label="Concept"
+                        minRows={20}
+                        placeholder=""
+                        style={{ width: "100%", height: "100%" }}
+                        {...register("concept")}
+                      />
+                    </Box>
+                  </FormGroup>
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: 5,
-          }}
-        >
-          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+
+        <Box sx={item}>
+          <Button
+            color="secondary"
+            variant="contained"
+            type="submit"
+            sx={{ mr: 25 }}
+          >
+            Enregistrer
+          </Button>
         </Box>
       </form>
     </Dashboard>
   );
 };
+
 
 export default CreateTayloredPlaysDashboard;
