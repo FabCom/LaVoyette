@@ -1,6 +1,6 @@
-import { Button, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
+import { Alert, Button, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { CompanyStory } from "@prisma/client";
+import { CompanyStory, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -15,6 +15,8 @@ import { deserialize, serialize } from "superjson";
 import type { SuperJSONResult } from "superjson/dist/types";
 import { LocalizationProvider, MobileDatePicker } from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormStory } from "../create";
 
 
 interface IParams extends ParsedUrlQuery {
@@ -38,6 +40,7 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
       start: story.start,
       end: story.end
     },
+    resolver: yupResolver(validFormStory)
   });
 
   const [activEndDate, setActiveEndDate] = useState<boolean>(story.end ? true : false)
@@ -98,6 +101,8 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
               variant="filled"
               focused
               {...register("title")}
+              error={errors.title ? true : false}
+              helperText={errors.title ? errors.title.message : null}
               sx={{ marginTop: 3 }}
             />
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center", marginTop: 3 }}>
@@ -148,6 +153,9 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
               }
               
             </Box>
+            {errors.end && 
+              <Alert severity="error" variant="outlined">{errors.end.message}</Alert>
+              }
           </FormGroup>
           </Box>
           <Grid item xs={12} md={4}>
@@ -186,6 +194,9 @@ const StoryDashboard = ({ ser_story }: {ser_story: SuperJSONResult}) => {
   );
 };
 
+StoryDashboard.auth = {
+  role: Role.ADMIN,
+};
 export default StoryDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {

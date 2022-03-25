@@ -18,7 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import models from "lib/models";
-import { AudienceCategory, Tag } from "@prisma/client";
+import { AudienceCategory, Role,  Tag } from "@prisma/client";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 export type PlayWithAudienceAndTags = {
@@ -31,8 +31,7 @@ export type PlayWithAudienceAndTags = {
 };
 type Props = { plays: PlayWithAudienceAndTags[] };
 
-const PlaysDashboard: React.FC<Props> = ({ plays }) => {
-  return (
+const PlaysDashboard= ({ plays }: { plays: PlayWithAudienceAndTags[] }) => {  return (
     <Dashboard>
       <Typography variant="h2" sx={{ marginTop: 5 }}>
         Les spectacles
@@ -139,6 +138,12 @@ const PlaysDashboard: React.FC<Props> = ({ plays }) => {
     </Dashboard>
   );
 };
+
+
+PlaysDashboard.auth = {
+  role: Role.ADMIN,
+};
+
 
 export default PlaysDashboard;
 

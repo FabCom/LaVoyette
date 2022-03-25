@@ -13,8 +13,9 @@ import { COMPANY_NAME } from "config";
 import models from "lib/models";
 import { useForm } from "react-hook-form";
 
-import type { Company } from "@prisma/client";
+import { Company, Role } from '@prisma/client'
 import useRequest from "hooks/useRequest";
+import { AppProps } from "next/app";
 
 type Props = {
   company: Company;
@@ -28,13 +29,10 @@ type FormCompanyInfo = {
   instagram_link: string | null;
 };
 
-const CompanyDashboard: React.FC<Props> = ({ company }) => {
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormCompanyInfo>({
+const CompanyDashboard = ({company}: {company: Company}) => {
+
+  // console.log(company)
+  const { register, setValue, handleSubmit, formState: { errors }} = useForm<FormCompanyInfo>({
     defaultValues: {
       name: company.name,
       description: company.description,
@@ -155,6 +153,10 @@ const CompanyDashboard: React.FC<Props> = ({ company }) => {
       </form>
     </Dashboard>
   );
+};
+
+CompanyDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CompanyDashboard;

@@ -11,7 +11,7 @@ import {
   Stack,
   Chip,
 } from "@mui/material";
-import { AudienceCategory, Tag } from "@prisma/client";
+import { AudienceCategory, Role, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import models from "lib/models";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export type TayloredPlayWithAudienceAndTags = {
 };
 type Props = { taylored_plays: TayloredPlayWithAudienceAndTags[] };
 
-const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
+const TayloredPlaysDashboard = ({ taylored_plays }: { taylored_plays: TayloredPlayWithAudienceAndTags[] }) => {
   return (
     <Dashboard>
       <Typography variant="h2" sx={{ marginTop: 5 }}>
@@ -124,7 +124,11 @@ const TayloredPlaysDashboard: React.FC<Props> = ({ taylored_plays }) => {
   );
 };
 
-export default TayloredPlaysDashboard;
+TayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default TayloredPlaysDashboard
 
 export async function getServerSideProps<GetServerSideProps>() {
   const taylored_plays = await models.tayloredPlay.findMany({

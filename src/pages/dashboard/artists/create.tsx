@@ -1,19 +1,23 @@
-import {
-  Button,
-  Container,
-  FormGroup,
-  Grid,
-  TextareaAutosize,
-  TextField,
-} from "@mui/material";
+import { Alert, Button, Container, FormGroup, Grid, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
-import { Artist } from "@prisma/client";
+import Router from 'next/router'
+import { Artist, Role } from "@prisma/client";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+export const validFormArtist = yup.object().shape({
+  firstname: yup.string().required('requis'),
+  lastname: yup.string().required('requis'),
+  email: yup.string().email("format d'email non valide").required('requis'),
+  face: yup.string(),
+  facebook_link: yup.string(),
+  instagram_link: yup.string()
+});
 
 const CreateArtistsDashboard = () => {
   const router = Router;
@@ -22,18 +26,21 @@ const CreateArtistsDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<Artist>();
+  } = useForm<Artist>({resolver: yupResolver(validFormArtist)});
 
-  const { isLoading, apiData, request } = useRequest<Artist>(`Artists`, "POST");
+  const {isLoading, apiData, request } = useRequest<Artist>(
+    `artists`,
+    "POST"
+  );
 
-  useEffect(() => {
-    if (isLoading === false && apiData !== null) {
-      router.push("/dashboard/Artists");
-    }
+  useEffect(()=> {
+    if (isLoading === false && apiData !== null)
+    {router.push('/dashboard/artists')}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   const onSubmit = async (data: Artist) => {
+    console.log(data)
     request(data);
   };
 
@@ -154,6 +161,10 @@ const CreateArtistsDashboard = () => {
       </Container>
     </Dashboard>
   );
+};
+
+CreateArtistsDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CreateArtistsDashboard;

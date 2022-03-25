@@ -8,8 +8,8 @@ import {
   Container,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { Artist, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
-import { Artist } from "@prisma/client";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import models from "lib/models";
@@ -17,7 +17,9 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
+import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormArtist } from "../create";
 
 interface IParams extends ParsedUrlQuery {
   id: string;
@@ -40,7 +42,8 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
       email: artist.email,
       facebook_link: artist.facebook_link,
       instagram_link: artist.instagram_link,
-    },
+      
+    },resolver: yupResolver(validFormArtist)
   });
 
   const { isLoading, apiData, request } = useRequest<Artist>(
@@ -178,6 +181,10 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
       </Container>
     </Dashboard>
   );
+};
+
+ArtistDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default ArtistDashboard;

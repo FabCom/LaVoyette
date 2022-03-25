@@ -1,23 +1,15 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { Artist } from "@prisma/client";
-import Dashboard from "components/dashboard/LayoutDashboard";
-import Typography from "components/Typography";
-import models from "lib/models";
-import Link from "next/link";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { Button, Card, CardActions, CardContent, IconButton } from "@mui/material"
+import { Box } from "@mui/system"
+import { Artist, Role } from "@prisma/client"
+import Dashboard from "components/dashboard/LayoutDashboard"
+import Typography from "components/Typography"
+import models from "lib/models"
+import Link from "next/link"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
-type Props = { artists: Artist[] };
-
-const ArtistDashboard: React.FC<Props> = ({ artists }) => {
+const ArtistDashboard = ({artists}: {artists: Artist[] }) => {
   // console.log(artists)
   return (
     <Dashboard>
@@ -91,7 +83,11 @@ const ArtistDashboard: React.FC<Props> = ({ artists }) => {
   );
 };
 
-export default ArtistDashboard;
+ArtistDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default ArtistDashboard
 
 export async function getServerSideProps<GetServerSideProps>() {
   const artists = await models.artist.findMany();

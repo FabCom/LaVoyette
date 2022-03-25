@@ -12,8 +12,17 @@ import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
-import { CompanyPartner } from "@prisma/client";
+import Router from 'next/router'
+import { CompanyPartner, Role } from "@prisma/client";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+export const validFormPartner = yup.object().shape({
+  name: yup.string().required('requis'),
+  logo_src: yup.string().url().required('requis'),
+  description: yup.string()
+});
+
 
 const CreatePartnersDashboard = () => {
   const router = Router;
@@ -22,7 +31,7 @@ const CreatePartnersDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<CompanyPartner>();
+  } = useForm<CompanyPartner>({resolver: yupResolver(validFormPartner)});
 
   const { isLoading, apiData, request } = useRequest<CompanyPartner>(
     `partners`,
@@ -136,6 +145,10 @@ const CreatePartnersDashboard = () => {
       </form>
     </Dashboard>
   );
+};
+
+CreatePartnersDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CreatePartnersDashboard;

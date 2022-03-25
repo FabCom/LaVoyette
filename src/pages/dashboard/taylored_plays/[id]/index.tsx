@@ -7,7 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { AudienceCategory, Tag } from "@prisma/client";
+import { AudienceCategory, Role, Tag } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
 import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
@@ -16,7 +16,9 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
+import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validFormTayloredPlay } from "../create";
 
 type TayloredPlayWithAudienceAndTags = {
   id: number;
@@ -59,6 +61,7 @@ const TayloredPlaysDashboard = ({
         .join(","),
       tags: taylored_play.tags.map((item) => item.title).join(","),
     },
+    resolver: yupResolver(validFormTayloredPlay)
   });
 
   const { isLoading, apiData, request } =
@@ -196,6 +199,10 @@ const TayloredPlaysDashboard = ({
       </Container>
     </Dashboard>
   );
+};
+
+TayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default TayloredPlaysDashboard;

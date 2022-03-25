@@ -12,7 +12,10 @@ import Typography from "components/Typography";
 import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Router from "next/router";
+import Router from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { Role } from "@prisma/client";
 
 type RequestTayloredPlayWithAudienceAndTags = {
   id: number;
@@ -22,6 +25,13 @@ type RequestTayloredPlayWithAudienceAndTags = {
   tags: string;
 };
 
+export const validFormTayloredPlay = yup.object().shape({
+  title: yup.string().required('requis'),
+  concept: yup.string().required('requis'),
+  audienceCategories: yup.string().matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule"),
+  tags: yup.string().default(null).matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule")
+});
+
 const CreateTayloredPlaysDashboard = () => {
   const router = Router;
   const {
@@ -29,7 +39,7 @@ const CreateTayloredPlaysDashboard = () => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<RequestTayloredPlayWithAudienceAndTags>();
+  } = useForm<RequestTayloredPlayWithAudienceAndTags>({resolver: yupResolver(validFormTayloredPlay)});
 
   const { isLoading, apiData, request } =
     useRequest<RequestTayloredPlayWithAudienceAndTags>(
@@ -166,6 +176,10 @@ const CreateTayloredPlaysDashboard = () => {
       </Container>
     </Dashboard>
   );
+};
+
+CreateTayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CreateTayloredPlaysDashboard;

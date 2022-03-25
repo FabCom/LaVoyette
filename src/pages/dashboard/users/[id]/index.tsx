@@ -26,7 +26,7 @@ interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const StoryDashboard = ({ ser_user }: { ser_user: SuperJSONResult }) => {
+const UserDashboard = ({ ser_user }: { ser_user: SuperJSONResult }) => {
   const router = Router;
   const user: User = deserialize(ser_user);
   const {
@@ -136,7 +136,12 @@ const StoryDashboard = ({ ser_user }: { ser_user: SuperJSONResult }) => {
   );
 };
 
-export default StoryDashboard;
+
+UserDashboard.auth = {
+  role: Role.ADMIN,
+};
+
+export default UserDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as IParams;

@@ -13,7 +13,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import type { PlayWithAudienceAndTags } from "pages/dashboard/plays";
 
 export default function PlayCard({ play }: { play: PlayWithAudienceAndTags }) {
-  // console.log(play);
+  // console.log(play)
   return (
     <Container component="section" sx={{ mt: 20, mb: 20, display: "flex" }}>
       <Grid container>
