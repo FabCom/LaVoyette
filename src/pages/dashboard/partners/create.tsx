@@ -6,7 +6,7 @@ import useRequest from "hooks/useRequest";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Router from 'next/router'
-import { CompanyPartner } from "@prisma/client";
+import { CompanyPartner, Role } from "@prisma/client";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
@@ -106,6 +106,10 @@ const CreatePartnersDashboard = () => {
       </form>
     </Dashboard>
   );
+};
+
+CreatePartnersDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CreatePartnersDashboard;

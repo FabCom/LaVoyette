@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import Router from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { Role } from "@prisma/client";
 
 type RequestTayloredPlayWithAudienceAndTags = {
   id: number;
@@ -130,6 +131,10 @@ const CreateTayloredPlaysDashboard = () => {
       </form>
     </Dashboard>
   );
+};
+
+CreateTayloredPlaysDashboard.auth = {
+  role: Role.ADMIN,
 };
 
 export default CreateTayloredPlaysDashboard;
