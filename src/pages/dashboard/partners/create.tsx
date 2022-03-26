@@ -92,6 +92,8 @@ const CreatePartnersDashboard = () => {
                       variant="filled"
                       focused
                       {...register("name")}
+                      error={errors.name ? true : false}
+                      helperText={errors.name ? errors.name.message : null}
                       sx={{ marginTop: 3 }}
                     />
                     <TextField
@@ -99,6 +101,8 @@ const CreatePartnersDashboard = () => {
                       variant="filled"
                       focused
                       {...register("logo_src")}
+                      error={errors.logo_src ? true : false}
+                      helperText={errors.logo_src ? errors.logo_src.message : null}
                       sx={{ marginTop: 3 }}
                     />
                   </FormGroup>

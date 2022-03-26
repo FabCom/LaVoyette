@@ -86,6 +86,8 @@ const CreateArtistsDashboard = () => {
                       label="Prénom"
                       variant="filled"
                       focused
+                      error={errors.firstname ? true : false}
+                      helperText={errors.firstname ? errors.firstname.message : null}
                       {...register("firstname")}
                       sx={{ marginTop: 3 }}
                     />
@@ -93,6 +95,8 @@ const CreateArtistsDashboard = () => {
                       label="Nom"
                       variant="filled"
                       focused
+                      error={errors.lastname ? true : false}
+                      helperText={errors.lastname ? errors.lastname.message : null}
                       {...register("lastname")}
                       sx={{ marginTop: 3 }}
                     />
@@ -100,6 +104,8 @@ const CreateArtistsDashboard = () => {
                       label="Courriel"
                       variant="filled"
                       focused
+                      error={errors.email ? true : false}
+                      helperText={errors.email ? errors.email.message : null}
                       {...register("email")}
                       sx={{ marginTop: 3 }}
                     />
@@ -107,6 +113,8 @@ const CreateArtistsDashboard = () => {
                       label="Facebook"
                       variant="filled"
                       focused
+                      error={errors.facebook_link ? true : false}
+                      helperText={errors.facebook_link ? errors.facebook_link.message : null}
                       {...register("facebook_link")}
                       sx={{ marginTop: 3 }}
                     />
@@ -114,6 +122,8 @@ const CreateArtistsDashboard = () => {
                       label="Instagram"
                       variant="filled"
                       focused
+                      error={errors.instagram_link ? true : false}
+                      helperText={errors.instagram_link ? errors.instagram_link.message : null}
                       {...register("instagram_link")}
                       sx={{ marginTop: 3 }}
                     />

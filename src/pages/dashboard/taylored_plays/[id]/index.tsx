@@ -138,6 +138,8 @@ const TayloredPlaysDashboard = ({
                       variant="filled"
                       focused
                       {...register("title")}
+                      error={errors.title ? true : false}
+                      helperText={errors.title ? errors.title.message : null}
                       sx={{ marginTop: 3 }}
                     />
                     <TextField
@@ -145,6 +147,8 @@ const TayloredPlaysDashboard = ({
                       variant="filled"
                       focused
                       {...register("audienceCategories")}
+                      error={errors.audienceCategories ? true : false}
+                      helperText="Un mot ou une liste de mots séparés par une virgule"
                       sx={{ marginTop: 3 }}
                     />
                     <TextField
@@ -152,6 +156,8 @@ const TayloredPlaysDashboard = ({
                       variant="filled"
                       focused
                       {...register("tags")}
+                      error={errors.tags ? true : false}
+                      helperText="Un mot ou une liste de mots séparés par une virgule"
                       sx={{ marginTop: 3 }}
                     />
                   </FormGroup>

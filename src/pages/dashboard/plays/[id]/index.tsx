@@ -168,6 +168,8 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
                       variant="filled"
                       focused
                       {...register("title")}
+                      error={errors.title ? true : false}
+                      helperText={errors.title ? errors.title.message : null}
                       sx={{ marginTop: 3 }}
                     />
                     <TextField
@@ -175,6 +177,8 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
                       variant="filled"
                       focused
                       {...register("duration")}
+                      error={errors.duration ? true : false}
+                      helperText={errors.duration ? errors.duration.message : null}
                       sx={{ marginTop: 3 }}
                     />
                     <TextField
@@ -182,6 +186,12 @@ const PlaysDashboard = ({ play }: { play: PlayWithAudienceAndTags }) => {
                       variant="filled"
                       focused
                       {...register("audienceCategories")}
+                      error={errors.audienceCategories ? true : false}
+                      helperText={
+                        errors.audienceCategories
+                         ? errors.audienceCategories.message
+                          : null
+                      }
                       sx={{ marginTop: 3 }}
                     />
 

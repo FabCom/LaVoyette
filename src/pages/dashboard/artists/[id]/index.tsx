@@ -1,12 +1,4 @@
-import * as React from "react";
-import {
-  Button,
-  FormGroup,
-  Grid,
-  TextareaAutosize,
-  TextField,
-  Container,
-} from "@mui/material";
+import { Button, FormGroup, TextareaAutosize, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { Artist, Role } from "@prisma/client";
 import Dashboard from "components/dashboard/LayoutDashboard";
@@ -25,7 +17,7 @@ interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
-const ArtistDashboard = ({ artist }: { artist: Artist }) => {
+const ArtistDashboard = ({ artist}: {artist: Artist;}) => {
   const router = Router;
 
   const {
@@ -51,144 +43,108 @@ const ArtistDashboard = ({ artist }: { artist: Artist }) => {
     "PUT"
   );
 
-  useEffect(() => {
-    if (isLoading === false && apiData !== null) {
-      router.push("/dashboard/artists");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+
+  useEffect(()=> {
+    if (isLoading === false && apiData !== null)
+    {router.push('/dashboard/artists')}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading])
+
 
   const onSubmit = async (data: Artist) => {
     request(data);
   };
 
-  const item = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-around",
-  };
-
   return (
     <Dashboard>
-      <Typography
-        variant="h2"
-        marked="center"
-        align="center"
-        sx={{ marginTop: 15, mr: 25 }}
-      >
-        {" "}
-        Éditer un artiste
-      </Typography>
-      <Container sx={{ display: "flex", position: "relative" }}>
-        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <input type="hidden" {...register("id")} />
-          <Box
-            component="section"
-            sx={{ mt: 25, mb: 8, display: "flex", overflow: "hidden" }}
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+        <input type="hidden" {...register("id")} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+          }}
+        >
+           <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
           >
-            <Grid container spacing={10}>
-              <Grid item xs={12} md={4}>
-                <Box sx={item}>
-                  <FormGroup
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "45%",
-                    }}
-                  >
-                    <Typography variant="h4" marked="center">
-                      Informations
-                    </Typography>
-
-                    <TextField
-                      label="Prénom"
-                      variant="filled"
-                      focused
-                      error={errors.firstname ? true : false}
-                      helperText={errors.firstname ? errors.firstname.message : null}
-                      {...register("firstname")}
-                      sx={{ marginTop: 3 }}
-                    />
-                    <TextField
-                      label="Nom"
-                      variant="filled"
-                      focused
-                      error={errors.lastname ? true : false}
-                      helperText={errors.lastname ? errors.lastname.message : null}
-                      {...register("lastname")}
-                      sx={{ marginTop: 3 }}
-                    />
-                    <TextField
-                      label="Courriel"
-                      variant="filled"
-                      focused
-                      error={errors.email ? true : false}
-                      helperText={errors.email ? errors.email.message : null}
-                      {...register("email")}
-                      sx={{ marginTop: 3 }}
-                    />
-                    <TextField
-                      label="Facebook"
-                      variant="filled"
-                      focused
-                      error={errors.facebook_link ? true : false}
-                      helperText={errors.facebook_link ? errors.facebook_link.message : null}
-                      {...register("facebook_link")}
-                      sx={{ marginTop: 3 }}
-                    />
-                    <TextField
-                      label="Instagram"
-                      variant="filled"
-                      focused
-                      error={errors.instagram_link ? true : false}
-                      helperText={errors.instagram_link ? errors.instagram_link.message : null}
-                      {...register("instagram_link")}
-                      sx={{ marginTop: 3 }}
-                    />
-                  </FormGroup>
-                </Box>
-              </Grid>
-
-              <Grid item xs={12} md={4}>
-                <Box sx={item}>
-                  <FormGroup
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "80%",
-                    }}
-                  >
-                    <Typography variant="h4" align="center" marked="center">
-                      Biographie
-                    </Typography>
-                    <Box sx={{ mt: 3 }}>
-                      <TextareaAutosize
-                        aria-label="Biographie"
-                        minRows={20}
-                        placeholder=""
-                        style={{ minWidth: "100%", height: "100%" }}
-                        {...register("biography")}
-                      />
-                    </Box>
-                  </FormGroup>
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
-
-          <Box sx={item}>
-            <Button
-              color="secondary"
-              variant="contained"
-              type="submit"
-              sx={{ mr: 25 }}
-            >
-              Enregistrer
-            </Button>
-          </Box>
-        </form>
-      </Container>
+            <Typography variant="h4">Informations</Typography>
+            <TextField
+              label="Prénom"
+              variant="filled"
+              focused
+              error={errors.firstname ? true : false}
+              helperText={errors.firstname ? errors.firstname.message : null}
+              {...register("firstname")}
+              sx={{ marginTop: 3 }}
+            />
+             <TextField
+              label="Nom"
+              variant="filled"
+              focused
+              error={errors.lastname ? true : false}
+              helperText={errors.lastname ? errors.lastname.message : null}
+              {...register("lastname")}
+              sx={{ marginTop: 3 }}
+            />
+            <TextField
+              label="Courriel"
+              variant="filled"
+              focused
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : null}
+              {...register("email")}
+              sx={{ marginTop: 3 }}
+            />
+             <TextField
+              label="Facebook"
+              variant="filled"
+              focused
+              error={errors.facebook_link ? true : false}
+              helperText={errors.facebook_link ? errors.facebook_link.message : null}
+              {...register("facebook_link")}
+              sx={{ marginTop: 3 }}
+            />
+             <TextField
+              label="Instagram"
+              variant="filled"
+              focused
+              error={errors.instagram_link ? true : false}
+              helperText={errors.instagram_link ? errors.instagram_link.message : null}
+              {...register("instagram_link")}
+              sx={{ marginTop: 3 }}
+            />
+          </FormGroup>
+          <FormGroup
+            sx={{ display: "flex", flexDirection: "column", width: "45%" }}
+          >
+            <Typography variant="h4">Biography</Typography>
+            <TextareaAutosize
+              aria-label="Biographie"
+              minRows={20}
+              placeholder=""
+              style={{ width: "100%" }}
+              {...register("biography")}
+            />
+          </FormGroup>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+            marginTop: 5,
+          }}
+        >
+          <Button color="secondary" variant="contained" type="submit">Enregistrer</Button>
+        </Box>
+      </form>
     </Dashboard>
   );
 };
@@ -201,7 +157,7 @@ export default ArtistDashboard;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params as IParams;
-  const artist = await models.artist.findMany({
+  const artist = await models.artist.findUnique({
     where: { id: parseInt(id) },
   });
   return { props: { artist } };
