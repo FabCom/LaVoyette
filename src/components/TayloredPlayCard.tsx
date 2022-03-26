@@ -44,14 +44,14 @@ export default function TayloredPlayCard({ play }: { play: TayloredPlayWithAudie
               <Typography variant="h5" color="secondary.light" sx={{ mt: 3 }}>
                 {play.concept ? play.concept.slice(0, 400) : null}...
               </Typography>
-              <Stack direction="row" spacing={2} sx={{ py: 2 }}>
+              <Stack direction="row" spacing={2} sx={{ py: 1 }}>
                 {play.audienceCategories?.map((categ, i) => (
-                  <Chip key={i} label={categ.title} />
+                  <Chip color="primary" size="small" key={i} label={categ.title} />
                 ))}
               </Stack>
-              <Stack direction="row" spacing={2} sx={{ py: 2 }}>
+              <Stack direction="row" spacing={2} sx={{ py: 1 }}>
                 {play.tags?.map((categ, i) => (
-                  <Chip key={categ.id+i} label={categ.title} />
+                  <Chip color="primary" size="small" key={i} label={categ.title} />
                 ))}
               </Stack>
             </Box>

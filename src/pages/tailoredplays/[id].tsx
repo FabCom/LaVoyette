@@ -1,90 +1,98 @@
-import { Grid, Card, Stack, Chip, Container, Typography, Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Divider } from '@mui/material';
+import { Grid, Card, Stack, Chip, Container, Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Divider, Button, Paper } from '@mui/material';
 import React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import Image from 'next/image';
-import useRequest from 'hooks/useRequest';
-import { useEffect } from 'react';
-import type { TayloredPlay } from '@prisma/client';
-import { useRouter } from 'next/router';
+import { AudienceCategory, Tag } from "@prisma/client";
+import { ParsedUrlQuery } from "querystring";
+import { GetServerSideProps } from "next";
+import models from "lib/models";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Typography from "components/Typography"
+import Link from 'next/link';
 
-const itemData = [
-	{
-		img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-		title: 'Breakfast',
-		rows: 2,
-		cols: 2,
-	},
-	{
-		img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-		title: 'Coffee',
-	},
-	{
-		img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-		title: 'Burger',
-	},
-	{
-		img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-		title: 'Camera',
-	},
-	{
-		img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-		title: 'Coffee',
-	},
-];
+type TayloredPlayWithAudienceAndTags = {
+	id: number;
+	title: string;
+	concept: string;
+	duration: number;
+	audienceCategories: AudienceCategory[];
+	tags: Tag[];
+};
 
-function srcset(image: string, size: number, rows = 1, cols = 1) {
-	return {
-		src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-		srcSet: `${image}?w=${size * cols}&h=${size * rows
-			}&fit=crop&auto=format&dpr=2 2x`,
-	};
+interface IParams extends ParsedUrlQuery {
+	id: string;
 }
 
-const TayloredPlayPage = () => {
-	const { id } = useRouter().query;
-	const { request, apiData: taylored_play } = useRequest<TayloredPlay>(`taylored_plays/${id}`, "GET");
-
-	useEffect(() => {
-		request();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
+const PlayPage = ({ play }: { play: TayloredPlayWithAudienceAndTags; }) => {
 	return (
-		<Container>
-			<Grid container spacing={2} >
-				<Grid item xs={6}>
-					<h2>{taylored_play?.title}</h2>
-					<Stack direction="row" spacing={2}>
-						<Chip label="Comédie" variant='outlined' />
-						<Chip label="Dramatique" variant='outlined' />
-						<Chip label="Accessible" variant='outlined' />
-					</Stack>
-					<Typography variant="body1" gutterBottom sx={{ mt: 3 }} >{taylored_play?.concept}</Typography>
+		<Container sx={{ mt: 5 }}>
+			<Link href="/tailoredplays" passHref>
+				<Button variant='outlined' color='secondary'>Retour</Button>
+			</Link>
+			<Typography color="inherit" align="center" variant="h3" marked="center" sx={{ my: 5 }}>{play?.title}</Typography>
+			<Grid container >
+				<Grid item xs={12} sx={{ bgcolor: "primary.dark", px: 5, py: 3 }}>
+					<Typography variant="h5" color="secondary.light" gutterBottom>{play?.concept}</Typography>
 				</Grid>
-				<Grid item xs={5}>
-					
+				<Grid item xs={4} sx={{ bgcolor: "secondary.light", p: 1 }}>
+					<Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+						<Typography sx={{ mr: 2 }} variant="h6" color="initial">Durée : </Typography>
+						<Chip variant="outlined" label={`${play.duration} min`} color="secondary" />
+					</Box>
 				</Grid>
-				<Grid item xs={10}>
-					<ImageList
-						variant="quilted"
-						cols={6}
-						rowHeight={121}
-					>
-						{itemData.map((item) => (
-							<ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
-								 {/* eslint-disable-next-line @next/next/no-img-element */}
-								<img
-									{...srcset(item.img, 121, item.rows, item.cols)}
-									alt={item.title}
-									loading="lazy"
-								/>
-							</ImageListItem>
-						))}
-					</ImageList>
+				<Grid item xs={4} sx={{ bgcolor: "secondary.light", p: 1 }}>
+					<Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+						<Typography sx={{ mr: 2 }} variant="h6" color="initial">Tag : </Typography>
+						<Stack direction="row" spacing={2} sx={{ my: 0 }}>
+							{play.tags.map((item, k) =>
+								<Chip variant="outlined" color='secondary' label={item.title} key={k} />
+							)}
+						</Stack>
+					</Box>
 				</Grid>
+				<Grid item xs={4} sx={{ bgcolor: "secondary.light", p: 1 }}>
+					<Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+						<Typography sx={{ mr: 2 }} variant="h6" color="initial">Audience: </Typography>
+						<Stack direction="row" spacing={2}>
+							{play.audienceCategories.map((item, k) =>
+								<Chip variant="outlined" color='secondary' label={item.title} key={k} />
+							)}
+						</Stack>
+					</Box>
+				</Grid>
+				<Grid item xs={12} sx={{ mt: 10 }}>
+					<Typography color="inherit" align="center" variant="h4" marked="center" sx={{ my: 3 }}>Photos</Typography>
+				</Grid>
+				<Carousel>
+					<div>
+						<img src="https://images.pexels.com/photos/2888802/pexels-photo-2888802.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="image1" />
+						<p className="legend">Image 1</p>
+					</div>
+					<div>
+						<img src="https://images.pexels.com/photos/2888802/pexels-photo-2888802.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="image1" />
+						<p className="legend">Image 1</p>
+					</div>
+					<div>
+						<img src="https://images.pexels.com/photos/2888802/pexels-photo-2888802.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="image1" />
+						<p className="legend">Image 1</p>
+					</div>
+				</Carousel>
 			</Grid>
 		</Container >
 	)
 }
-export default TayloredPlayPage;
+export default PlayPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+	const { id } = params as IParams;
+	const play = await models.tayloredPlay.findUnique({
+		where: { id: parseInt(id) },
+		include: {
+			audienceCategories: { select: { title: true } },
+			tags: { select: { title: true } },
+		},
+	});
+	play?.audienceCategories.join(' ')
+	play?.tags.join(' ')
+	return { props: { play } };
+};
+
