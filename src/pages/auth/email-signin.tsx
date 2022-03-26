@@ -2,19 +2,61 @@ import { Button, FormGroup, TextField } from "@mui/material"
 import { Box } from "@mui/system"
 import { CtxOrReq } from "next-auth/client/_utils"
 import { getCsrfToken } from "next-auth/react"
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import useRequest from "hooks/useRequest";
+import Router from "next/router";
+import { useEffect } from "react";
 
+type SignInForm = {
+  email: string,
+  csrfToken: string
+}
+export const validFormEmailSignin = yup.object().shape({
+  email: yup.string().email("Format d'email non valide").required('requis'),
+});
 
 export default function SignIn({ csrfToken }: {csrfToken: string}) {
+  const router = Router;
+  const {
+    control,
+    register,
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInForm>({
+    defaultValues: {csrfToken: csrfToken},
+      resolver: yupResolver(validFormEmailSignin)});
 
-  
+      const { isLoading, apiData, request } = useRequest<SignInForm>(
+        `auth/signin/email`,
+        "POST"
+      );
+
+  useEffect(()=> {
+    if (isLoading === false && apiData !== null)
+    {router.push('/auth/verify-request')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading])
+
+  const onSubmit = async (data: SignInForm) => {
+    request(data)
+  }
 
   return (
     <Box sx={{mt: 8, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
       <h1>Inscrivez-vous en renseignant votre email </h1>
-      <form method="post" action="/api/auth/signin/email">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup sx={{mt: 8, display:'flex', flexDirection: 'column'}}  >
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-          <TextField label="Email" type="email" id="email" name="email" />
+          <input type="hidden" {...register("csrfToken")} />
+          <TextField label="Email" 
+              focused
+              {...register("email")}
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : null}
+          />
           <Button sx={{mt: 2}} type="submit">Sign in with Email</Button>
         </FormGroup>  
       </form>

@@ -24,11 +24,19 @@ const fakeTayloredPlays = [
     title: "Lecture publique",
     concept: faker.lorem.paragraphs(5),
   },
+  {
+    title: "Concertation urbaine théâtralisée",
+    concept: faker.lorem.paragraphs(5),
+  },
+  {
+    title: "Balades sensibles",
+    concept: faker.lorem.paragraphs(5),
+  },
 ];
 
 const fakeAudienceCategories = [
   { title: "Tout public" },
-  { title: "Scolaire" },
+  { title: "Scolaires" },
   { title: "Habitants" },
   { title: "Élu·e·s" },
 ];
@@ -84,14 +92,13 @@ async function main() {
     where: { name: "La Voyette" },
   });
   // console.log(the_company);
-  let startDate = new Date();
-  let endDate = new Date();
-  const fakeCompanyStories = Array(10)
-    .fill()
-    .map((item) => ({
+
+  const fakeCompanyStories = Array(5)
+  .fill()
+  .map((item) => ({
       title: faker.lorem.sentence(),
       description: faker.lorem.paragraph(),
-      start: startDate,
+      start: faker.date.past(3),
       companyId: the_company[0].id,
     }));
 

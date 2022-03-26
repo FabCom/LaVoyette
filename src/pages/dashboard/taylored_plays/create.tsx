@@ -21,8 +21,8 @@ type RequestTayloredPlayWithAudienceAndTags = {
 export const validFormTayloredPlay = yup.object().shape({
   title: yup.string().required('requis'),
   concept: yup.string().required('requis'),
-  audienceCategories: yup.string().matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule"),
-  tags: yup.string().default(null).matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule")
+  audienceCategories: yup.string().matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule").nullable(),
+  tags: yup.string().default(null).matches(/(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule").nullable()
 });
 
 const CreateTayloredPlaysDashboard = () => {
