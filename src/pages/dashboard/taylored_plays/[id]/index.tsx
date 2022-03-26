@@ -78,7 +78,7 @@ const TayloredPlaysDashboard = ({
   }, [isLoading]);
 
   const onSubmit = async (data: RequestTayloredPlayWithAudienceAndTags) => {
-    console.log(data);
+    // console.log(data)
     const requestData = {
       title: data.title,
       concept: data.concept,

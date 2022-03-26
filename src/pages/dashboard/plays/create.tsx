@@ -12,14 +12,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
 import { useS3Upload } from "next-s3-upload";
-import { title } from "process";
 
 export const validFormPlay = yup.object().shape({
   title: yup.string().required("requis"),
   abstract: yup.string().required("requis"),
   duration: yup.number().required("requis"),
-  audienceCategories: yup.string(),
-  tags: yup.string(),
+  audienceCategories: yup.string().matches(/^$|(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule").nullable(),
+  tags: yup.string().default(null).matches(/^$|(.+?)(?:,|$)/, "Un mot ou une liste de mots séparés par une virgule").nullable()
 });
 type Image = { title: string; src: string };
 
@@ -142,7 +141,7 @@ const CreatePlaysDashboard = () => {
               focused
               {...register("duration")}
               error={errors.duration ? true : false}
-              helperText={errors.duration ? errors.duration.message : null}
+              helperText="Un mot ou une liste de mots séparés par une virgule"
               sx={{ marginTop: 3 }}
             />
             <TextField
@@ -151,11 +150,7 @@ const CreatePlaysDashboard = () => {
               focused
               {...register("audienceCategories")}
               error={errors.audienceCategories ? true : false}
-              helperText={
-                errors.audienceCategories
-                  ? errors.audienceCategories.message
-                  : null
-              }
+              helperText="Un mot ou une liste de mots séparés par une virgule"
               sx={{ marginTop: 3 }}
             />
             <TextField
