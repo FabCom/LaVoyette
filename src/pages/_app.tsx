@@ -41,7 +41,7 @@ const Auth = ({ children, role }: {children: JSX.Element, role: Role}) => {
   useEffect(() => {
     if (!loading) {
       if (!hasUser) {
-        router.push("/email-signin");
+        router.push("/auth/email-signin");
       } else if (session.user.role !== role) {
         router.push("/");
       }

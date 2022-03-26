@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Container from "@mui/material/Container";
 import Typography from "./Typography";
-import { dashboard_contents } from "config/dashboard_content"
+import { dashboard_contents } from "config/dashboard_content";
 import Link from "next/link";
 
 const ImageBackdrop = styled("div")(({ theme }) => ({
@@ -55,21 +55,20 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
   },
 }));
 
-
 export default function DashboardHome() {
   return (
-    <Container component="section" sx={{ mt: 8, mb: 4 }}>
+    <Container component="section" sx={{ mt: 15, mb: 4 }}>
       <Typography variant="h4" marked="center" align="center" component="h2">
         Dashboard
       </Typography>
-      
-     < Box sx={{ mt: 8, display: "flex", flexWrap: "wrap" }}>
-     
-     {dashboard_contents.map((item, i)=> (
+
+      <Box sx={{ mt: 8, display: "flex", flexWrap: "wrap" }}>
+        {dashboard_contents.map((item, i) => (
           <Link href={item.path} key={item.title} passHref>
-            <ImageIconButton              
+            <ImageIconButton
               style={{
-                width: item.width}}
+                width: item.width,
+              }}
             >
               <Box
                 sx={{
@@ -79,8 +78,8 @@ export default function DashboardHome() {
                   top: 0,
                   bottom: 0,
                   backgroundSize: "cover",
-                  backgroundPosition: "center 40%", 
-                  backgroundImage: `url(${item.url})`,                
+                  backgroundPosition: "center 100%",
+                  backgroundImage: `url(${item.url})`,
                 }}
               />
               <ImageBackdrop className="imageBackdrop" />
@@ -94,7 +93,7 @@ export default function DashboardHome() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  flexDirection: 'column',
+                  flexDirection: "column",
                   color: "common.white",
                 }}
               >
@@ -107,15 +106,8 @@ export default function DashboardHome() {
                   {item.title}
                   <div className="imageMarked" />
                 </Typography>
-                <Typography
-                sx={{ mt: 3}}
-                  // component="h3"
-                  // variant="h6"
-                  // color="inherit"
-                  // className="imageTitle"
-                >
+                <Typography sx={{ mt: 3 }} align="center">
                   {item.text}
-                  {/* <div className="imageMarked" /> */}
                 </Typography>
               </Box>
             </ImageIconButton>

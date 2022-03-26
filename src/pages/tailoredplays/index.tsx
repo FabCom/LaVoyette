@@ -9,13 +9,7 @@ import models from 'lib/models';
 import { TayloredPlayWithAudienceAndTags } from 'pages/dashboard/taylored_plays';
 
 export default function TayloredPlaysIndex({taylored_plays}: {taylored_plays: TayloredPlayWithAudienceAndTags[]}) {
-	// const { request, apiData: taylored_plays } = useRequest<TayloredPlay[]>(`taylored_plays`, "GET");
-
-	// useEffect(() => {
-	// 	request();
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [])
-
+	
 	return (
 		<><Typography color="inherit" align="center" variant="h2" marked="center" sx={{ mt: 25 }}>
 			Spectacles sur-mesure

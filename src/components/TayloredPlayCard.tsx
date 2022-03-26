@@ -56,7 +56,6 @@ export default function TayloredPlayCard({ play }: { play: TayloredPlayWithAudie
               </Stack>
             </Box>
             <CardActions disableSpacing></CardActions>
-           
           </Box>
         </Grid>
         <Grid

@@ -57,9 +57,9 @@ const fakeArtists = Array(8)
   }));
 
 const fakeCompany = {
-  name: "La Voyette",
+  name:  process.env.NEXT_PUBLIC_COMPANY_NAME,
   description: faker.lorem.paragraphs(5),
-  email: faker.internet.email(),
+  email: process.env.SMTP_FROM,
 };
 
 async function main() {
