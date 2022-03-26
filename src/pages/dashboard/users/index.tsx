@@ -13,11 +13,9 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const UsersDashboard = ({ser_users}:{ser_users: SuperJSONResult}) => {
   const users: User[] = deserialize(ser_users);
-  console.log(users)
   return (
     <Dashboard >
       <Typography variant='h2' sx={{marginTop: 5}}>Utilisateurs</Typography>
-      <Link href="/dashboard/stories/create" passHref><Button color="secondary" variant="contained" type="submit">Ajouter</Button></Link>
       <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'space-between', flexWrap: 'wrap', width: "100%"}}>
         <Box sx={{ width: '100%', padding:5 , display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
           <Box sx={{width:"60%"}}>

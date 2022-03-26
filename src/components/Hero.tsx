@@ -2,7 +2,6 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Typography from "../components/Typography";
 import HeroLayout from "./HeroLayout";
-import Image from "next/image";
 
 const backgroundImage = "illustration_06_src-pexel.jpeg";
 
@@ -11,7 +10,7 @@ export default function Hero() {
     <HeroLayout
       sxBackground={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundColor: "#7fc7d9", // Average color of the background image.
+        backgroundColor: "#7fc7d9",
         backgroundPosition: "center",
       }}
     >
