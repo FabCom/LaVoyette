@@ -14,8 +14,12 @@ const getCompany = async (response: NextApiResponse) => {
         name: COMPANY_NAME,
       },
       include: {
-        companyPartners: true, // Returns all fields for all posts
-        companyStories: true, // Returns all Profile fields
+        companyPartners: true, 
+        companyStories: {
+          orderBy: {
+            start: 'asc',
+          },
+        }, 
       }
     })
     response.status(200).json(result);
