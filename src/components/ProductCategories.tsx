@@ -65,7 +65,7 @@ const images = [
     url: "illustration_02_src-pexel.webp",
     title: "Nos spectacles Sur-Mesure",
     width: "20%",
-    path: "/tayloredplays",
+    path: "/tailoredplays",
   },
   {
     url: "illustration_03_src-pexel.jpeg",
