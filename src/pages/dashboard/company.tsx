@@ -5,10 +5,12 @@ import Typography from "components/Typography";
 import { COMPANY_NAME } from "config";
 import models from "lib/models";
 import { useForm } from "react-hook-form";
-
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import { Company, Role } from '@prisma/client'
 import useRequest from "hooks/useRequest";
-import { AppProps } from "next/app";
+import { useEffect } from "react";
+import Router from "next/router";
 
 type Props = {
   company: Company
@@ -22,8 +24,14 @@ type FormCompanyInfo = {
   instagram_link: string | null;
 };
 
-const CompanyDashboard = ({company}: {company: Company}) => {
+export const validFormCompany = yup.object().shape({
+  email: yup.string().email('format invalide').required('requis'),
+  facebook_link: yup.string().url('format invalide').nullable(),
+  instagram_link: yup.string().url('format invalide').nullable(),
+});
 
+const CompanyDashboard = ({company}: {company: Company}) => {
+  const router = Router;
   // console.log(company)
   const { register, setValue, handleSubmit, formState: { errors }} = useForm<FormCompanyInfo>({
     defaultValues: {
@@ -33,8 +41,16 @@ const CompanyDashboard = ({company}: {company: Company}) => {
       facebook_link: company.facebook_link,
       instagram_link: company.instagram_link
     },
+    resolver: yupResolver(validFormCompany)
   });
-  const { request } = useRequest<Company>("company", "PUT");
+  const {isLoading, apiData, request } = useRequest<Company>("company", "PUT");
+
+  useEffect(()=> {
+    if (isLoading === false && apiData !== null)
+    {router.push('/dashboard')}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading])
+
 
   const onSubmit = async (data: FormCompanyInfo) => {
     request(data)
@@ -64,6 +80,8 @@ const CompanyDashboard = ({company}: {company: Company}) => {
               variant="filled"
               focused
               {...register("email")}
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : null}
               sx={{marginTop: 3}}
             />
             <TextField
@@ -71,6 +89,8 @@ const CompanyDashboard = ({company}: {company: Company}) => {
               variant="filled"
               focused
               {...register("facebook_link")}
+              error={errors.facebook_link ? true : false}
+              helperText={errors.facebook_link ? errors.facebook_link.message : null}
               sx={{marginTop: 3}}
             />
             <TextField
@@ -78,6 +98,8 @@ const CompanyDashboard = ({company}: {company: Company}) => {
               variant="filled"
               focused
               {...register("instagram_link")}
+              error={errors.instagram_link ? true : false}
+              helperText={errors.instagram_link ? errors.instagram_link.message : null}
               sx={{marginTop: 3}}
             />
           </FormGroup>

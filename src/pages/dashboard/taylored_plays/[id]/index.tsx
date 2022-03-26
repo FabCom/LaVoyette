@@ -65,7 +65,7 @@ const TayloredPlaysDashboard = ({ taylored_play}: {taylored_play: TayloredPlayWi
 
 
   const onSubmit = async (data: RequestTayloredPlayWithAudienceAndTags) => {
-    console.log(data)
+    // console.log(data)
     const requestData = {
       title: data.title,
       concept: data.concept,
